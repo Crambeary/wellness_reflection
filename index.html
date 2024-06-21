@@ -11,21 +11,21 @@
     <div class="container">
       <h2>How are you lately?</h2>
       <form>
-        <label for="name">Name: <input type="text" id="name"> </label>
-        <label for="date">Date: <input type="date" id="date"> </label>
-        <label for="wake-time">Wake Time: <input type="text" id="wake-time"> </label>
+        <label for="name">Name: <input type="text" id="name" require > </label>
+        <label for="date">Date: <input type="date" id="date" require > </label>
+        <label for="wake-time">Wake Time: <input type="text" id="wake-time" require > </label>
         <div class="block"><label for="qotd">Verse/Quote of the Day: <input class="block max-width" type="text" id="qotd"> </label></div> <h2>Vitality Levels</h2>
-        <label for="morning-vitality">Morning: <input type="number" min="1" max="5" id="morning-vitality"> </label>
-        <label for="afternoon-vitality">Afternoon: <input type="number" min="1" max="5" id="afternoon-vitality"> </label>
-        <label for="evening-vitality">Evening: <input type="number" min="1" max="5" id="evening-vitality"> </label>
+        <label for="morning-vitality">Morning: <input type="number" require min="1" max="5" id="morning-vitality"> </label>
+        <label for="afternoon-vitality">Afternoon: <input type="number" require min="1" max="5" id="afternoon-vitality"> </label>
+        <label for="evening-vitality">Evening: <input type="number" require min="1" max="5" id="evening-vitality"> </label>
         <h2>Meals + Supplements + Beverages</h2>
-        <label for="morning-meals">Morning: <input type="text" id="morning-meals"> </label>
+        <label for="morning-meals">Morning: <input type="text" id="morning-meals" require > </label>
         <label for="morning-meals-notes">Notes: <input type="text" id="morning-meals-notes"> </label>
         <label for="morning-meals-cravings">Cravings: <input type="text" id="morning-meals-cravings"> </label>
-        <label for="afternoon-meals">Afternoon: <input type="text" id="afternoon-meals"> </label>
+        <label for="afternoon-meals">Afternoon: <input type="text" id="afternoon-meals" require > </label>
         <label for="afternoon-meals-notes">Notes: <input type="text" id="afternoon-meals-notes"> </label>
         <label for="afternoon-meals-cravings">Cravings: <input type="text" id="afternoon-meals-cravings"> </label>
-        <label for="evening-meals">Evening: <input type="text" id="evening-meals"> </label>
+        <label for="evening-meals">Evening: <input type="text" id="evening-meals" require > </label>
         <label for="evening-meals-notes">Notes: <input type="text" id="evening-meals-notes"> </label>
         <label for="evening-meals-cravings">Cravings: <input type="text" id="evening-meals-cravings"> </label>
         <h2>Activities</h2>
