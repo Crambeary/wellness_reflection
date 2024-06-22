@@ -53,3 +53,17 @@ label {
 .hidden {
   display: none;
 }
+
+.inline {
+  display: inline-block;
+}
+
+p {
+  margin: 0;
+  padding: 0;
+}
+
+p:before {
+  margin-right: 0;
+  padding-right: 0;
+}

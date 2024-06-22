@@ -16,8 +16,11 @@ function handleSubmit(event) {
 
   console.log(JSON.stringify(formJSON, null, 2));
 
-  document.getElementById("name").classList.add("hidden");
-  document.getElementById("name").label.innerText += ` ${formJSON["name"]}`;
+  for (const [key, value] of Object.entries(formJSON)) {
+    document.getElementById(String(key)).classList.add("hidden");
+    document.getElementById(String(key)).label.innerText += ` ${formJSON[String(key)]}`;
+  }
+
 }
 
 const form = document.querySelector('form');
