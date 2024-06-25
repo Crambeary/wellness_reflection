@@ -25,17 +25,22 @@ function handleSubmit(event) {
       const inputSpan = document.createElement("span");
       inputSpan.setAttribute("id", `input-for-${key}`);
       document.getElementById(String(key)).label.appendChild(inputSpan).innerText = ` ${formJSON[String(key)]}`;
-
     }
 
     submitButton.innerText = "Reset";
     formIsSubmitted = true;
   } else { // Now it's a reset button
-    location.reload()
+    formIsSubmitted = false;
+    submitButton.innerText = "Submit";
+    const data = new FormData(event.target);
+
+    const formJSON = Object.fromEntries(data.entries());
+    for (const [key, value] of Object.entries(formJSON)) {
+      document.getElementById(String(key)).classList.remove("hidden");
+      const inputSpan = document.getElementById(String(key)).label.lastChild;
+      document.getElementById(String(key)).label.removeChild(inputSpan);
+    }
   }
-
-
-
 }
 
 const form = document.querySelector('form');
