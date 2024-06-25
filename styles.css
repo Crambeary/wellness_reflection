@@ -36,6 +36,11 @@ label {
   display: block;
 }
 
+input[type=number] {
+  min-width: 2rem;
+  text-align: center;
+}
+
 #submit {
   height: 50px;
 }
