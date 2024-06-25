@@ -41,14 +41,21 @@ input[type=number] {
   text-align: center;
 }
 
-#submit {
+button {
   height: 50px;
+  margin: 5px;
 }
 
+#hiddenLink {
+  display: none;
+}
 
 .container {
   border: 3px solid black;
   padding: 20px;
+}
+
+.margin-bottom {
   margin-bottom: 50vh;
 }
 

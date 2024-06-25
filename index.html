@@ -7,11 +7,11 @@
     <title>Wellness Reflection</title>
   </head>
   <body>
-    <section>
+    <section id="region-to-capture">
       <h1>Wellness Reflection</h1>
-      <div class="container">
+      <div class="container" id="wellness-form" >
         <h2>How are you lately?</h2>
-        <form>
+        <form id="form">
           <label for="name">Name: <input type="text" name="name" id="name" require > </label>
           <label for="date">Date: <input type="date" name="date" id="date" require > </label>
           <label for="wake-time">Wake Time: <input type="text" name="wake-time" id="wake-time" require > </label>
@@ -34,10 +34,12 @@
           <label for="morning-activity">Morning: <input type="text" id="morning-activity" name="morning-activity"> </label>
           <label for="afternoon-activity">Afternoon: <input type="text" id="afternoon-activity" name="afternoon-activity"> </label>
           <label for="evening-activity">Evening: <input type="text" id="evening-activity" name="evening-activity"> </label>
-          <button id="submit" class="max-width">Submit</button>
+          <button data-html2canvas-ignore id="submit" class="max-width">Submit</button>
         </form>
       </div>
+      <span data-html2canvas-ignore class="margin-bottom"></span>
     </section>
+    <script src="html2canvas.min.js"></script>
     <script src="script.js"></script>
   </body>
 </html>

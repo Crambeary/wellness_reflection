@@ -1,4 +1,8 @@
-const submitButton = document.getElementById("submit")
+const submitButton = document.getElementById("submit");
+const wellnessForm = document.getElementById("wellness-form");
+const form = document.querySelector('form');
+const captureRegion = document.getElementById("region-to-capture");
+
 let formIsSubmitted = false;
 
 var labels = document.getElementsByTagName('LABEL');
@@ -29,6 +33,33 @@ function handleSubmit(event) {
 
     submitButton.innerText = "Reset";
     formIsSubmitted = true;
+    html2canvas(captureRegion).then(function(canvas) {
+      // Convert canvas to data URL
+      var dataURL = canvas.toDataURL("image/png");
+      
+      // Create an image
+      var img = document.createElement("img");
+      img.src = dataURL;
+      
+      // Create a link
+      var link = document.createElement("a");
+      link.href = dataURL;
+      link.id = "hiddenLink";
+      link.download = "Wellness Reflection.png";
+
+      var downloadButton = document.createElement("button");
+      downloadButton.id = "downloadBtn";
+      downloadButton.classList.add("max-width");
+      downloadButton.innerText = "Click to download";
+      
+      // Append to document
+      wellnessForm.appendChild(link);
+      wellnessForm.appendChild(downloadButton);
+
+      document.getElementById('downloadBtn').addEventListener('click', function() {
+        document.getElementById('hiddenLink').click();
+      });
+    });
   } else { // Now it's a reset button
     formIsSubmitted = false;
     submitButton.innerText = "Submit";
@@ -40,8 +71,9 @@ function handleSubmit(event) {
       const inputSpan = document.getElementById(String(key)).label.lastChild;
       document.getElementById(String(key)).label.removeChild(inputSpan);
     }
+
+    wellnessForm.removeChild(wellnessForm.lastChild)
   }
 }
 
-const form = document.querySelector('form');
 form.addEventListener('submit', handleSubmit);
