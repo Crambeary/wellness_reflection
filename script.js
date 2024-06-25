@@ -1,3 +1,6 @@
+const submitButton = document.getElementById("submit")
+let formIsSubmitted = false;
+
 var labels = document.getElementsByTagName('LABEL');
 for (var i = 0; i < labels.length; i++) {
     if (labels[i].htmlFor != '') {
@@ -10,16 +13,28 @@ for (var i = 0; i < labels.length; i++) {
 function handleSubmit(event) {
   event.preventDefault();
 
-  const data = new FormData(event.target);
+  if (!formIsSubmitted) {
+    const data = new FormData(event.target);
 
-  const formJSON = Object.fromEntries(data.entries());
+    const formJSON = Object.fromEntries(data.entries());
 
-  console.log(JSON.stringify(formJSON, null, 2));
+    console.log(JSON.stringify(formJSON, null, 2));
 
-  for (const [key, value] of Object.entries(formJSON)) {
-    document.getElementById(String(key)).classList.add("hidden");
-    document.getElementById(String(key)).label.innerText += ` ${formJSON[String(key)]}`;
+    for (const [key, value] of Object.entries(formJSON)) {
+      document.getElementById(String(key)).classList.add("hidden");
+      const inputSpan = document.createElement("span");
+      inputSpan.setAttribute("id", `input-for-${key}`);
+      document.getElementById(String(key)).label.appendChild(inputSpan).innerText = ` ${formJSON[String(key)]}`;
+
+    }
+
+    submitButton.innerText = "Reset";
+    formIsSubmitted = true;
+  } else { // Now it's a reset button
+    location.reload()
   }
+
+
 
 }
 
