@@ -50,15 +50,16 @@ function handleSubmit(event) {
       var downloadButton = document.createElement("button");
       downloadButton.id = "downloadBtn";
       downloadButton.classList.add("max-width");
-      downloadButton.innerText = "Click to download";
+      downloadButton.innerText = "Download";
       
       // Append to document
       wellnessForm.appendChild(link);
-      wellnessForm.appendChild(downloadButton);
+      // wellnessForm.appendChild(downloadButton);
 
-      document.getElementById('downloadBtn').addEventListener('click', function() {
+      // document.getElementById('downloadBtn').addEventListener('click', function() {
         document.getElementById('hiddenLink').click();
-      });
+      // });
+      alert("Send the downloaded form to Destiny.")
     });
   } else { // Now it's a reset button
     formIsSubmitted = false;
