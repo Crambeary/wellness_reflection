@@ -1,45 +1,13 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
   <head>
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta charset="utf-8" />
-    <link rel="stylesheet" href="styles.css">
-    <title>Wellness Reflection</title>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Vite + React</title>
   </head>
   <body>
-    <section id="region-to-capture">
-      <h1>Wellness Reflection</h1>
-      <div class="container" id="wellness-form" >
-        <h2>How are you lately?</h2>
-        <form id="form">
-          <label for="name">Name: <input type="text" name="name" id="name" require > </label>
-          <label for="date">Date: <input type="date" name="date" id="date" require > </label>
-          <label for="wake-time">Wake Time: <input type="text" name="wake-time" id="wake-time" require > </label>
-          <div class="block"><label for="qotd">Verse/Quote of the Day: <br><input name="qotd" class="block max-width" type="text" id="qotd"> </label></div> <h2>Vitality Levels</h2>
-          <label for="hydration" class="inline">Hydration: <input type="number" pattern="[0-9]*"name="hydration" require min="1" max="5" id="hydration"></label><p class="inline">/5</p><br>
-          <label for="morning-vitality"class="inline">Morning: <input type="number" pattern="[0-9]*"name="morning-vitality" require min="1" max="5" id="morning-vitality"></label><p class="inline">/5</p><br>
-          <label for="afternoon-vitality"class="inline">Afternoon: <input type="number" pattern="[0-9]*"name="afternoon-vitality" require min="1" max="5" id="afternoon-vitality"></label><p class="inline">/5</p><br>
-          <label for="evening-vitality"class="inline">Evening: <input type="number" pattern="[0-9]*"name="evening-vitality" require min="1" max="5" id="evening-vitality"></label><p class="inline">/5</p><br>
-          <h2>Meals + Supplements + Beverages</h2>
-          <label for="morning-meals"><strong>Morning:</strong> <input type="text" id="morning-meals" name="morning-meals" require > </label>
-          <label for="morning-meals-notes">Notes: <input type="text" id="morning-meals-notes" name="morning-meals-notes"> </label>
-          <label for="morning-meals-cravings">Cravings: <input type="text" id="morning-meals-cravings" name="morning-meals-cravings"> </label>
-          <label for="afternoon-meals"><strong>Afternoon:</strong> <input type="text" id="afternoon-meals" require name="afternoon-meals"> </label>
-          <label for="afternoon-meals-notes">Notes: <input type="text" id="afternoon-meals-notes" name="afternoon-meals-notes"> </label>
-          <label for="afternoon-meals-cravings">Cravings: <input type="text" id="afternoon-meals-cravings" name="afternoon-meals-cravings"> </label>
-          <label for="evening-meals"><strong>Evening:</strong> <input type="text" id="evening-meals" require name="evening-meals"> </label>
-          <label for="evening-meals-notes">Notes: <input type="text" id="evening-meals-notes" name="evening-meals-notes"> </label>
-          <label for="evening-meals-cravings">Cravings: <input type="text" id="evening-meals-cravings" name="evening-meals-cravings"> </label>
-          <h2>Activities</h2>
-          <label for="morning-activity">Morning: <input type="text" id="morning-activity" name="morning-activity"> </label>
-          <label for="afternoon-activity">Afternoon: <input type="text" id="afternoon-activity" name="afternoon-activity"> </label>
-          <label for="evening-activity">Evening: <input type="text" id="evening-activity" name="evening-activity"> </label>
-          <button data-html2canvas-ignore id="submit" class="max-width">Generate</button>
-        </form>
-      </div>
-      <span data-html2canvas-ignore class="margin-bottom"></span>
-    </section>
-    <script src="html2canvas.min.js"></script>
-    <script src="script.js"></script>
+    <div id="root"></div>
+    <script type="module" src="/src/main.jsx"></script>
   </body>
 </html>
