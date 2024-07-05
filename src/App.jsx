@@ -2,7 +2,7 @@ import React from 'react'
 // import reactLogo from './assets/react.svg'
 // import viteLogo from '/vite.svg'
 // import './App.css'
-import './styles.css'
+// import './styles.css'
 import html2canvas from 'html2canvas';
     
 let formIsSubmitted = false;
@@ -28,9 +28,10 @@ class App extends React.Component {
       console.log(JSON.stringify(formJSON, null, 2));
 
       for (const [key, value] of Object.entries(formJSON)) {
-        document.getElementById(String(key)).classList.add("hidden");
+        document.getElementById(String(key)).classList.add("d-none");
         const inputSpan = document.createElement("span");
         inputSpan.setAttribute("id", `input-for-${key}`);
+        inputSpan.classList.add("input-group-text");
         document.getElementById(String(key)).label.appendChild(inputSpan).innerText = ` ${formJSON[String(key)]}`;
       }
 
@@ -71,7 +72,7 @@ class App extends React.Component {
 
       const formJSON = Object.fromEntries(data.entries());
       for (const [key, value] of Object.entries(formJSON)) {
-        document.getElementById(String(key)).classList.remove("hidden");
+        document.getElementById(String(key)).classList.remove("d-none");
         const inputSpan = document.getElementById(String(key)).label.lastChild;
         document.getElementById(String(key)).label.removeChild(inputSpan);
       }
@@ -104,35 +105,109 @@ class App extends React.Component {
 
   render () {
     return (
-      <section id="region-to-capture">
-        <h1>Wellness Reflection</h1>
-        <div className="container" id="wellness-form" >
-          <h2>How are you lately?</h2>
-          <form id="form">
-            <label htmlFor="name">Name: <input type="text" name="name" id="name" /> </label>
-            <label htmlFor="date">Date: <input type="date" name="date" id="date" /> </label>
-            <label htmlFor="wake-time">Wake Time: <input type="text" name="wake-time" id="wake-time" /> </label>
-            <div className="block"><label htmlFor="qotd">Verse/Quote of the Day: <br/><input name="qotd" className="block max-width" type="text" id="qotd"/> </label></div> <h2>Vitality Levels</h2>
-            <label htmlFor="hydration" className="inline">Hydration: <input type="number" pattern="[0-9]*"name="hydration"  min="1" max="5" id="hydration"/></label><p className="inline">/5</p><br/>
-            <label htmlFor="morning-vitality"className="inline">Morning: <input type="number" pattern="[0-9]*"name="morning-vitality"  min="1" max="5" id="morning-vitality"/></label><p className="inline">/5</p><br/>
-            <label htmlFor="afternoon-vitality"className="inline">Afternoon: <input type="number" pattern="[0-9]*"name="afternoon-vitality"  min="1" max="5" id="afternoon-vitality"/></label><p className="inline">/5</p><br/>
-            <label htmlFor="evening-vitality"className="inline">Evening: <input type="number" pattern="[0-9]*"name="evening-vitality"  min="1" max="5" id="evening-vitality"/></label><p className="inline">/5</p><br/>
-            <h2>Meals + Supplements + Beverages</h2>
-            <label htmlFor="morning-meals"><strong>Morning:</strong> <input type="text" id="morning-meals" name="morning-meals"  /> </label>
-            <label htmlFor="morning-meals-notes">Notes: <input type="text" id="morning-meals-notes" name="morning-meals-notes"/> </label>
-            <label htmlFor="morning-meals-cravings">Cravings: <input type="text" id="morning-meals-cravings" name="morning-meals-cravings"/> </label>
-            <label htmlFor="afternoon-meals"><strong>Afternoon:</strong> <input type="text" id="afternoon-meals"  name="afternoon-meals"/> </label>
-            <label htmlFor="afternoon-meals-notes">Notes: <input type="text" id="afternoon-meals-notes" name="afternoon-meals-notes"/> </label>
-            <label htmlFor="afternoon-meals-cravings">Cravings: <input type="text" id="afternoon-meals-cravings" name="afternoon-meals-cravings"/> </label>
-            <label htmlFor="evening-meals"><strong>Evening:</strong> <input type="text" id="evening-meals"  name="evening-meals"/> </label>
-            <label htmlFor="evening-meals-notes">Notes: <input type="text" id="evening-meals-notes" name="evening-meals-notes"/> </label>
-            <label htmlFor="evening-meals-cravings">Cravings: <input type="text" id="evening-meals-cravings" name="evening-meals-cravings"/> </label>
-            <h2>Activities</h2>
-            <label htmlFor="morning-activity">Morning: <input type="text" id="morning-activity" name="morning-activity"/> </label>
-            <label htmlFor="afternoon-activity">Afternoon: <input type="text" id="afternoon-activity" name="afternoon-activity"/> </label>
-            <label htmlFor="evening-activity">Evening: <input type="text" id="evening-activity" name="evening-activity"/> </label>
-            <button data-html2canvas-ignore id="submit" className="max-width">Generate</button>
-          </form>
+      <section id="region-to-capture" className="container-fluid">
+        <h1 className="text-center">Wellness Reflection</h1>
+        <div className="row">
+          <div className="col-md-2" id="wellness-form" >
+            <h2>How are you lately?</h2>
+            <form id="form">
+              <div className="row">
+                <label className="col" htmlFor="name">Name: 
+                  <input className="form-control" type="text" name="name" id="name" />
+                </label>
+                <label className="col" htmlFor="date">Date: 
+                  <input className="form-control" type="date" name="date" id="date" />
+                </label>
+                <label className="col" htmlFor="wake-time">Wake Time: 
+                  <input className="form-control" type="text" name="wake-time" id="wake-time" />
+                </label>
+              </div>
+              <div className="row">
+                <div className="col">
+                  <label htmlFor="qotd">Verse/Quote of the Day: </label>
+                </div>
+                <div className="row">
+                  <div className="col">
+                    <textarea className="form-control" name="qotd" type="text" id="qotd"/> 
+                  </div>
+                </div>
+              </div>
+              <h2>Vitality Levels</h2>
+              <div className="input-group mb-3">
+                <label htmlFor="hydration" className="input-group-text">Hydration:</label>
+                <input className="form-control" type="number" pattern="[0-9]*"name="hydration"  min="1" max="5" id="hydration"/>
+                <span className="input-group-text">/5</span>
+              </div>
+              <div className="input-group mb-3">
+                <label htmlFor="morning-vitality" className="input-group-text">Morning:</label>
+                <input className="form-control" type="number" pattern="[0-9]*"name="morning-vitality"  min="1" max="5" id="morning-vitality"/>
+                <span className="input-group-text">/5</span>
+              </div>
+              <div className="input-group mb-3">
+                <label htmlFor="afternoon-vitality" className="input-group-text">Afternoon:</label>
+                <input className="form-control" type="number" pattern="[0-9]*"name="afternoon-vitality"  min="1" max="5" id="afternoon-vitality"/>
+                <span className="input-group-text">/5</span>
+              </div>
+              <div className="input-group mb-3">
+                <label htmlFor="evening-vitality" className="input-group-text">Evening:</label>
+                <input className="form-control" type="number" pattern="[0-9]*"name="evening-vitality"  min="1" max="5" id="evening-vitality"/>
+                <span className="input-group-text">/5</span>
+              </div>
+              <h2>Meals + Supplements + Beverages</h2>
+              <div className="input-group mb-3">
+                <label className="input-group-text" htmlFor="morning-meals"><strong>Morning:</strong> </label>
+                <input className="form-control" type="text" id="morning-meals" name="morning-meals"  /> 
+              </div>
+              <div className="input-group mb-3">
+                <label className="input-group-text" htmlFor="morning-meals-notes">Notes: </label>
+                <input className="form-control" type="text" id="morning-meals-notes" name="morning-meals-notes"/> 
+              </div>
+              <div className="input-group mb-3">
+                <label className="input-group-text" htmlFor="morning-meals-cravings">Cravings: </label>
+                <input className="form-control" type="text" id="morning-meals-cravings" name="morning-meals-cravings"/> 
+              </div>
+              <div className="input-group mb-3">
+                <label className="input-group-text" htmlFor="afternoon-meals"><strong>Afternoon:</strong> </label>
+                <input className="form-control" type="text" id="afternoon-meals"  name="afternoon-meals"/> 
+              </div>
+              <div className="input-group mb-3">
+                <label className="input-group-text" htmlFor="afternoon-meals-notes">Notes: </label>
+                <input className="form-control" type="text" id="afternoon-meals-notes" name="afternoon-meals-notes"/> 
+              </div>
+              <div className="input-group mb-3">
+                <label className="input-group-text" htmlFor="afternoon-meals-cravings">Cravings: </label>
+                <input className="form-control" type="text" id="afternoon-meals-cravings" name="afternoon-meals-cravings"/> 
+              </div>
+              <div className="input-group mb-3">
+                <label className="input-group-text" htmlFor="evening-meals"><strong>Evening:</strong> </label>
+                <input className="form-control" type="text" id="evening-meals"  name="evening-meals"/> 
+              </div>
+              <div className="input-group mb-3">
+                <label className="input-group-text" htmlFor="evening-meals-notes">Notes: </label>
+                <input className="form-control" type="text" id="evening-meals-notes" name="evening-meals-notes"/> 
+              </div>
+              <div className="input-group mb-3">
+                <label className="input-group-text" htmlFor="evening-meals-cravings">Cravings: </label>
+                <input className="form-control" type="text" id="evening-meals-cravings" name="evening-meals-cravings"/> 
+              </div>
+              <h2>Activities</h2>
+              <div className="input-group mb-3">
+                <label className="input-group-text" htmlFor="morning-activity">Morning: </label>
+                <input className="form-control" type="text" id="morning-activity" name="morning-activity"/> 
+              </div>
+              <div className="input-group mb-3">
+                <label className="input-group-text" htmlFor="afternoon-activity">Afternoon: </label>
+                <input className="form-control" type="text" id="afternoon-activity" name="afternoon-activity"/> 
+              </div>
+              <div className="input-group mb-3">
+                <label className="input-group-text" htmlFor="evening-activity">Evening: </label>
+                <input className="form-control" type="text" id="evening-activity" name="evening-activity"/> 
+              </div>
+              <div className="d-grid gap-2 d-md-block">
+                <button data-html2canvas-ignore id="submit" className="btn btn-primary">Generate</button>
+              </div>
+            </form>
+          </div>
         </div>
         <span data-html2canvas-ignore className="margin-bottom"></span>
       </section>
