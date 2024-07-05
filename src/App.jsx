@@ -3,6 +3,13 @@ import React from 'react'
 // import viteLogo from '/vite.svg'
 // import './App.css'
 import '../original/styles.css'
+import html2canvas from 'html2canvas';
+    
+let formIsSubmitted = false;
+let submitButton = "";
+let wellnessForm = "";
+let form = "";
+let captureRegion = "";
 
 class App extends React.Component {
 
@@ -10,52 +17,33 @@ class App extends React.Component {
     super(props);
   }
 
+  handleSubmit = (event) => {
+    event.preventDefault();
 
-  componentDidMount = () => {
-    
-    const submitButton = document.getElementById("submit");
-    const wellnessForm = document.getElementById("wellness-form");
-    const form = document.querySelector('form');
-    const captureRegion = document.getElementById("region-to-capture");
+    if (!formIsSubmitted) {
+      const data = new FormData(event.target);
 
-    let formIsSubmitted = false;
+      const formJSON = Object.fromEntries(data.entries());
 
-    var labels = document.getElementsByTagName('LABEL');
-    for (var i = 0; i < labels.length; i++) {
-        if (labels[i].htmlFor != '') {
-            var elem = document.getElementById(labels[i].htmlFor);
-            if (elem)
-                elem.label = labels[i];         
-        }
-    }
+      console.log(JSON.stringify(formJSON, null, 2));
 
-    function handleSubmit(event) {
-      event.preventDefault();
+      for (const [key, value] of Object.entries(formJSON)) {
+        document.getElementById(String(key)).classList.add("hidden");
+        const inputSpan = document.createElement("span");
+        inputSpan.setAttribute("id", `input-for-${key}`);
+        document.getElementById(String(key)).label.appendChild(inputSpan).innerText = ` ${formJSON[String(key)]}`;
+      }
 
-      if (!formIsSubmitted) {
-        const data = new FormData(event.target);
+      submitButton.innerText = "Reset";
+      formIsSubmitted = true;
+      html2canvas(captureRegion).then(function(canvas) {
+        // Convert canvas to data URL
+        var dataURL = canvas.toDataURL("image/png");
 
-        const formJSON = Object.fromEntries(data.entries());
-
-        console.log(JSON.stringify(formJSON, null, 2));
-
-        for (const [key, value] of Object.entries(formJSON)) {
-          document.getElementById(String(key)).classList.add("hidden");
-          const inputSpan = document.createElement("span");
-          inputSpan.setAttribute("id", `input-for-${key}`);
-          document.getElementById(String(key)).label.appendChild(inputSpan).innerText = ` ${formJSON[String(key)]}`;
-        }
-
-        submitButton.innerText = "Reset";
-        formIsSubmitted = true;
-        html2canvas(captureRegion).then(function(canvas) {
-          // Convert canvas to data URL
-          var dataURL = canvas.toDataURL("image/png");
-        
         // Create an image
         var img = document.createElement("img");
         img.src = dataURL;
-        
+
         // Create a link
         var link = document.createElement("a");
         link.href = dataURL;
@@ -66,13 +54,13 @@ class App extends React.Component {
         downloadButton.id = "downloadBtn";
         downloadButton.classList.add("max-width");
         downloadButton.innerText = "Download";
-        
+
         // Append to document
         wellnessForm.appendChild(link);
         // wellnessForm.appendChild(downloadButton);
 
         // document.getElementById('downloadBtn').addEventListener('click', function() {
-          document.getElementById('hiddenLink').click();
+        document.getElementById('hiddenLink').click();
         // });
         alert("Send the downloaded form to Destiny.")
       });
@@ -92,14 +80,30 @@ class App extends React.Component {
     }
   }
 
-  form.addEventListener('submit', handleSubmit);
-    }
+  componentDidMount = () => {
+    
+    submitButton = document.getElementById("submit");
+    wellnessForm = document.getElementById("wellness-form");
+    form = document.querySelector('form');
+    captureRegion = document.getElementById("region-to-capture");
 
-  render () {
+
+    var labels = document.getElementsByTagName('LABEL');
+    for (var i = 0; i < labels.length; i++) {
+        if (labels[i].htmlFor != '') {
+            var elem = document.getElementById(labels[i].htmlFor);
+            if (elem)
+                elem.label = labels[i];         
+        }
+    }
 
   
 
-  return (
+  form.addEventListener('submit', this.handleSubmit);
+    }
+
+  render () {
+    return (
       <section id="region-to-capture">
         <h1>Wellness Reflection</h1>
         <div className="container" id="wellness-form" >
@@ -132,7 +136,7 @@ class App extends React.Component {
         </div>
         <span data-html2canvas-ignore className="margin-bottom"></span>
       </section>
-  )
+    )
   }
 }
 
