@@ -2,7 +2,7 @@ import React from 'react'
 // import reactLogo from './assets/react.svg'
 // import viteLogo from '/vite.svg'
 // import './App.css'
-import '../original/styles.css'
+import './styles.css'
 import html2canvas from 'html2canvas';
     
 let formIsSubmitted = false;
