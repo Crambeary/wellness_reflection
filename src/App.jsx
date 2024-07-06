@@ -1,4 +1,6 @@
 import React from 'react'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faDownload } from '@fortawesome/free-solid-svg-icons'
 // import reactLogo from './assets/react.svg'
 // import viteLogo from '/vite.svg'
 // import './App.css'
@@ -204,7 +206,7 @@ class App extends React.Component {
                 <input className="form-control" type="text" id="evening-activity" name="evening-activity"/> 
               </div>
               <div className="d-grid gap-2 d-md-block">
-                <button data-html2canvas-ignore id="submit" className="btn btn-primary">Generate</button>
+                <button data-html2canvas-ignore id="submit" className="btn btn-primary"><FontAwesomeIcon icon={faDownload}/> Generate</button>
               </div>
             </form>
           </div>
