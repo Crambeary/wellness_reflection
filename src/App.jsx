@@ -107,10 +107,10 @@ class App extends React.Component {
 
   render () {
     return (
-      <section id="region-to-capture" className="container-fluid">
+      <section id="region-to-capture" className="container-sm">
         <h1 className="text-center">Wellness Reflection</h1>
         <div className="row">
-          <div className="col-md-2" id="wellness-form" >
+          <div className="col-md-12" id="wellness-form" >
             <h2>How are you lately?</h2>
             <form id="form">
               <div className="row">
@@ -211,7 +211,7 @@ class App extends React.Component {
             </form>
           </div>
         </div>
-        <span data-html2canvas-ignore className="margin-bottom"></span>
+        {/* <span data-html2canvas-ignore className="mb-1"></span> */}
       </section>
     )
   }
