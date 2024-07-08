@@ -1,10 +1,6 @@
 import React from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faDownload } from '@fortawesome/free-solid-svg-icons'
-// import reactLogo from './assets/react.svg'
-// import viteLogo from '/vite.svg'
-// import './App.css'
-// import './styles.css'
 import html2canvas from 'html2canvas';
     
 let formIsSubmitted = false;
@@ -17,10 +13,22 @@ class App extends React.Component {
 
   constructor(props) {
     super(props);
+    this.formObject = {}
   }
+
+
+  handleChange = (event) => {
+    const data = new FormData(event.target);
+
+    formObject = Object.fromEntries(data.entries());
+    console.log(formObject);
+  }
+
 
   handleSubmit = (event) => {
     event.preventDefault();
+
+    
 
     if (!formIsSubmitted) {
       const data = new FormData(event.target);
@@ -115,7 +123,14 @@ class App extends React.Component {
             <form id="form">
               <div className="row">
                 <label className="col" htmlFor="name">Name: 
-                  <input className="form-control" type="text" name="name" id="name" />
+                  <input 
+                    className="form-control" 
+                    type="text" 
+                    name="name" 
+                    id="name" 
+                    value={this.formObject.name}
+                    onChange={this.handleChange}
+                  >{this.formObject.name}</input>
                 </label>
                 <label className="col" htmlFor="date">Date: 
                   <input className="form-control" type="date" name="date" id="date" />
