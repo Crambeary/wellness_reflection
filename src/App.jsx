@@ -77,8 +77,9 @@ class App extends React.Component {
         document.getElementById(String(key)).classList.add("d-none");
         const inputSpan = document.createElement("span");
         inputSpan.setAttribute("id", `input-for-${key}`);
-        inputSpan.classList.add("input-group-text");
-        document.getElementById(String(key)).label.appendChild(inputSpan).innerText = ` ${formJSON[String(key)]}`;
+        inputSpan.classList.add("border", "border-2", "rounded", "p-2");
+        inputSpan.classList.add("overflow-auto");
+        document.getElementById(String(key)).label.parentElement.appendChild(inputSpan).innerText = ` ${formJSON[String(key)]}`;
       }
 
       submitButton.innerText = "Edit Form";
@@ -95,7 +96,7 @@ class App extends React.Component {
         var link = document.createElement("a");
         link.href = dataURL;
         link.id = "hiddenLink";
-        link.download = "Wellness Reflection.png";
+        link.download = `Wellness_Reflection.png`;
 
         var downloadButton = document.createElement("button");
         downloadButton.id = "downloadBtn";
@@ -104,12 +105,7 @@ class App extends React.Component {
 
         // Append to document
         wellnessForm.appendChild(link);
-        // wellnessForm.appendChild(downloadButton);
-
-        // document.getElementById('downloadBtn').addEventListener('click', function() {
         document.getElementById('hiddenLink').click();
-        // });
-        // alert("Send the downloaded form to Destiny.")
       });
     } else { // Now it's a reset button
       formIsSubmitted = false;
@@ -119,11 +115,9 @@ class App extends React.Component {
       const formJSON = Object.fromEntries(data.entries());
       for (const [key, value] of Object.entries(formJSON)) {
         document.getElementById(String(key)).classList.remove("d-none");
-        const inputSpan = document.getElementById(String(key)).label.lastChild;
-        document.getElementById(String(key)).label.removeChild(inputSpan);
+        const inputSpan = document.getElementById(String(key)).label.parentElement.lastChild;
+        document.getElementById(String(key)).label.parentElement.removeChild(inputSpan);
       }
-
-      // wellnessForm.removeChild(wellnessForm.lastChild)
     }
   }
 
