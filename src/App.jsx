@@ -2,7 +2,7 @@ import React from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faDownload } from '@fortawesome/free-solid-svg-icons'
 import html2canvas from 'html2canvas';
-    
+
 let formIsSubmitted = false;
 let submitButton = "";
 let wellnessForm = "";
@@ -42,7 +42,7 @@ class App extends React.Component {
 
 
   handleChange = (event) => {
-    this.setState({[event.target.name]: event.target.value}, () => {
+    this.setState({ [event.target.name]: event.target.value }, () => {
       localStorage.setItem('form', JSON.stringify(this.state));
     });
   }
@@ -51,7 +51,7 @@ class App extends React.Component {
   clearForm = () => {
     localStorage.clear();
     for (const [key, value] of Object.entries(this.state)) {
-      this.setState({[key]: ""});
+      this.setState({ [key]: "" });
     }
     if (formIsSubmitted) {
       form.requestSubmit(submitButton);
@@ -64,7 +64,7 @@ class App extends React.Component {
   handleSubmit = (event) => {
     event.preventDefault();
 
-    
+
 
     if (!formIsSubmitted) {
       const data = new FormData(event.target);
@@ -77,8 +77,8 @@ class App extends React.Component {
         document.getElementById(String(key)).classList.add("d-none");
         const inputSpan = document.createElement("span");
         inputSpan.setAttribute("id", `input-for-${key}`);
-        inputSpan.classList.add("border", "border-2", "rounded", "p-2");
-        inputSpan.classList.add("overflow-auto");
+        inputSpan.classList.add("border", "border-2", "rounded", "p-2", "lh-lg");
+        // inputSpan.classList.add("overflow-auto");
         document.getElementById(String(key)).label.parentElement.appendChild(inputSpan).innerText = ` ${formJSON[String(key)]}`;
       }
 
@@ -109,7 +109,8 @@ class App extends React.Component {
       });
     } else { // Now it's a reset button
       formIsSubmitted = false;
-      submitButton.innerText = "Submit";
+      // TODO: Create a unique button for Generate and one for Reset 
+      submitButton.innerHTML = '<FontAwesomeIcon icon={faDownload}/> Generate';
       const data = new FormData(event.target);
 
       const formJSON = Object.fromEntries(data.entries());
@@ -130,11 +131,11 @@ class App extends React.Component {
 
     let labels = document.getElementsByTagName('LABEL');
     for (var i = 0; i < labels.length; i++) {
-        if (labels[i].htmlFor != '') {
-            var elem = document.getElementById(labels[i].htmlFor);
-            if (elem)
-                elem.label = labels[i];         
-        }
+      if (labels[i].htmlFor != '') {
+        var elem = document.getElementById(labels[i].htmlFor);
+        if (elem)
+          elem.label = labels[i];
+      }
     }
 
 
@@ -150,76 +151,71 @@ class App extends React.Component {
     form.addEventListener('submit', this.handleSubmit);
   }
 
-  render () {
+  render() {
     return (
       <section id="region-to-capture" className="container-sm">
         <h1 className="text-center">Wellness Reflection</h1>
         <div className="row">
           <div className="col-md-12" id="wellness-form" >
             <h2>How are you lately?</h2>
-              <div className="d-grid gap-2 d-md-block">
-                <button data-html2canvas-ignore id="clear" type="button" className="btn btn-primary" onClick={this.clearForm}>New Form</button>
-              </div>
+            <div className="d-grid gap-2 d-md-block">
+              <button data-html2canvas-ignore id="clear" type="button" className="btn btn-primary m-2" onClick={this.clearForm}>New Form</button>
+            </div>
             <form id="form">
-              <div className="row">
-                <label className="col" htmlFor="name">Name: 
-                  <input 
-                    className="form-control" 
-                    type="text" 
-                    name="name" 
-                    id="name" 
-                    value={this.state.name}
-                    onChange={this.handleChange}
-                  />
-                </label>
-                <label className="col" htmlFor="date">Date: 
-                  <input 
-                    className="form-control" 
-                    type="date" 
-                    name="date" 
-                    id="date" 
-                    value={this.state.date}
-                    onChange={this.handleChange}
-                  />
-                </label>
-                <label className="col" htmlFor="wake-time">Wake Time: 
-                  <input 
-                    className="form-control" 
-                    type="text" 
-                    name="wake-time" 
-                    id="wake-time"
-                    value={this.state['wake-time']}
-                    onChange={this.handleChange}
-                  />
-                </label>
+              <div className="input-group mb-3">
+                <label htmlFor="name" className="input-group-text">Name:</label>
+                <input
+                  className="form-control"
+                  type="text"
+                  name="name"
+                  id="name"
+                  value={this.state.name}
+                  onChange={this.handleChange}
+                />
               </div>
-              <div className="row">
-                <div className="col">
-                  <label htmlFor="qotd">Verse/Quote of the Day: </label>
-                </div>
-                <div className="row">
-                  <div className="col">
-                    <textarea 
-                      className="form-control" 
-                      name="qotd" 
-                      type="text" 
-                      id="qotd"
-                      value={this.state.qotd}
-                      onChange={this.handleChange}
-                    />
-                  </div>
-                </div>
+              <div className="input-group mb-3">
+                <label htmlFor="date" className="input-group-text">Date:</label>
+                <input
+                  className="form-control"
+                  type="date"
+                  name="date"
+                  id="date"
+                  value={this.state.date}
+                  onChange={this.handleChange}
+                />
+              </div>
+              <div className="input-group mb-3">
+                <label htmlFor="wake-time" className="input-group-text">Wake Time:</label>
+                <input
+                  className="form-control"
+                  type="text"
+                  name="wake-time"
+                  id="wake-time"
+                  value={this.state['wake-time']}
+                  onChange={this.handleChange}
+                />
+              </div>
+              <div>
+                <label htmlFor="qotd" className="form-label">Verse/Quote of the Day: </label>
+                <textarea
+                  className="form-control"
+                  name="qotd"
+                  type="text"
+                  id="qotd"
+                  value={this.state.qotd}
+                  onChange={this.handleChange}
+                />
               </div>
               <h2>Vitality Levels</h2>
               <div className="input-group mb-3">
                 <label htmlFor="hydration" className="input-group-text">Hydration:</label>
-                <input 
-                  className="form-control" 
-                  type="number" 
+                <input
+                  className="form-control"
+                  type="number"
                   pattern="[0-9]*"
-                  name="hydration" 
-                  min="1" 
-                  max="5" 
+                  name="hydration"
+                  min="1"
+                  max="5"
                   id="hydration"
                   value={this.state.hydration}
                   onChange={this.handleChange}
@@ -228,13 +224,13 @@ class App extends React.Component {
               </div>
               <div className="input-group mb-3">
                 <label htmlFor="morning-vitality" className="input-group-text">Morning:</label>
-                <input 
-                  className="form-control" 
-                  type="number" 
+                <input
+                  className="form-control"
+                  type="number"
                   pattern="[0-9]*"
-                  name="morning-vitality" 
-                  min="1" 
-                  max="5" 
+                  name="morning-vitality"
+                  min="1"
+                  max="5"
                   id="morning-vitality"
                   value={this.state['morning-vitality']}
                   onChange={this.handleChange}
@@ -243,13 +239,13 @@ class App extends React.Component {
               </div>
               <div className="input-group mb-3">
                 <label htmlFor="afternoon-vitality" className="input-group-text">Afternoon:</label>
-                <input 
-                  className="form-control" 
-                  type="number" 
+                <input
+                  className="form-control"
+                  type="number"
                   pattern="[0-9]*"
-                  name="afternoon-vitality" 
-                  min="1" 
-                  max="5" 
+                  name="afternoon-vitality"
+                  min="1"
+                  max="5"
                   id="afternoon-vitality"
                   value={this.state['afternoon-vitality']}
                   onChange={this.handleChange}
@@ -258,13 +254,13 @@ class App extends React.Component {
               </div>
               <div className="input-group mb-3">
                 <label htmlFor="evening-vitality" className="input-group-text">Evening:</label>
-                <input 
-                  className="form-control" 
-                  type="number" 
+                <input
+                  className="form-control"
+                  type="number"
                   pattern="[0-9]*"
-                  name="evening-vitality" 
-                  min="1" 
-                  max="5" 
+                  name="evening-vitality"
+                  min="1"
+                  max="5"
                   id="evening-vitality"
                   value={this.state['evening-vitality']}
                   onChange={this.handleChange}
@@ -274,10 +270,10 @@ class App extends React.Component {
               <h2>Meals + Supplements + Beverages</h2>
               <div className="input-group mb-3">
                 <label className="input-group-text" htmlFor="morning-meals"><strong>Morning:</strong> </label>
-                <input 
-                  className="form-control" 
-                  type="text" 
-                  id="morning-meals" 
+                <input
+                  className="form-control"
+                  type="text"
+                  id="morning-meals"
                   name="morning-meals"
                   value={this.state['morning-meals']}
                   onChange={this.handleChange}
@@ -285,10 +281,10 @@ class App extends React.Component {
               </div>
               <div className="input-group mb-3">
                 <label className="input-group-text" htmlFor="morning-meals-notes">Notes: </label>
-                <input 
-                  className="form-control" 
-                  type="text" 
-                  id="morning-meals-notes" 
+                <input
+                  className="form-control"
+                  type="text"
+                  id="morning-meals-notes"
                   name="morning-meals-notes"
                   value={this.state['morning-meals-notes']}
                   onChange={this.handleChange}
@@ -296,10 +292,10 @@ class App extends React.Component {
               </div>
               <div className="input-group mb-3">
                 <label className="input-group-text" htmlFor="morning-meals-cravings">Cravings: </label>
-                <input 
-                  className="form-control" 
-                  type="text" 
-                  id="morning-meals-cravings" 
+                <input
+                  className="form-control"
+                  type="text"
+                  id="morning-meals-cravings"
                   name="morning-meals-cravings"
                   value={this.state['morning-meals-cravings']}
                   onChange={this.handleChange}
@@ -307,10 +303,10 @@ class App extends React.Component {
               </div>
               <div className="input-group mb-3">
                 <label className="input-group-text" htmlFor="afternoon-meals"><strong>Afternoon:</strong> </label>
-                <input 
-                  className="form-control" 
-                  type="text" 
-                  id="afternoon-meals" 
+                <input
+                  className="form-control"
+                  type="text"
+                  id="afternoon-meals"
                   name="afternoon-meals"
                   value={this.state['afternoon-meals']}
                   onChange={this.handleChange}
@@ -318,10 +314,10 @@ class App extends React.Component {
               </div>
               <div className="input-group mb-3">
                 <label className="input-group-text" htmlFor="afternoon-meals-notes">Notes: </label>
-                <input 
-                  className="form-control" 
-                  type="text" 
-                  id="afternoon-meals-notes" 
+                <input
+                  className="form-control"
+                  type="text"
+                  id="afternoon-meals-notes"
                   name="afternoon-meals-notes"
                   value={this.state['afternoon-meals-notes']}
                   onChange={this.handleChange}
@@ -329,10 +325,10 @@ class App extends React.Component {
               </div>
               <div className="input-group mb-3">
                 <label className="input-group-text" htmlFor="afternoon-meals-cravings">Cravings: </label>
-                <input 
-                  className="form-control" 
-                  type="text" 
-                  id="afternoon-meals-cravings" 
+                <input
+                  className="form-control"
+                  type="text"
+                  id="afternoon-meals-cravings"
                   name="afternoon-meals-cravings"
                   value={this.state['afternoon-meals-cravings']}
                   onChange={this.handleChange}
@@ -340,10 +336,10 @@ class App extends React.Component {
               </div>
               <div className="input-group mb-3">
                 <label className="input-group-text" htmlFor="evening-meals"><strong>Evening:</strong> </label>
-                <input 
-                  className="form-control" 
-                  type="text" 
-                  id="evening-meals" 
+                <input
+                  className="form-control"
+                  type="text"
+                  id="evening-meals"
                   name="evening-meals"
                   value={this.state['evening-meals']}
                   onChange={this.handleChange}
@@ -351,10 +347,10 @@ class App extends React.Component {
               </div>
               <div className="input-group mb-3">
                 <label className="input-group-text" htmlFor="evening-meals-notes">Notes: </label>
-                <input 
-                  className="form-control" 
-                  type="text" 
-                  id="evening-meals-notes" 
+                <input
+                  className="form-control"
+                  type="text"
+                  id="evening-meals-notes"
                   name="evening-meals-notes"
                   value={this.state['evening-meals-notes']}
                   onChange={this.handleChange}
@@ -362,10 +358,10 @@ class App extends React.Component {
               </div>
               <div className="input-group mb-3">
                 <label className="input-group-text" htmlFor="evening-meals-cravings">Cravings: </label>
-                <input 
-                  className="form-control" 
-                  type="text" 
-                  id="evening-meals-cravings" 
+                <input
+                  className="form-control"
+                  type="text"
+                  id="evening-meals-cravings"
                   name="evening-meals-cravings"
                   value={this.state['evening-meals-cravings']}
                   onChange={this.handleChange}
@@ -374,10 +370,10 @@ class App extends React.Component {
               <h2>Activities</h2>
               <div className="input-group mb-3">
                 <label className="input-group-text" htmlFor="morning-activity">Morning: </label>
-                <input 
-                  className="form-control" 
-                  type="text" 
-                  id="morning-activity" 
+                <input
+                  className="form-control"
+                  type="text"
+                  id="morning-activity"
                   name="morning-activity"
                   value={this.state['morning-activity']}
                   onChange={this.handleChange}
@@ -385,10 +381,10 @@ class App extends React.Component {
               </div>
               <div className="input-group mb-3">
                 <label className="input-group-text" htmlFor="afternoon-activity">Afternoon: </label>
-                <input 
-                  className="form-control" 
-                  type="text" 
-                  id="afternoon-activity" 
+                <input
+                  className="form-control"
+                  type="text"
+                  id="afternoon-activity"
                   name="afternoon-activity"
                   value={this.state['afternoon-activity']}
                   onChange={this.handleChange}
@@ -396,17 +392,17 @@ class App extends React.Component {
               </div>
               <div className="input-group mb-3">
                 <label className="input-group-text" htmlFor="evening-activity">Evening: </label>
-                <input 
-                  className="form-control" 
-                  type="text" 
-                  id="evening-activity" 
+                <input
+                  className="form-control"
+                  type="text"
+                  id="evening-activity"
                   name="evening-activity"
                   value={this.state['evening-activity']}
                   onChange={this.handleChange}
                 />
               </div>
               <div className="d-grid gap-2 d-md-block">
-                <button data-html2canvas-ignore id="submit" type="submit" className="btn btn-primary"><FontAwesomeIcon icon={faDownload}/> Generate</button>
+                <button data-html2canvas-ignore id="submit" type="submit" className="btn btn-primary"><FontAwesomeIcon icon={faDownload} /> Generate</button>
               </div>
             </form>
           </div>
