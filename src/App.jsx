@@ -119,8 +119,21 @@ const VitalitySection = ({ section, values, onChange }) => (
       )
     }
   </>
-
   );
+
+
+const ActivitySection = ({ timeOfDay, values, onChange }) => (
+  <div className="input-group mb-3">
+    <label htmlFor={`${timeOfDay.toLowerCase()}-activity`} className="input-group-text">{timeOfDay}:</label>
+    <textarea
+      className="form-control"
+      name={`${timeOfDay.toLowerCase()}-activity`}
+      id={`${timeOfDay.toLowerCase()}-activity`}
+      value={values[`${timeOfDay.toLowerCase()}-activity`]}
+      onChange={onChange}
+    />
+  </div>
+);
 
 class App extends React.Component {
 
@@ -287,39 +300,9 @@ class App extends React.Component {
               <MealSection timeOfDay="Afternoon" values={this.state} onChange={this.handleChange} />
               <MealSection timeOfDay="Evening" values={this.state} onChange={this.handleChange} />
               <h2>Activities</h2>
-              <div className="input-group mb-3">
-                <label className="input-group-text" htmlFor="morning-activity">Morning: </label>
-                <input
-                  className="form-control"
-                  type="text"
-                  id="morning-activity"
-                  name="morning-activity"
-                  value={this.state['morning-activity']}
-                  onChange={this.handleChange}
-                />
-              </div>
-              <div className="input-group mb-3">
-                <label className="input-group-text" htmlFor="afternoon-activity">Afternoon: </label>
-                <input
-                  className="form-control"
-                  type="text"
-                  id="afternoon-activity"
-                  name="afternoon-activity"
-                  value={this.state['afternoon-activity']}
-                  onChange={this.handleChange}
-                />
-              </div>
-              <div className="input-group mb-3">
-                <label className="input-group-text" htmlFor="evening-activity">Evening: </label>
-                <input
-                  className="form-control"
-                  type="text"
-                  id="evening-activity"
-                  name="evening-activity"
-                  value={this.state['evening-activity']}
-                  onChange={this.handleChange}
-                />
-              </div>
+              <ActivitySection timeOfDay="Morning" values={this.state} onChange={this.handleChange} />
+              <ActivitySection timeOfDay="Afternoon" values={this.state} onChange={this.handleChange} />
+              <ActivitySection timeOfDay="Evening" values={this.state} onChange={this.handleChange} />
               <div className="d-grid gap-2 d-md-block">
                 <button data-html2canvas-ignore id="submit" type="submit" className="btn btn-primary"><FontAwesomeIcon icon={faDownload} /> Generate</button>
               </div>
