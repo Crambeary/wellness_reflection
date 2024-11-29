@@ -33,6 +33,57 @@ let defaultState = {
   'evening-activity': ""
 }
 
+const FormInput = ({ label, type = "text", name, value, onChange, fieldType = "input"}) => (
+  <div className="input-group mb-3">
+    <label htmlFor={name} className="input-group-text">{label}</label>
+    { fieldType === "input" ? (
+      <input
+        className="form-control"
+        type={type}
+        name={name}
+        id={name}
+        value={value}
+        onChange={onChange}
+      />
+    ) : (
+      <textarea
+        className="form-control"
+        type={type}
+        name={name}
+        id={name}
+        value={value}
+        onChange={onChange}
+      />
+    )}
+  </div>
+);
+
+
+const MealSection = ({ timeOfDay, values, onChange }) => (
+  <div>
+    <h3>{timeOfDay} Meals</h3>
+    <FormInput
+      label="Meals"
+      name={`${timeOfDay.toLowerCase()}-meals`}
+      value={values[`${timeOfDay.toLowerCase()}-meals`]}
+      onChange={onChange}
+    />
+    <FormInput
+      label="Notes"
+      name={`${timeOfDay.toLowerCase()}-meals-notes`}
+      value={values[`${timeOfDay.toLowerCase()}-meals-notes`]}
+      onChange={onChange}
+    />
+    <FormInput
+      label="Cravings"
+      name={`${timeOfDay.toLowerCase()}-meals-cravings`}
+      value={values[`${timeOfDay.toLowerCase()}-meals-cravings`]}
+      onChange={onChange}
+    />
+  </div>
+);
+
+
 class App extends React.Component {
 
   constructor(props) {
@@ -162,50 +213,32 @@ class App extends React.Component {
               <button data-html2canvas-ignore id="clear" type="button" className="btn btn-primary m-2" onClick={this.clearForm}>New Form</button>
             </div>
             <form id="form">
-              <div className="input-group mb-3">
-                <label htmlFor="name" className="input-group-text">Name:</label>
-                <input
-                  className="form-control"
-                  type="text"
-                  name="name"
-                  id="name"
-                  value={this.state.name}
-                  onChange={this.handleChange}
+              <FormInput
+                label="Name"
+                name="name"
+                value={this.state.name}
+                onChange={this.handleChange}
                 />
-              </div>
-              <div className="input-group mb-3">
-                <label htmlFor="date" className="input-group-text">Date:</label>
-                <input
-                  className="form-control"
-                  type="date"
-                  name="date"
-                  id="date"
-                  value={this.state.date}
-                  onChange={this.handleChange}
+              <FormInput
+                label="Date"
+                name="date"
+                type="date"
+                value={this.state.date}
+                onChange={this.handleChange}
                 />
-              </div>
-              <div className="input-group mb-3">
-                <label htmlFor="wake-time" className="input-group-text">Wake Time:</label>
-                <input
-                  className="form-control"
-                  type="text"
-                  name="wake-time"
-                  id="wake-time"
-                  value={this.state['wake-time']}
-                  onChange={this.handleChange}
+              <FormInput
+                label="Wake Time"
+                name="wake-time"
+                value={this.state['wake-time']}
+                onChange={this.handleChange}
                 />
-              </div>
-              <div>
-                <label htmlFor="qotd" className="form-label">Verse/Quote of the Day: </label>
-                <textarea
-                  className="form-control"
-                  name="qotd"
-                  type="text"
-                  id="qotd"
-                  value={this.state.qotd}
-                  onChange={this.handleChange}
+              <FormInput
+                label="Quote of the Day"
+                name="qotd"
+                value={this.state.qotd}
+                onChange={this.handleChange}
+                fieldType="textarea"
                 />
-              </div>
               <h2>Vitality Levels</h2>
               <div className="input-group mb-3">
                 <label htmlFor="hydration" className="input-group-text">Hydration:</label>
@@ -268,105 +301,9 @@ class App extends React.Component {
                 <span className="input-group-text">/5</span>
               </div>
               <h2>Meals + Supplements + Beverages</h2>
-              <div className="input-group mb-3">
-                <label className="input-group-text" htmlFor="morning-meals"><strong>Morning:</strong> </label>
-                <input
-                  className="form-control"
-                  type="text"
-                  id="morning-meals"
-                  name="morning-meals"
-                  value={this.state['morning-meals']}
-                  onChange={this.handleChange}
-                />
-              </div>
-              <div className="input-group mb-3">
-                <label className="input-group-text" htmlFor="morning-meals-notes">Notes: </label>
-                <input
-                  className="form-control"
-                  type="text"
-                  id="morning-meals-notes"
-                  name="morning-meals-notes"
-                  value={this.state['morning-meals-notes']}
-                  onChange={this.handleChange}
-                />
-              </div>
-              <div className="input-group mb-3">
-                <label className="input-group-text" htmlFor="morning-meals-cravings">Cravings: </label>
-                <input
-                  className="form-control"
-                  type="text"
-                  id="morning-meals-cravings"
-                  name="morning-meals-cravings"
-                  value={this.state['morning-meals-cravings']}
-                  onChange={this.handleChange}
-                />
-              </div>
-              <div className="input-group mb-3">
-                <label className="input-group-text" htmlFor="afternoon-meals"><strong>Afternoon:</strong> </label>
-                <input
-                  className="form-control"
-                  type="text"
-                  id="afternoon-meals"
-                  name="afternoon-meals"
-                  value={this.state['afternoon-meals']}
-                  onChange={this.handleChange}
-                />
-              </div>
-              <div className="input-group mb-3">
-                <label className="input-group-text" htmlFor="afternoon-meals-notes">Notes: </label>
-                <input
-                  className="form-control"
-                  type="text"
-                  id="afternoon-meals-notes"
-                  name="afternoon-meals-notes"
-                  value={this.state['afternoon-meals-notes']}
-                  onChange={this.handleChange}
-                />
-              </div>
-              <div className="input-group mb-3">
-                <label className="input-group-text" htmlFor="afternoon-meals-cravings">Cravings: </label>
-                <input
-                  className="form-control"
-                  type="text"
-                  id="afternoon-meals-cravings"
-                  name="afternoon-meals-cravings"
-                  value={this.state['afternoon-meals-cravings']}
-                  onChange={this.handleChange}
-                />
-              </div>
-              <div className="input-group mb-3">
-                <label className="input-group-text" htmlFor="evening-meals"><strong>Evening:</strong> </label>
-                <input
-                  className="form-control"
-                  type="text"
-                  id="evening-meals"
-                  name="evening-meals"
-                  value={this.state['evening-meals']}
-                  onChange={this.handleChange}
-                />
-              </div>
-              <div className="input-group mb-3">
-                <label className="input-group-text" htmlFor="evening-meals-notes">Notes: </label>
-                <input
-                  className="form-control"
-                  type="text"
-                  id="evening-meals-notes"
-                  name="evening-meals-notes"
-                  value={this.state['evening-meals-notes']}
-                  onChange={this.handleChange}
-                />
-              </div>
-              <div className="input-group mb-3">
-                <label className="input-group-text" htmlFor="evening-meals-cravings">Cravings: </label>
-                <input
-                  className="form-control"
-                  type="text"
-                  id="evening-meals-cravings"
-                  name="evening-meals-cravings"
-                  value={this.state['evening-meals-cravings']}
-                  onChange={this.handleChange}
-                />
-              </div>
+              <MealSection timeOfDay="Morning" values={this.state} onChange={this.handleChange} />
+              <MealSection timeOfDay="Afternoon" values={this.state} onChange={this.handleChange} />
+              <MealSection timeOfDay="Evening" values={this.state} onChange={this.handleChange} />
               <h2>Activities</h2>
               <div className="input-group mb-3">
                 <label className="input-group-text" htmlFor="morning-activity">Morning: </label>
