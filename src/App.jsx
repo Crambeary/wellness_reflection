@@ -83,6 +83,24 @@ const MealSection = ({ timeOfDay, values, onChange }) => (
   </div>
 );
 
+const VitalitySection = ({ timeOfDay, values, onChange }) => (
+  <div className="input-group mb-3">
+    <label htmlFor={`${timeOfDay.toLowerCase()}-vitality`} className="input-group-text">{timeOfDay} Vitality:</label>
+    <input
+      className="form-control"
+      name={`${timeOfDay.toLowerCase()}-vitality`}
+      value={values[`${timeOfDay.toLowerCase()}-vitality`]}
+      onChange={onChange}
+      type="number"
+      pattern="[0-9]*"
+      min="1"
+      max="5"
+    />
+    <span className="input-group-text">/5</span>
+  </div>
+);
+
+
 
 class App extends React.Component {
 
@@ -244,9 +262,9 @@ class App extends React.Component {
                 <label htmlFor="hydration" className="input-group-text">Hydration:</label>
                 <input
                   className="form-control"
+                  name="hydration"
                   type="number"
                   pattern="[0-9]*"
-                  name="hydration"
                   min="1"
                   max="5"
                   id="hydration"
@@ -255,51 +273,9 @@ class App extends React.Component {
                 />
                 <span className="input-group-text">/5</span>
               </div>
-              <div className="input-group mb-3">
-                <label htmlFor="morning-vitality" className="input-group-text">Morning:</label>
-                <input
-                  className="form-control"
-                  type="number"
-                  pattern="[0-9]*"
-                  name="morning-vitality"
-                  min="1"
-                  max="5"
-                  id="morning-vitality"
-                  value={this.state['morning-vitality']}
-                  onChange={this.handleChange}
-                />
-                <span className="input-group-text">/5</span>
-              </div>
-              <div className="input-group mb-3">
-                <label htmlFor="afternoon-vitality" className="input-group-text">Afternoon:</label>
-                <input
-                  className="form-control"
-                  type="number"
-                  pattern="[0-9]*"
-                  name="afternoon-vitality"
-                  min="1"
-                  max="5"
-                  id="afternoon-vitality"
-                  value={this.state['afternoon-vitality']}
-                  onChange={this.handleChange}
-                />
-                <span className="input-group-text">/5</span>
-              </div>
-              <div className="input-group mb-3">
-                <label htmlFor="evening-vitality" className="input-group-text">Evening:</label>
-                <input
-                  className="form-control"
-                  type="number"
-                  pattern="[0-9]*"
-                  name="evening-vitality"
-                  min="1"
-                  max="5"
-                  id="evening-vitality"
-                  value={this.state['evening-vitality']}
-                  onChange={this.handleChange}
-                />
-                <span className="input-group-text">/5</span>
-              </div>
+              <VitalitySection timeOfDay="Morning" values={this.state} onChange={this.handleChange} />
+              <VitalitySection timeOfDay="Afternoon" values={this.state} onChange={this.handleChange} />
+              <VitalitySection timeOfDay="Evening" values={this.state} onChange={this.handleChange} />
               <h2>Meals + Supplements + Beverages</h2>
               <MealSection timeOfDay="Morning" values={this.state} onChange={this.handleChange} />
               <MealSection timeOfDay="Afternoon" values={this.state} onChange={this.handleChange} />
