@@ -3,7 +3,6 @@
 import React from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faDownload } from '@fortawesome/free-solid-svg-icons'
-import dynamic from 'next/dynamic'
 import FormInput from './components/FormInput';
 import MealSection from './components/MealSection';
 import VitalitySection from './components/VitalitySection';
@@ -54,7 +53,7 @@ class App extends React.Component {
       this.setState({ [key]: "" });
     }
     if (formIsSubmitted) {
-      form.requestSubmit(submitButton);
+      form?.requestSubmit(submitButton);
     }
   }
 
@@ -66,20 +65,20 @@ class App extends React.Component {
       const formJSON = Object.fromEntries(data.entries());
 
       for (const [key, value] of Object.entries(formJSON)) {
-        const element = document.getElementById(String(key));
-        const scaleElement = document.getElementById(`${key}-scale`);
-        if (element) {
+        const element = document.getElementById(String(key)) as HTMLInputElement | null;
+        if (element && element instanceof HTMLInputElement && element.labels && element.labels.length > 0 && element.labels[0] && element.labels[0].parentElement) {
           element.classList.add("d-none");
           const inputSpan = document.createElement("span");
           inputSpan.setAttribute("id", `input-for-${key}`);
           inputSpan.classList.add("border", "border-2", "rounded", "p-2", "lh-lg");
-          if (element?.label?.parentElement) {
-            element.label.parentElement.appendChild(inputSpan);
+          if (element.labels[0].parentElement) {
+            element.labels[0].parentElement.appendChild(inputSpan);
             inputSpan.innerText = ` ${value}`;
           }
         } else {
           console.warn(`Element with ID ${key} not found.`);
         }
+        const scaleElement = document.getElementById(`${key}-scale`);
         if (scaleElement) {
           scaleElement.classList.add("d-none");
         } else {
@@ -117,17 +116,17 @@ class App extends React.Component {
       const formJSON = Object.fromEntries(data.entries());
       
       for (const [key, value] of Object.entries(formJSON)) {
-        const element = document.getElementById(String(key));
-        const scaleElement = document.getElementById(`${key}-scale`);
+        const element = document.getElementById(String(key)) as HTMLInputElement | null;
         if (element) {
           element.classList.remove("d-none");
           const inputSpan = document.getElementById(`input-for-${key}`);
-          if (inputSpan && element?.label?.parentElement) {
-            element.label.parentElement.removeChild(inputSpan);
+          if (inputSpan && element.labels && element.labels.length > 0 && element.labels[0] && element.labels[0].parentElement) {
+            element.labels[0].parentElement.removeChild(inputSpan);
           }
         } else {
           console.warn(`Element with ID ${key} not found.`);
         }
+        const scaleElement = document.getElementById(`${key}-scale`);
         if (scaleElement) {
           scaleElement.classList.remove("d-none");
         } else {
@@ -148,7 +147,7 @@ class App extends React.Component {
       if (labels[i].htmlFor != '') {
         var elem = document.getElementById(labels[i].htmlFor);
         if (elem)
-          elem.label = labels[i];
+          elem.labels[0] = labels[i];
       }
     }
 
