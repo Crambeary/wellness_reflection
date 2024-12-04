@@ -57,11 +57,13 @@ class App extends React.Component {
     }
   }
 
-  handleSubmit = async (event) => {
+  handleSubmit = async (event: SubmitEvent) => {
     event.preventDefault();
 
+    const form = event.currentTarget as HTMLFormElement;
+
     if (!formIsSubmitted) {
-      const data = new FormData(event.target);
+      const data = new FormData(form);
       const formJSON = Object.fromEntries(data.entries());
 
       for (const [key, value] of Object.entries(formJSON)) {
@@ -86,7 +88,11 @@ class App extends React.Component {
         }
       }
 
-      submitButton.innerText = "Edit Form";
+      if (submitButton) {
+        submitButton.innerText = "Edit Form";
+      } else {
+        console.warn('submitButton is null.');
+      }
       formIsSubmitted = true;
 
       try {
@@ -111,9 +117,12 @@ class App extends React.Component {
       }
     } else {
       formIsSubmitted = false;
-      submitButton.innerHTML = '<FontAwesomeIcon icon={faDownload}/> Generate';
-      const data = new FormData(event.target);
-      const formJSON = Object.fromEntries(data.entries());
+      if (submitButton) {
+        submitButton.innerHTML = '<FontAwesomeIcon icon={faDownload}/> Generate';
+      } else {
+        console.warn('submitButton is null.');
+      }
+      const formJSON = Object.fromEntries(new FormData(form).entries());
       
       for (const [key, value] of Object.entries(formJSON)) {
         const element = document.getElementById(String(key)) as HTMLInputElement | null;
@@ -142,21 +151,12 @@ class App extends React.Component {
     form = document.querySelector('form');
     captureRegion = document.getElementById("region-to-capture");
 
-    let labels = document.getElementsByTagName('LABEL');
-    for (var i = 0; i < labels.length; i++) {
-      if ((labels[i] as HTMLLabelElement).htmlFor !== '') {
-        var elem = document.getElementById((labels[i] as HTMLLabelElement).htmlFor);
-        if (elem)
-          elem.labels[0] = labels[i];
-      }
-    }
-
     let retrievedObject = localStorage.getItem('form');
     if (retrievedObject) {
       this.setState(JSON.parse(retrievedObject));
     }
 
-    form.addEventListener('submit', this.handleSubmit);
+    form?.addEventListener('submit', this.handleSubmit);
   }
 
   render() {

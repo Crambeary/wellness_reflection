@@ -7,7 +7,7 @@ interface FormInputProps {
   type?: string;
   name: string;
   value: string;
-  onChange: (event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void;
+  onChange: (event: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) => void;
   fieldType?: 'input' | 'textarea';
 }
 
@@ -29,6 +29,7 @@ const FormInput: React.FC<FormInputProps> = ({
         id={name}
         value={value}
         onChange={onChange}
+        spellCheck={false}
       />
     ) : (
       <textarea
@@ -37,6 +38,7 @@ const FormInput: React.FC<FormInputProps> = ({
         id={name}
         value={value}
         onChange={onChange}
+        spellCheck={false}
       />
     )}
   </div>

@@ -19,6 +19,7 @@ const ActivitySection: React.FC<ActivitySectionProps> = ({ timeOfDay, values, on
       id={`${timeOfDay.toLowerCase()}-activity`}
       value={values[`${timeOfDay.toLowerCase()}-activity`]}
       onChange={onChange}
+      spellCheck={false}
     />
   </div>
 );
