@@ -3,7 +3,11 @@
 import React from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faDownload } from '@fortawesome/free-solid-svg-icons'
-import html2canvas from 'html2canvas';
+import dynamic from 'next/dynamic'
+
+const html2canvas = dynamic(() => import('html2canvas'), {
+  ssr: false
+});
 
 let formIsSubmitted = false;
 let submitButton = "";
@@ -118,7 +122,7 @@ const ActivitySection = ({ timeOfDay, values, onChange }) => (
   </div>
 );
 
-export default class App extends React.Component {
+class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = defaultState;
@@ -302,3 +306,5 @@ export default class App extends React.Component {
     )
   }
 }
+
+export default App;
