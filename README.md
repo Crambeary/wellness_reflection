@@ -11,11 +11,11 @@ Currently, two official plugins are available:
 
 ## TODO
 
-1. Set up the Next.js project structure
-2. Implement file-based routing
-3. Add API routes for Supabase
-4. Integrate NextAuth.js for authentication
-5. Set up Tailwind CSS
+- [x] 1. Set up the Next.js project structure
+- [ ] 2. Implement file-based routing
+- [ ] 3. Add API routes for Supabase
+- [ ] 4. Integrate NextAuth.js for authentication
+- [ ] 5. Set up Tailwind CSS
 
 Personal wellness entries linked to user accounts
 Ability to view historical entries
