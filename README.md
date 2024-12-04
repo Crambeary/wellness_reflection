@@ -27,7 +27,7 @@ Role-based access control
 Secure password handling
 GDPR compliance features
 
-- [ ] Containerize the app
+- [x] Containerize the app
 - [ ] Use Redux for State Management
 - [ ] Setup a11y best practices
     - [ ] ARIA labels
