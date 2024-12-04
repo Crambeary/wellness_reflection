@@ -42,7 +42,7 @@ GDPR compliance features
 - [ ] Update UI to be more human friendly
     - [ ] Change the 1/5 numbers to stars to be selected
     - [ ] Add a motivational quote generator 
-- [ ] Add authentication and Authorization - JWT?
+- [ ] Add Authentication and Authorization next-auth
     - [ ] Add a login page
     - [ ] Add a signup page
     - [ ] Add a logout button
