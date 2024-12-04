@@ -144,8 +144,8 @@ class App extends React.Component {
 
     let labels = document.getElementsByTagName('LABEL');
     for (var i = 0; i < labels.length; i++) {
-      if (labels[i].htmlFor != '') {
-        var elem = document.getElementById(labels[i].htmlFor);
+      if ((labels[i] as HTMLLabelElement).htmlFor !== '') {
+        var elem = document.getElementById((labels[i] as HTMLLabelElement).htmlFor);
         if (elem)
           elem.labels[0] = labels[i];
       }
