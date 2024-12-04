@@ -4,16 +4,17 @@ import React from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faDownload } from '@fortawesome/free-solid-svg-icons'
 import dynamic from 'next/dynamic'
-
-const html2canvas = dynamic(() => import('html2canvas'), {
-  ssr: false
-});
+import FormInput from './components/FormInput';
+import MealSection from './components/MealSection';
+import VitalitySection from './components/VitalitySection';
+import ActivitySection from './components/ActivitySection';
+import { toPng } from 'html-to-image';
 
 let formIsSubmitted = false;
-let submitButton = "";
-let wellnessForm = "";
-let form = "";
-let captureRegion = "";
+let submitButton: HTMLElement | null = null;
+let wellnessForm: HTMLElement | null = null;
+let form: HTMLFormElement | null = null;
+let captureRegion: HTMLElement | null = null;
 
 let defaultState = {
   name: "",
@@ -38,99 +39,12 @@ let defaultState = {
   'evening-activity': ""
 }
 
-const FormInput = ({ label, type = "text", name, value, onChange, fieldType = "input"}) => (
-  <div className="input-group mb-3">
-    <label htmlFor={name} className="input-group-text">{label}</label>
-    { fieldType === "input" ? (
-      <input
-        className="form-control"
-        type={type}
-        name={name}
-        id={name}
-        value={value}
-        onChange={onChange}
-      />
-    ) : (
-      <textarea
-        className="form-control"
-        type={type}
-        name={name}
-        id={name}
-        value={value}
-        onChange={onChange}
-      />
-    )}
-  </div>
-);
-
-const MealSection = ({ timeOfDay, values, onChange }) => (
-  <div>
-    <h3>{timeOfDay} Meals</h3>
-    <FormInput
-      label="Meals"
-      name={`${timeOfDay.toLowerCase()}-meals`}
-      value={values[`${timeOfDay.toLowerCase()}-meals`]}
-      onChange={onChange}
-    />
-    <FormInput
-      label="Notes"
-      name={`${timeOfDay.toLowerCase()}-meals-notes`}
-      value={values[`${timeOfDay.toLowerCase()}-meals-notes`]}
-      onChange={onChange}
-    />
-    <FormInput
-      label="Cravings"
-      name={`${timeOfDay.toLowerCase()}-meals-cravings`}
-      value={values[`${timeOfDay.toLowerCase()}-meals-cravings`]}
-      onChange={onChange}
-    />
-  </div>
-);
-
-const VitalitySection = ({ section, values, onChange }) => {
-  const name = section === "Hydration" ? "hydration" : `${section.toLowerCase()}-vitality`;
-  return (
-    <div className="input-group mb-3">
-      <label htmlFor={name} className="input-group-text">{section}</label>
-      <input
-        className="form-control text-start"
-        name={name}
-        id={name}
-        value={values[name]}
-        onChange={onChange}
-        type="number"
-        pattern="[0-9]*"
-        min="1"
-        max="5"
-        style={{ textAlign: 'left' }}
-      />
-      <span id={`${name}-scale`} className="input-group-text">/5</span>
-    </div>
-  );
-};
-
-const ActivitySection = ({ timeOfDay, values, onChange }) => (
-  <div className="input-group mb-3">
-    <label htmlFor={`${timeOfDay.toLowerCase()}-activity`} className="input-group-text">{timeOfDay}:</label>
-    <textarea
-      className="form-control"
-      name={`${timeOfDay.toLowerCase()}-activity`}
-      id={`${timeOfDay.toLowerCase()}-activity`}
-      value={values[`${timeOfDay.toLowerCase()}-activity`]}
-      onChange={onChange}
-    />
-  </div>
-);
-
 class App extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = defaultState;
-  }
+  state = defaultState;
 
-  handleChange = (event) => {
+  handleChange = (event: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) => {
     this.setState({ [event.target.name]: event.target.value }, () => {
-      localStorage.setItem('form', JSON.stringify(this.state));
+        localStorage.setItem('form', JSON.stringify(this.state));
     });
   }
 
@@ -159,12 +73,17 @@ class App extends React.Component {
           const inputSpan = document.createElement("span");
           inputSpan.setAttribute("id", `input-for-${key}`);
           inputSpan.classList.add("border", "border-2", "rounded", "p-2", "lh-lg");
-          if (element.label?.parentElement) {
-            element.label.parentElement.appendChild(inputSpan).innerText = ` ${value}`;
+          if (element?.label?.parentElement) {
+            element.label.parentElement.appendChild(inputSpan);
+            inputSpan.innerText = ` ${value}`;
           }
+        } else {
+          console.warn(`Element with ID ${key} not found.`);
         }
         if (scaleElement) {
           scaleElement.classList.add("d-none");
+        } else {
+          console.warn(`Scale element with ID ${key}-scale not found.`);
         }
       }
 
@@ -172,19 +91,21 @@ class App extends React.Component {
       formIsSubmitted = true;
 
       try {
-        const canvas = await html2canvas(captureRegion, {
-          logging: false,
-          useCORS: true,
-          scale: 2
-        });
-
-        const dataURL = canvas.toDataURL("image/png");
-        const link = document.createElement("a");
-        link.href = dataURL;
-        link.download = `Wellness_Reflection_${new Date().toISOString().split('T')[0]}.png`;
-        document.body.appendChild(link);
-        link.click();
-        document.body.removeChild(link);
+        if (captureRegion instanceof HTMLElement) {
+          const dataUrl = await toPng(captureRegion, {
+            quality: 1.0,
+            pixelRatio: 2
+          });
+          
+          const link = document.createElement('a');
+          link.href = dataUrl;
+          link.download = `Wellness_Reflection_${new Date().toISOString().split('T')[0]}.png`;
+          document.body.appendChild(link);
+          link.click();
+          document.body.removeChild(link);
+        } else {
+          throw new Error('Capture region not found');
+        }
       } catch (error) {
         console.error("Failed to generate image:", error);
         alert("Failed to generate image. Please try again.");
@@ -201,12 +122,16 @@ class App extends React.Component {
         if (element) {
           element.classList.remove("d-none");
           const inputSpan = document.getElementById(`input-for-${key}`);
-          if (inputSpan && element.label?.parentElement) {
+          if (inputSpan && element?.label?.parentElement) {
             element.label.parentElement.removeChild(inputSpan);
           }
+        } else {
+          console.warn(`Element with ID ${key} not found.`);
         }
         if (scaleElement) {
           scaleElement.classList.remove("d-none");
+        } else {
+          console.warn(`Scale element with ID ${key}-scale not found.`);
         }
       }
     }
@@ -282,10 +207,22 @@ class App extends React.Component {
                 <MealSection timeOfDay="Morning" values={this.state} onChange={this.handleChange} />
                 <MealSection timeOfDay="Afternoon" values={this.state} onChange={this.handleChange} />
                 <MealSection timeOfDay="Evening" values={this.state} onChange={this.handleChange} />
-                <h2>Activities</h2>
-                <ActivitySection timeOfDay="Morning" values={this.state} onChange={this.handleChange} />
-                <ActivitySection timeOfDay="Afternoon" values={this.state} onChange={this.handleChange} />
-                <ActivitySection timeOfDay="Evening" values={this.state} onChange={this.handleChange} />
+                <h3>Daily Activities</h3>
+                <ActivitySection
+                  timeOfDay="Morning"
+                  values={this.state}
+                  onChange={this.handleChange}
+                />
+                <ActivitySection
+                  timeOfDay="Afternoon"
+                  values={this.state}
+                  onChange={this.handleChange}
+                />
+                <ActivitySection
+                  timeOfDay="Evening"
+                  values={this.state}
+                  onChange={this.handleChange}
+                />
                 <div className="d-grid gap-2 d-md-block">
                   <button data-html2canvas-ignore id="submit" type="submit" className="btn btn-primary"><FontAwesomeIcon icon={faDownload} /> Generate</button>
                 </div>

@@ -1,5 +1,7 @@
-/** @type {import('next').NextConfig} */
-const nextConfig = {
+import { NextConfig } from 'next';
+
+/** @type {NextConfig} */
+const nextConfig: NextConfig = {
   reactStrictMode: true,
   eslint: {
     ignoreDuringBuilds: true,
@@ -7,7 +9,7 @@ const nextConfig = {
   typescript: {
     ignoreBuildErrors: true,
   },
-  webpack: (config) => {
+  webpack: (config: NextConfig) => {
     config.resolve.fallback = {
       ...config.resolve.fallback,
       fs: false,
@@ -16,4 +18,4 @@ const nextConfig = {
   },
 }
 
-module.exports = nextConfig
+export default nextConfig
