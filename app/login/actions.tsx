@@ -8,10 +8,11 @@ import { createClient } from '@/utils/supabase/server'
 export async function login() {
   const supabase = await createClient()
 
+  // TODO: update callback to use Vercel URL and Localhost depending on env
   const { data, error} = await supabase.auth.signInWithOAuth({
     provider: 'google',
     options: {
-      redirectTo: `https://wellness-reflection.vercel.app/auth/callback`,
+      redirectTo: process.env.NODE_ENV === 'development' ? `http://localhost:3000/auth/callback` : `https://wellness-reflection.vercel.app/auth/callback`,
     },
   })
 
