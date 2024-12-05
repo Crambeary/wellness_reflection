@@ -28,6 +28,7 @@ Secure password handling
 GDPR compliance features
 
 - [x] Containerize the app
+- [ ] Demo mode - no account needed to generate wellness entries
 - [ ] Use Redux for State Management
 - [ ] Setup a11y best practices
     - [ ] ARIA labels
