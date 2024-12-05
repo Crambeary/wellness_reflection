@@ -8,6 +8,7 @@ import MealSection from './components/MealSection';
 import VitalitySection from './components/VitalitySection';
 import ActivitySection from './components/ActivitySection';
 import { toPng } from 'html-to-image';
+import { createClient } from '@/utils/supabase/client';
 
 let formIsSubmitted = false;
 let submitButton: HTMLElement | null = null;
@@ -145,7 +146,7 @@ class App extends React.Component {
     }
   }
 
-  componentDidMount() {
+  async componentDidMount() {
     submitButton = document.getElementById("submit");
     wellnessForm = document.getElementById("wellness-form");
     form = document.querySelector('form');
@@ -157,6 +158,14 @@ class App extends React.Component {
     }
 
     form?.addEventListener('submit', this.handleSubmit);
+
+    const supabase = await createClient();
+    const {
+      data: { user },
+    } = await supabase.auth.getUser();
+    if (user) {
+      this.setState({ name: user.user_metadata.full_name });
+    }
   }
 
   render() {
@@ -166,7 +175,7 @@ class App extends React.Component {
           <h1 className="text-center">Wellness Reflection</h1>
           <div className="row">
             <div className="col-md-12" id="wellness-form" >
-              <h2>How are you lately?</h2>
+              <h2>How are you lately{this.state.name ? `, ${this.state.name}` : ''}?</h2>
               <div className="d-grid gap-2 d-md-block">
                 <button data-html2canvas-ignore id="clear" type="button" className="btn btn-primary m-2" onClick={this.clearForm}>New Form</button>
               </div>
