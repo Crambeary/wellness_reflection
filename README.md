@@ -11,12 +11,6 @@ Currently, two official plugins are available:
 
 ## TODO
 
-- [x] 1. Set up the Next.js project structure
-- [ ] 2. Implement file-based routing
-- [ ] 3. Add API routes for Supabase
-- [ ] 4. Integrate NextAuth.js for authentication
-- [ ] 5. Set up Tailwind CSS
-
 Personal wellness entries linked to user accounts
 Ability to view historical entries
 Data analytics/trends over time
@@ -28,8 +22,11 @@ Secure password handling
 GDPR compliance features
 
 - [x] Containerize the app
-- [ ] Demo mode - no account needed to generate wellness entries
+- [x] Move the name to the header 'How are you lately, [name]?' when logged in
+- [x] Demo mode - no account needed to generate wellness entries
 - [ ] Use Redux for State Management
+- [ ] Allow users to edit their name used in the wellness entries
+- [ ] Add a motivational quote generator
 - [ ] Setup a11y best practices
     - [ ] ARIA labels
     - [ ] Keyboard navigation
@@ -43,12 +40,8 @@ GDPR compliance features
 - [ ] Update UI to be more human friendly
     - [ ] Change the 1/5 numbers to stars to be selected
     - [ ] Add a motivational quote generator 
-- [ ] Add Authentication and Authorization next-auth
-    - [ ] Add a login page
-    - [ ] Add a signup page
-    - [ ] Add a logout button
-    - [ ] Password Reset
-    - [ ] OAuth Google
+- [x] Add Authentication and Authorization next-auth
+    - [x] OAuth Google
 - [ ] Connect form submissions to a database Supabase
     - [ ] Add a database
     - [ ] Add a database connection
@@ -61,3 +54,4 @@ GDPR compliance features
     - [ ] Add a profile edit page
 - [ ] Add a dark mode
 - [ ] Add a theme switcher
+- [ ] Tailwind CSS
