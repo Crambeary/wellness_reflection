@@ -38,7 +38,10 @@
       ],
       "@/public/*": [
         "./public/*"
-      ]
+      ],
+      "@/login/*": [
+        "./app/login/*"
+      ],
     }
   },
   "include": [

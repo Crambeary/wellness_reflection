@@ -10,19 +10,30 @@ export async function login(formData: FormData) {
 
   // type-casting here for convenience
   // in practice, you should validate your inputs
-  const data = {
-    email: formData.get('email') as string,
-    password: formData.get('password') as string,
-  }
+  // const data = {
+  //   email: formData.get('email') as string,
+  //   password: formData.get('password') as string,
+  // }
 
-  const { error } = await supabase.auth.signInWithPassword(data)
+  // const { error } = await supabase.auth.signInWithPassword(data)
+  const { data, error} = await supabase.auth.signInWithOAuth({
+    provider: 'google',
+    options: {
+      redirectTo: `http://localhost:3000/auth/callback`,
+    },
+  })
+
 
   if (error) {
     redirect('/error')
   }
 
-  revalidatePath('/', 'layout')
-  redirect('/')
+  if (data.url) {
+    redirect(data.url)
+  }
+
+  // revalidatePath('/', 'layout')
+  // redirect('/')
 }
 
 export async function signup(formData: FormData) {
@@ -41,6 +52,15 @@ export async function signup(formData: FormData) {
     redirect('/error')
   }
 
+  revalidatePath('/', 'layout')
+  redirect('/')
+}
+
+
+export async function logout() {
+  const supabase = await createClient()
+
+  await supabase.auth.signOut()
   revalidatePath('/', 'layout')
   redirect('/')
 }
