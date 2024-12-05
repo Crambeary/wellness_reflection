@@ -1,4 +1,4 @@
-import { login, signup } from './actions'
+import { login} from './actions'
 
 export default function LoginPage() {
   return (
@@ -11,7 +11,7 @@ export default function LoginPage() {
     //   <button formAction={signup}>Sign up</button>
     // </form>
     <form>
-        <button type='submit' formAction={login}>Log in</button>
+        <button type='submit' formAction={login} className='btn btn-outline-success'>Log in</button>
     </form>
   )
 }

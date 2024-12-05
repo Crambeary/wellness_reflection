@@ -23,13 +23,9 @@ export default async function Header() {
                 </li>
             </ul>
             {user ? (
-                <form action={logout}>
-                    <button className="btn btn-outline-danger">Logout</button>
-                </form>
+                <button onClick={logout} className="btn btn-outline-danger">Logout</button>
             ): 
-                <form action={login}>
-                    <button className="btn btn-outline-success">Log in</button>
-                </form>
+                <button onClick={login} className="btn btn-outline-success">Log in</button>
                 }
             </div>
         </div>
