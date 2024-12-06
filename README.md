@@ -18,7 +18,7 @@
 - [x] Move the name to the header 'How are you lately, [name]?' when logged in
 - [x] Demo mode - no account needed to generate wellness entries
 - [x] Textarea form types overflow in image is working
-- [ ] Use Redux for State Management
+- [x] Use Redux for State Management
 - [ ] Connect form submissions to a database Supabase
     - [ ] Add a database
     - [ ] Add a database connection
