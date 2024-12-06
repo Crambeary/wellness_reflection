@@ -7,8 +7,8 @@ interface FormInputProps {
   type?: string;
   name: string;
   value: string;
-  onChange: (event: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) => void;
-  fieldType?: 'input' | 'textarea';
+  fieldType?: string;
+  onChange: (event: React.ChangeEvent<HTMLInputElement | HTMLDivElement> | React.FormEvent<HTMLDivElement>) => void;
 }
 
 const FormInput: React.FC<FormInputProps> = ({ 
@@ -19,13 +19,7 @@ const FormInput: React.FC<FormInputProps> = ({
   onChange, 
   fieldType = "input"
 }) => {
-  // Function to auto-resize textarea
-  const handleInput = (event: React.FormEvent<HTMLTextAreaElement>) => {
-    const textarea = event.currentTarget;
-    textarea.style.height = 'auto';
-    textarea.style.height = `${textarea.scrollHeight}px`;
-  };
-
+  // Function to auto-
   return (
     <div className="input-group mb-3">
       <label htmlFor={name} className="input-group-text">{label}</label>
@@ -40,18 +34,18 @@ const FormInput: React.FC<FormInputProps> = ({
           spellCheck={false}
         />
       ) : (
-        <textarea
+        <div 
+          contentEditable="true"
+          suppressContentEditableWarning={true}
           className="form-control"
-          name={name}
           id={name}
-          value={value}
           onChange={(e) => {
             onChange(e);
-            handleInput(e);
           }}
-          onInput={handleInput}
           spellCheck={false}
-        />
+        >
+          {value}
+        </div>
       )}
     </div>
   );

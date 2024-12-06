@@ -46,8 +46,9 @@ export default function App() {
     fetchUser();
   }, [dispatch]);
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-    const { name, value } = e.target;
+  const handleChange = (event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLDivElement> | React.FormEvent<HTMLDivElement>) => {
+    const target = event.target as HTMLInputElement | HTMLTextAreaElement | HTMLDivElement & { name: string; value: string };
+    const { name, value } = target;
     dispatch(updateField({ name, value }));
     localStorage.setItem('form', JSON.stringify({ ...state, [name]: value }));
   };

@@ -8,7 +8,7 @@ interface MealSectionProps {
   meals: string;
   notes: string;
   cravings: string;
-  onChange: (event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void;
+  onChange: (event: React.ChangeEvent<HTMLInputElement | HTMLDivElement> | React.FormEvent<HTMLDivElement>) => void;
 }
 
 const MealSection: React.FC<MealSectionProps> = ({ 
@@ -25,18 +25,21 @@ const MealSection: React.FC<MealSectionProps> = ({
       name={`${timeOfDay.toLowerCase()}-meals`}
       value={meals}
       onChange={onChange}
+      fieldType='textarea'
     />
     <FormInput
       label="Notes"
       name={`${timeOfDay.toLowerCase()}-meals-notes`}
       value={notes}
       onChange={onChange}
+      fieldType='textarea'
     />
     <FormInput
       label="Cravings"
       name={`${timeOfDay.toLowerCase()}-meals-cravings`}
       value={cravings}
       onChange={onChange}
+      fieldType='textarea'
     />
   </div>
 );

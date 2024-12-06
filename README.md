@@ -17,7 +17,7 @@
 - [x] Containerize the app
 - [x] Move the name to the header 'How are you lately, [name]?' when logged in
 - [x] Demo mode - no account needed to generate wellness entries
-- [ ] Quote of the day form overflow in image is working
+- [ ] Textarea form types overflow in image is working
 - [ ] Use Redux for State Management
 - [ ] Connect form submissions to a database Supabase
     - [ ] Add a database
@@ -32,6 +32,7 @@
 
 ----
 ### Nice to have
+- [ ] Add a test suite
 - [ ] Add a motivational quote generator
 - [ ] Setup a11y best practices
     - [ ] ARIA labels
@@ -39,7 +40,6 @@
     - [ ] Screen reader support
 - [ ] Documentation
     - [ ] JSDoc
-- [ ] Add a test suite
 - [x] Add a CI/CD pipeline
 - [ ] Add a Dockerfile
 - [ ] Add a Docker Compose file
