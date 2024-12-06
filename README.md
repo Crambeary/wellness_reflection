@@ -1,15 +1,15 @@
 # Wellness Reflection
 
 ## Goals
-Personal wellness entries linked to user accounts
-Ability to view historical entries
-Data analytics/trends over time
-Data export capabilities
-Privacy & Security:
-Data encryption
-Role-based access control
-Secure password handling
-GDPR compliance features
+- Personal wellness entries linked to user accounts
+- Ability to view historical entries
+- Data analytics/trends over time
+- Data export capabilities
+- Privacy & Security:
+- Data encryption
+- Role-based access control
+- Secure password handling
+- GDPR compliance features
 
 ## TODO
 
