@@ -33,6 +33,9 @@
 ----
 ### Nice to have
 - [ ] Add a test suite
+- [ ] Debounce localStorage updates?
+    - redux-persist
+- [ ] Auto-save form data to database every time user is idle for 5 seconds unless there are costs to supabase
 - [ ] Add a motivational quote generator
 - [ ] Setup a11y best practices
     - [ ] ARIA labels
