@@ -19,6 +19,23 @@
 - [x] Demo mode - no account needed to generate wellness entries
 - [x] Textarea form types overflow in image is working
 - [x] Use Redux for State Management
+- [ ] Update UI to be more human friendly
+    - [ ] Change the 1/5 numbers to stars to be selected and allow swipe gestures
+    - [ ] Finalize data types for the form
+        - [ ] vitality is numerical not string
+        - [ ] date is a date not a string
+        - [ ] time is a time not a string
+    - [ ] Make the input fields larger for touch screens
+    - [ ] Use floating labels to save space on smaller screens
+    - [ ] Add a Time Picker
+    - [x] Add a Date Picker
+    - [ ] Update header to use an attractive font
+    - [ ] Add a logo
+    - [ ] Add a favicon
+    - [ ] Add a manifest
+    - [ ] Add a robots.txt
+    - [ ] Add a sitemap
+    - [ ] Add a sitemap generator
 - [ ] Connect form submissions to a database Supabase
     - [ ] Add a database
     - [ ] Add a database connection
@@ -46,9 +63,6 @@
 - [x] Add a CI/CD pipeline
 - [ ] Add a Dockerfile
 - [ ] Add a Docker Compose file
-- [ ] Update UI to be more human friendly
-    - [ ] Change the 1/5 numbers to stars to be selected
-    - [ ] Add a motivational quote generator 
 - [x] Add Authentication and Authorization next-auth
     - [x] OAuth Google
 - [ ] Profiles for coaches with assigned roles
@@ -59,9 +73,3 @@
 - [ ] Tailwind CSS
 - [ ] Redesign the UI
     - [ ] Research UI that works for similar apps
-- [ ] Add a logo
-- [ ] Add a favicon
-- [ ] Add a manifest
-- [ ] Add a robots.txt
-- [ ] Add a sitemap
-- [ ] Add a sitemap generator
