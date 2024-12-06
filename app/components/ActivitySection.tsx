@@ -4,13 +4,11 @@ import React from 'react';
 
 interface ActivitySectionProps {
   timeOfDay: string;
-  values: {
-    [key: string]: string;
-  };
-  onChange: (event: React.ChangeEvent<HTMLTextAreaElement>) => void;
+  activity: string;
+  onChange: (event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void;
 }
 
-const ActivitySection: React.FC<ActivitySectionProps> = ({ timeOfDay, values, onChange }) => {
+const ActivitySection: React.FC<ActivitySectionProps> = ({ timeOfDay, activity, onChange }) => {
   // Function to auto-resize textarea
   const handleInput = (event: React.FormEvent<HTMLTextAreaElement>) => {
     const textarea = event.currentTarget;
@@ -25,7 +23,7 @@ const ActivitySection: React.FC<ActivitySectionProps> = ({ timeOfDay, values, on
         className="form-control"
         name={`${timeOfDay.toLowerCase()}-activity`}
         id={`${timeOfDay.toLowerCase()}-activity`}
-        value={values[`${timeOfDay.toLowerCase()}-activity`]}
+        value={activity}
         onChange={(e) => {
           onChange(e);
           handleInput(e);

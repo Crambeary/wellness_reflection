@@ -4,13 +4,11 @@ import React from 'react';
 
 interface VitalitySectionProps {
   section: string;
-  values: {
-    [key: string]: string;
-  };
+  value: string;
   onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
-const VitalitySection: React.FC<VitalitySectionProps> = ({ section, values, onChange }) => {
+const VitalitySection: React.FC<VitalitySectionProps> = ({ section, value, onChange }) => {
   const name = section === "Hydration" ? "hydration" : `${section.toLowerCase()}-vitality`;
   return (
     <div className="input-group mb-3">
@@ -19,7 +17,7 @@ const VitalitySection: React.FC<VitalitySectionProps> = ({ section, values, onCh
         className="form-control text-start"
         name={name}
         id={name}
-        value={values[name]}
+        value={value}
         onChange={onChange}
         type="number"
         min="1"
