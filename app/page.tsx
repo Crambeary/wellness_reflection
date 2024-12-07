@@ -10,7 +10,7 @@ import ActivitySection from './components/ActivitySection';
 import html2canvas from 'html2canvas';
 import { createClient } from '@/utils/supabase/client';
 import { useAppDispatch, useAppSelector } from './store/hooks';
-import { updateField, clearForm, loadSavedForm } from './store/wellnessSlice';
+import { updateField, clearForm, loadSavedForm, setLoading } from './store/wellnessSlice';
 
 let formIsSubmitted = false;
 let submitButton: HTMLElement | null = null;
@@ -31,6 +31,8 @@ export default function App() {
     let retrievedObject = localStorage.getItem('form');
     if (retrievedObject) {
       dispatch(loadSavedForm(JSON.parse(retrievedObject)));
+    } else {
+      dispatch(setLoading(false));
     }
 
     form?.addEventListener('submit', handleSubmit);
@@ -77,6 +79,7 @@ export default function App() {
   const clearFormHandler = () => {
     dispatch(clearForm());
     localStorage.removeItem('form');
+    // dispatch(setLoading(false)); // Force the state to keep the ui available with initial data
   };
 
   return (

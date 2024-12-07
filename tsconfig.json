@@ -42,6 +42,9 @@
       "@/login/*": [
         "./app/login/*"
       ],
+      "@/store/*": [
+        "./app/store/*"
+      ],
     }
   },
   "include": [

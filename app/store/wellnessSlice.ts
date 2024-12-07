@@ -1,6 +1,7 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 interface WellnessState {
+  isLoading: boolean;
   name: string;
   date: string;
   'wake-time': string;
@@ -24,14 +25,15 @@ interface WellnessState {
 }
 
 const initialState: WellnessState = {
+  isLoading: true,
   name: "",
   date: "",
   'wake-time': "",
   qotd: "",
-  hydration: "",
-  'morning-vitality': "",
-  'afternoon-vitality': "",
-  'evening-vitality': "",
+  hydration: "0",
+  'morning-vitality': "0",
+  'afternoon-vitality': "0",
+  'evening-vitality': "0",
   'morning-meals': "",
   'morning-meals-notes': "",
   'morning-meals-cravings': "",
@@ -54,14 +56,17 @@ export const wellnessSlice = createSlice({
       const { name, value } = action.payload;
       (state as any)[name] = value;
     },
-    clearForm: (state) => {
-      Object.assign(state, initialState);
+    clearForm(state) {
+      return { ...initialState, isLoading: false };
     },
     loadSavedForm: (state, action: PayloadAction<WellnessState>) => {
-      Object.assign(state, action.payload);
+      return { ...action.payload, isLoading: false };
+    },
+    setLoading(state, action: PayloadAction<boolean>) {
+      state.isLoading = action.payload;
     },
   },
 });
 
-export const { updateField, clearForm, loadSavedForm } = wellnessSlice.actions;
+export const { updateField, clearForm, loadSavedForm, setLoading } = wellnessSlice.actions;
 export default wellnessSlice.reducer;
