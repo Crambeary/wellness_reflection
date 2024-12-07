@@ -50,11 +50,10 @@ const emojiMap = {
 const VitalitySection: React.FC<VitalitySectionProps> = ({ section, value, onChange }) => {
   const isLoading = useAppSelector((state) => state.wellness.isLoading);
   const [mounted, setMounted] = useState(false);
-  const scale = section === "Hydration" ? "hydration-scale" : `${section.toLowerCase()}-vitality-scale`;
-  const name = section === "Hydration" ? "hydration" : `${section.toLowerCase()}-vitality`;
+  const scale = section === "Hydration" ? "hydration" : `${section.toLowerCase()}-vitality`;
   const [currentValue, setCurrentValue] = React.useState(value);
   const value_key = currentValue as keyof VitalityData;
-  const name_key = name as keyof typeof emojiMap;
+  const scale_key = scale as keyof typeof emojiMap;
 
   useEffect(() => {
     setMounted(true);
@@ -96,9 +95,9 @@ const VitalitySection: React.FC<VitalitySectionProps> = ({ section, value, onCha
   return (
     <div className="input-group mb-3 row">
       <label htmlFor={scale} className="form-label col-auto me-auto">{section}: {currentValue}</label>
-      <span className='col-auto'>{emojiMap[name_key][value_key]}</span>
+      <span className='col-auto'>{emojiMap[scale_key][value_key]}</span>
       <span className='row'>
-        <input type="range" className="form-range col" min="0" max="5" step="1" id={scale} name={name} value={currentValue} onChange={onChange}></input>
+        <input type="range" className="form-range col" min="0" max="5" step="1" id={scale} value={currentValue} onChange={onChange}></input>
       </span>
     </div>
   );

@@ -5,7 +5,7 @@ import React from 'react';
 interface FormInputProps {
   label: string;
   type?: string;
-  name: string;
+  id: string;
   value: string;
   fieldType?: string;
   onChange: (event: React.ChangeEvent<HTMLInputElement | HTMLDivElement> | React.FormEvent<HTMLDivElement>) => void;
@@ -14,21 +14,19 @@ interface FormInputProps {
 const FormInput: React.FC<FormInputProps> = ({ 
   label, 
   type = "text", 
-  name, 
+  id, 
   value, 
   onChange, 
   fieldType = "input"
 }) => {
-  // Function to auto-
   return (
     <div className="input-group mb-3">
-      <label htmlFor={name} className="input-group-text">{label}</label>
+      <label htmlFor={id} className="input-group-text">{label}</label>
       {fieldType === "input" ? (
         <input
           className="form-control"
           type={type}
-          name={name}
-          id={name}
+          id={id}
           value={value}
           onChange={onChange}
           spellCheck={false}
@@ -38,8 +36,8 @@ const FormInput: React.FC<FormInputProps> = ({
           contentEditable="true"
           suppressContentEditableWarning={true}
           className="form-control"
-          id={name}
-          onChange={(e) => {
+          id={id}
+          onBlur={(e) => {
             onChange(e);
           }}
           spellCheck={false}

@@ -52,9 +52,9 @@ export const wellnessSlice = createSlice({
   name: 'wellness',
   initialState,
   reducers: {
-    updateField: (state, action: PayloadAction<{ name: string; value: string }>) => {
-      const { name, value } = action.payload;
-      (state as any)[name] = value;
+    updateField(state, action: PayloadAction<{ id: string; value: string }>) {
+      const { id, value } = action.payload;
+      (state as any)[id] = value;
     },
     clearForm(state) {
       return { ...initialState, isLoading: false };

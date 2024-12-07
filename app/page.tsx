@@ -41,7 +41,7 @@ export default function App() {
       const supabase = createClient();
       const { data: { user } } = await supabase.auth.getUser();
       if (user) {
-        dispatch(updateField({ name: 'name', value: user.user_metadata.full_name }));
+        dispatch(updateField({ id: 'name', value: user.user_metadata.full_name }));
       }
     };
     
@@ -49,10 +49,24 @@ export default function App() {
   }, [dispatch]);
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLDivElement> | React.FormEvent<HTMLDivElement>) => {
-    const target = event.target as HTMLInputElement | HTMLTextAreaElement | HTMLDivElement & { name: string; value: string };
-    const { name, value } = target;
-    dispatch(updateField({ name, value }));
-    localStorage.setItem('form', JSON.stringify({ ...state, [name]: value }));
+    const target = event.target as HTMLInputElement | HTMLTextAreaElement | HTMLDivElement;
+    let value = '';
+    console.log(event);
+    if (target instanceof HTMLInputElement || target instanceof HTMLTextAreaElement) {
+      value = target.value;
+    } else {
+      value = target.textContent || '';
+    }
+    const id = target.id;
+    
+    if (id) {
+      dispatch(updateField({ id, value }));
+      const currentForm = {
+        ...state,
+        [id]: value
+      };
+      localStorage.setItem('form', JSON.stringify(currentForm));
+    }
   };
 
   const handleSubmit = async (e: Event) => {
@@ -79,7 +93,6 @@ export default function App() {
   const clearFormHandler = () => {
     dispatch(clearForm());
     localStorage.removeItem('form');
-    // dispatch(setLoading(false)); // Force the state to keep the ui available with initial data
   };
 
   return (
@@ -95,26 +108,26 @@ export default function App() {
             <form id="form">
               <FormInput
                 label="Name"
-                name="name"
+                id="name"
                 value={state.name}
                 onChange={handleChange}
               />
               <FormInput
                 label="Date"
-                name="date"
+                id="date"
                 type="date"
                 value={state.date}
                 onChange={handleChange}
               />
               <FormInput
                 label="Wake Time"
-                name="wake-time"
+                id="wake-time"
                 value={state['wake-time']}
                 onChange={handleChange}
               />
               <FormInput
                 label="Quote of the Day"
-                name="qotd"
+                id="qotd"
                 value={state.qotd}
                 onChange={handleChange}
                 fieldType="textarea"
@@ -143,6 +156,7 @@ export default function App() {
               <h2>Meals + Supplements + Beverages</h2>
               <MealSection 
                 timeOfDay="Morning" 
+                id="morning-meals"
                 meals={state['morning-meals']}
                 notes={state['morning-meals-notes']}
                 cravings={state['morning-meals-cravings']}
@@ -150,6 +164,7 @@ export default function App() {
               />
               <MealSection 
                 timeOfDay="Afternoon" 
+                id="afternoon-meals"
                 meals={state['afternoon-meals']}
                 notes={state['afternoon-meals-notes']}
                 cravings={state['afternoon-meals-cravings']}
@@ -157,6 +172,7 @@ export default function App() {
               />
               <MealSection 
                 timeOfDay="Evening" 
+                id="evening-meals"
                 meals={state['evening-meals']}
                 notes={state['evening-meals-notes']}
                 cravings={state['evening-meals-cravings']}
