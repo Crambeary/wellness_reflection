@@ -30,7 +30,7 @@
     - [ ] Use floating labels to save space on smaller screens
     - [ ] Redesign to focus on Time of Day for entries to the form
         - [ ] Move Vitality to their respective time of day sections
-    - [ ] Add a Time Picker
+    - [X] Add a Time Picker
     - [x] Add a Date Picker
     - [ ] Update header to use an attractive font
     - [ ] Add a logo
