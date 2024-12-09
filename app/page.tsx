@@ -35,8 +35,6 @@ export default function App() {
       dispatch(setLoading(false));
     }
 
-    form?.addEventListener('submit', handleSubmit);
-
     const fetchUser = async () => {
       const supabase = createClient();
       const { data: { user } } = await supabase.auth.getUser();
@@ -49,7 +47,6 @@ export default function App() {
   }, [dispatch]);
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLDivElement> | React.FormEvent<HTMLDivElement>) => {
-    console.log(event);
     const target = event.target as HTMLInputElement | HTMLTextAreaElement | HTMLDivElement;
     let value: string | number;
     
@@ -81,7 +78,7 @@ export default function App() {
     }
   };
 
-  const handleSubmit = async (e: Event) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (!captureRegion) return;
 
@@ -89,7 +86,8 @@ export default function App() {
       const canvas = await html2canvas(captureRegion);
       const dataUrl = canvas.toDataURL();
       const link = document.createElement('a');
-      link.download = `wellness-reflection-${state.date || 'undated'}.png`;
+      const formattedDate = state.date || 'undated';
+      link.download = `wellness-reflection-${formattedDate}.png`;
       link.href = dataUrl;
       document.body.appendChild(link);
       link.click();
@@ -114,7 +112,7 @@ export default function App() {
             <div className="d-grid gap-2 d-md-block">
               <button data-html2canvas-ignore id="clear" type="button" className="btn btn-primary m-2" onClick={clearFormHandler}>New Form</button>
             </div>
-            <form id="form">
+            <form id="form" onSubmit={handleSubmit}>
               <FormInput
                 label="Name"
                 id="name"
