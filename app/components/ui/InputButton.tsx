@@ -10,6 +10,7 @@ export default function InputButton({
 }) {
     return (
         <button
+            data-html2canvas-ignore
             className={`btn btn-outline-secondary col-1 px-1 py-0 ${className}`}
             onClick={onClick}
             type="button"
