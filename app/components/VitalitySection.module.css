@@ -1,0 +1,43 @@
+/* Customize the slider thumb */
+.slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 48px; /* Larger touch target */
+  height: 48px; /* Larger touch target */
+  background: #0d6efd; /* Bootstrap primary color */
+  /* border-radius: 50%; Make it circular */
+  cursor: pointer;
+  border: 2px solid #fff; /* Optional border for visibility */
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3); /* Subtle shadow for better visibility */
+}
+
+.slider::-moz-range-thumb {
+  width: 48px;
+  height: 48px;
+  background: #0d6efd;
+  /* border-radius: 50%; */
+  cursor: pointer;
+  border: 2px solid #fff;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+}
+
+/* Adjust slider track for better visibility */
+.slider {
+  height: 10px; /* Thicker track */
+  background: #e9ecef; /* Light gray (Bootstrap secondary background color) */
+  border-radius: 5px;
+  outline: none;
+  appearance: none;
+}
+
+.slider::-webkit-slider-runnable-track {
+  height: 10px;
+  background: #e9ecef;
+  border-radius: 5px;
+}
+
+.slider::-moz-range-track {
+  height: 10px;
+  background: #e9ecef;
+  border-radius: 5px;
+}

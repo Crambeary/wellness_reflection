@@ -5,35 +5,35 @@ import { faDroplet } from '@fortawesome/free-solid-svg-icons';
 import { faFire } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useAppSelector } from '@/store/hooks';
-
+import styles from './VitalitySection.module.css';
 
 interface VitalitySectionProps {
   section: string;
-  value: string;
+  value: number;
   onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
 interface VitalityData {
-  "0": JSX.Element;
-  "1": JSX.Element;
-  "2": JSX.Element;
-  "3": JSX.Element;
-  "4": JSX.Element;
-  "5": JSX.Element;
+  0: JSX.Element;
+  1: JSX.Element;
+  2: JSX.Element;
+  3: JSX.Element;
+  4: JSX.Element;
+  5: JSX.Element;
 }
 
 const emojiHydration: VitalityData = {
-  "0": <></>,
-  "1": <><FontAwesomeIcon icon={faDroplet} className="me-1" /></>,
-  "2": <><FontAwesomeIcon icon={faDroplet} className="me-1" /><FontAwesomeIcon icon={faDroplet} className="me-1" /></>,
-  "3": <><FontAwesomeIcon icon={faDroplet} className="me-1" /><FontAwesomeIcon icon={faDroplet} className="me-1" /><FontAwesomeIcon icon={faDroplet} className="me-1" /></>,
-  "4": <><FontAwesomeIcon icon={faDroplet} className="me-1" /><FontAwesomeIcon icon={faDroplet} className="me-1" /><FontAwesomeIcon icon={faDroplet} className="me-1" /><FontAwesomeIcon icon={faDroplet} className="me-1" /></>,
-  "5": <><FontAwesomeIcon icon={faDroplet} className="me-1" /><FontAwesomeIcon icon={faDroplet} className="me-1" /><FontAwesomeIcon icon={faDroplet} className="me-1" /><FontAwesomeIcon icon={faDroplet} className="me-1" /><FontAwesomeIcon icon={faDroplet} className="me-1" /></>
+  0: <></>,
+  1: <><FontAwesomeIcon icon={faDroplet} className="me-1" /></>,
+  2: <><FontAwesomeIcon icon={faDroplet} className="me-1" /><FontAwesomeIcon icon={faDroplet} className="me-1" /></>,
+  3: <><FontAwesomeIcon icon={faDroplet} className="me-1" /><FontAwesomeIcon icon={faDroplet} className="me-1" /><FontAwesomeIcon icon={faDroplet} className="me-1" /></>,
+  4: <><FontAwesomeIcon icon={faDroplet} className="me-1" /><FontAwesomeIcon icon={faDroplet} className="me-1" /><FontAwesomeIcon icon={faDroplet} className="me-1" /><FontAwesomeIcon icon={faDroplet} className="me-1" /></>,
+  5: <><FontAwesomeIcon icon={faDroplet} className="me-1" /><FontAwesomeIcon icon={faDroplet} className="me-1" /><FontAwesomeIcon icon={faDroplet} className="me-1" /><FontAwesomeIcon icon={faDroplet} className="me-1" /><FontAwesomeIcon icon={faDroplet} className="me-1" /></>
 };
 
 const emojiVitality: VitalityData = {
-  "0": <></>,
-  "1": <><FontAwesomeIcon icon={faFire} className="me-1" /></>,
+  0: <></>,
+  1: <><FontAwesomeIcon icon={faFire} className="me-1" /></>,
   "2": <><FontAwesomeIcon icon={faFire} className="me-1" /><FontAwesomeIcon icon={faFire} className="me-1" /></>,
   "3": <><FontAwesomeIcon icon={faFire} className="me-1" /><FontAwesomeIcon icon={faFire} className="me-1" /><FontAwesomeIcon icon={faFire} className="me-1" /></>,
   "4": <><FontAwesomeIcon icon={faFire} className="me-1" /><FontAwesomeIcon icon={faFire} className="me-1" /><FontAwesomeIcon icon={faFire} className="me-1" /><FontAwesomeIcon icon={faFire} className="me-1" /></>,
@@ -97,7 +97,7 @@ const VitalitySection: React.FC<VitalitySectionProps> = ({ section, value, onCha
       <label htmlFor={scale} className="form-label col-auto me-auto">{section}: {currentValue}</label>
       <span className='col-auto'>{emojiMap[scale_key][value_key]}</span>
       <span className='row'>
-        <input type="range" className="form-range col" min="0" max="5" step="1" id={scale} value={currentValue} onChange={onChange}></input>
+        <input type="range" className={`form-range ${styles.slider} col`} min="0" max="5" step="1" id={scale} value={currentValue} onChange={onChange}></input>
       </span>
     </div>
   );

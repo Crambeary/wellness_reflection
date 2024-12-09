@@ -6,10 +6,10 @@ interface WellnessState {
   date: string;
   'wake-time': string;
   qotd: string;
-  hydration: string;
-  'morning-vitality': string;
-  'afternoon-vitality': string;
-  'evening-vitality': string;
+  hydration: number;
+  'morning-vitality': number;
+  'afternoon-vitality': number;
+  'evening-vitality': number;
   'morning-meals': string;
   'morning-meals-notes': string;
   'morning-meals-cravings': string;
@@ -30,10 +30,10 @@ const initialState: WellnessState = {
   date: "",
   'wake-time': "",
   qotd: "",
-  hydration: "0",
-  'morning-vitality': "0",
-  'afternoon-vitality': "0",
-  'evening-vitality': "0",
+  hydration: 0,
+  'morning-vitality': 0,
+  'afternoon-vitality': 0,
+  'evening-vitality': 0,
   'morning-meals': "",
   'morning-meals-notes': "",
   'morning-meals-cravings': "",

@@ -12,7 +12,6 @@
 - GDPR compliance features
 
 ## TODO
-- [ ] Fix state not saving with div editables.
 
 ### Must have before launch
 - [x] Containerize the app
@@ -22,6 +21,7 @@
 - [x] Use Redux for State Management
 - [ ] Update UI to be more human friendly
     - [x] Change the 1/5 numbers to stars to be selected and allow swipe gestures
+    - [ ] Make slider control mobile friendly
     - [ ] Finalize data types for the form
         - [ ] vitality is numerical not string
         - [ ] date is a date not a string

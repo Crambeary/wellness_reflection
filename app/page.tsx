@@ -122,6 +122,7 @@ export default function App() {
               <FormInput
                 label="Wake Time"
                 id="wake-time"
+                type='time'
                 value={state['wake-time']}
                 onChange={handleChange}
               />
