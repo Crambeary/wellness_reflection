@@ -108,7 +108,17 @@ export default function App() {
         <h1 className="text-center">Wellness Reflection</h1>
         <div className="row">
           <div className="col-md-12" id="wellness-form" >
-            <h2>How are you lately{state.name ? `, ${state.name}` : ''}?</h2>
+            <div className='row'>
+              <h2 className='text-muted col-auto'>
+                How are you lately{state.name ? ', ' : ''}
+                {state.name && (
+                  <div id='name' className={`fw-bold col-auto`}>
+                    {state.name ? `${state.name}?` : ''}
+                  </div>
+                )}
+                {state.name ? '' : '?'}
+              </h2>
+            </div>
             <div className="d-grid gap-2 d-md-block">
               <button data-html2canvas-ignore id="clear" type="button" className="btn btn-primary m-2" onClick={clearFormHandler}>New Form</button>
             </div>
