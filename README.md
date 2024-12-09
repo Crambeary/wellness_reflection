@@ -29,6 +29,7 @@
     - [x] Make the input fields larger for touch screens
     - [ ] Redesign to focus on Time of Day for entries to the form
         - [ ] Move Vitality to their respective time of day sections
+        - [ ] Move Activity to their respective time of day sections
     - [X] Add a Time Picker
     - [x] Add a Date Picker
     - [ ] Update header to use an attractive font
