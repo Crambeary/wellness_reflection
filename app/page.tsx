@@ -83,8 +83,7 @@ export default function App() {
 
   const handleSubmit = async (e: Event) => {
     e.preventDefault();
-    if (formIsSubmitted || !captureRegion) return;
-    formIsSubmitted = true;
+    if (!captureRegion) return;
 
     try {
       const canvas = await html2canvas(captureRegion);
@@ -98,8 +97,6 @@ export default function App() {
     } catch (error) {
       console.error('Error generating image:', error);
     }
-
-    formIsSubmitted = false;
   };
 
   const clearFormHandler = () => {
