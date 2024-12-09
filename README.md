@@ -21,11 +21,11 @@
 - [x] Use Redux for State Management
 - [ ] Update UI to be more human friendly
     - [x] Change the 1/5 numbers to stars to be selected and allow swipe gestures
-    - [ ] Make slider control mobile friendly
-    - [ ] Finalize data types for the form
-        - [ ] vitality is numerical not string
-        - [ ] date is a date not a string
-        - [ ] time is a time not a string
+    - [x] Make slider control mobile friendly
+    - [x] Finalize data types for the form
+        - [x] vitality is numerical not string
+        - [x] date is a date not a string
+        - [x] time is a time not a string
     - [ ] Make the input fields larger for touch screens
     - [ ] Use floating labels to save space on smaller screens
     - [ ] Redesign to focus on Time of Day for entries to the form
