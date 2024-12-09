@@ -26,8 +26,7 @@
         - [x] vitality is numerical not string
         - [x] date is a date not a string
         - [x] time is a time not a string
-    - [ ] Make the input fields larger for touch screens
-    - [ ] Use floating labels to save space on smaller screens
+    - [x] Make the input fields larger for touch screens
     - [ ] Redesign to focus on Time of Day for entries to the form
         - [ ] Move Vitality to their respective time of day sections
     - [X] Add a Time Picker

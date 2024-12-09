@@ -20,9 +20,10 @@ const FormInput: React.FC<FormInputProps> = ({
   fieldType = "input"
 }) => {
   return (
-    <div className="input-group mb-3">
-      <label htmlFor={id} className="input-group-text">{label}</label>
+    <>
       {fieldType === "input" ? (
+        <div className="input-group mb-3">
+        <label htmlFor={id} className="input-group-text">{label}</label>
         <input
           className="form-control"
           type={type}
@@ -31,7 +32,10 @@ const FormInput: React.FC<FormInputProps> = ({
           onChange={onChange}
           spellCheck={false}
         />
+        </div>
       ) : (
+        <div className="mb-3">
+        <label htmlFor={id} className="form-label">{label}</label>
         <div 
           contentEditable="true"
           suppressContentEditableWarning={true}
@@ -44,8 +48,9 @@ const FormInput: React.FC<FormInputProps> = ({
         >
           {value}
         </div>
+        </div>
       )}
-    </div>
+    </>
   );
 };
 

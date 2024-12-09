@@ -6,7 +6,6 @@ import { faFire } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useAppSelector } from '@/store/hooks';
 import InputButton from './ui/InputButton';
-import { current } from '@reduxjs/toolkit';
 
 interface VitalitySectionProps {
   section: string;
