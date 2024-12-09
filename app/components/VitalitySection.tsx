@@ -97,7 +97,7 @@ const VitalitySection: React.FC<VitalitySectionProps> = ({ section, value, onCha
       <label htmlFor={scale} className="form-label col-auto me-auto">{section}: {currentValue}</label>
       <span className='col-auto'>{emojiMap[scale_key][value_key]}</span>
       <span className='row'>
-        <input type="range" className={`form-range ${styles.slider} col`} min="0" max="5" step="1" id={scale} value={currentValue} onChange={onChange}></input>
+        <input data-html2canvas-ignore type="range" className={`form-range ${styles.slider} col`} min="0" max="5" step="1" id={scale} value={currentValue} onChange={onChange}></input>
       </span>
     </div>
   );
