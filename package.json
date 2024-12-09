@@ -20,6 +20,7 @@
     "@supabase/supabase-js": "^2.46.2",
     "@types/downloadjs": "^1.4.6",
     "@types/html2canvas": "^1.0.0",
+    "@types/lodash": "^4.17.13",
     "downloadjs": "^1.4.7",
     "html-to-image": "^1.11.11",
     "html2canvas": "^1.4.1",
