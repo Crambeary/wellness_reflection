@@ -1,0 +1,13 @@
+.slider {
+  &::-webkit-slider-thumb {
+    background-clip: padding-box;
+    border: 0.4rem solid rgba(0, 255, 0, 1);
+    transform: scale(1.5);
+  }
+  &::-moz-range-thumb {
+    background-clip: padding-box;
+    border: 0.4rem solid rgba(0, 255, 0, 1);
+    box-sizing: border-box;
+    transform: scale(1.5);
+  }
+}

@@ -49,14 +49,26 @@ export default function App() {
   }, [dispatch]);
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLDivElement> | React.FormEvent<HTMLDivElement>) => {
-    const target = event.target as HTMLInputElement | HTMLTextAreaElement | HTMLDivElement;
-    let value = '';
     console.log(event);
-    if (target instanceof HTMLInputElement || target instanceof HTMLTextAreaElement) {
+    const target = event.target as HTMLInputElement | HTMLTextAreaElement | HTMLDivElement;
+    let value: string | number;
+    
+    // Handle numeric fields
+    if (target instanceof HTMLInputElement && (
+      target.id === 'hydration' ||
+      target.id === 'morning-vitality' ||
+      target.id === 'afternoon-vitality' ||
+      target.id === 'evening-vitality'
+    )) {
+      value = parseInt(target.value) || 0;
+    } 
+    // Handle all other fields as strings
+    else if (target instanceof HTMLInputElement || target instanceof HTMLTextAreaElement) {
       value = target.value;
     } else {
       value = target.textContent || '';
     }
+
     const id = target.id;
     
     if (id) {
