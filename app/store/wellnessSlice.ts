@@ -52,21 +52,52 @@ export const wellnessSlice = createSlice({
   name: 'wellness',
   initialState,
   reducers: {
-    updateField(state, action: PayloadAction<{ id: string; value: string | number }>) {
+    updateField(state, action: PayloadAction<{ id: keyof WellnessState; value: string | number }>) {
       const { id, value } = action.payload;
-      (state as any)[id] = value;
+      (state as any)[id] = value as WellnessState[typeof id];
     },
     clearForm(state) {
       return { ...initialState, isLoading: false };
     },
-    loadSavedForm: (state, action: PayloadAction<WellnessState>) => {
-      return { ...action.payload, isLoading: false };
+    loadSavedForm(state, action: PayloadAction<WellnessState>) {
+      return action.payload;
     },
     setLoading(state, action: PayloadAction<boolean>) {
       state.isLoading = action.payload;
     },
+    incrementField: (state, action: PayloadAction<string>) => {
+      const id = action.payload;
+      if (typeof (state as any)[id] === 'number' && (state as any)[id] < 5) {
+        (state as any)[id] = (state as any)[id] + 1;
+      }
+    },
+    decrementField: (state, action: PayloadAction<string>) => {
+      const id = action.payload;
+      if (typeof (state as any)[id] === 'number' && (state as any)[id] > 0) {
+        (state as any)[id] = (state as any)[id] - 1;
+      }
+    },
+    setFieldValue: (state, action: PayloadAction<{ id: keyof WellnessState | string; value: number | string }>) => {
+      const { id, value } = action.payload;
+      if (typeof (state as any)[id] === 'number') {
+        const numValue = Number(value);
+        if (!isNaN(numValue) && numValue >= 0 && numValue <= 5) {
+          (state as any)[id] = numValue;
+        }
+      } else {
+        (state as any)[id] = value;
+      }
+    }
   },
 });
 
-export const { updateField, clearForm, loadSavedForm, setLoading } = wellnessSlice.actions;
+export const { 
+  updateField, 
+  clearForm, 
+  loadSavedForm, 
+  setLoading,
+  incrementField,
+  decrementField,
+  setFieldValue
+} = wellnessSlice.actions;
 export default wellnessSlice.reducer;

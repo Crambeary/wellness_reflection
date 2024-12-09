@@ -1,10 +1,10 @@
-'use client';
-
-import React, { useEffect, useState } from 'react';
+import React from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { incrementField, decrementField, setFieldValue } from '../store/wellnessSlice';
+import { RootState } from '../store/store';
 import { faDroplet } from '@fortawesome/free-solid-svg-icons';
 import { faFire } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { useAppSelector } from '@/store/hooks';
 import InputButton from './ui/InputButton';
 
 interface VitalitySectionProps {
@@ -48,19 +48,20 @@ const emojiMap = {
 };
 
 const VitalitySection: React.FC<VitalitySectionProps> = ({ section, value, onChange }) => {
-  const isLoading = useAppSelector((state) => state.wellness.isLoading);
-  const [mounted, setMounted] = useState(false);
+  const dispatch = useDispatch();
+  const isLoading = useSelector((state: RootState) => state.wellness.isLoading);
+  const [mounted, setMounted] = React.useState(false);
   const scale = section === "Hydration" ? "hydration" : `${section.toLowerCase()}-vitality`;
-  const [currentValue, setCurrentValue] = useState(value);
+  const [currentValue, setCurrentValue] = React.useState(value);
   const value_key = currentValue as keyof VitalityData;
   const scale_key = scale as keyof typeof emojiMap;
 
-  useEffect(() => {
+  React.useEffect(() => {
     setMounted(true);
     return () => setMounted(false);
   }, []);
 
-  useEffect(() => {
+  React.useEffect(() => {
     setCurrentValue(value);
   }, [value]);
 
@@ -106,12 +107,37 @@ const VitalitySection: React.FC<VitalitySectionProps> = ({ section, value, onCha
 
   return (
     <div className="input-group mb-3 row">
-      <label htmlFor={scale} className="form-label col-auto me-auto">{section}: {currentValue}</label>
+      <label htmlFor={scale} className="form-label col-auto me-auto">
+        {section}: {currentValue}
+      </label>
       <span className='col-auto p-0'>{emojiMap[scale_key][value_key]}</span>
       <span className='row p-0'>
-        <InputButton onClick={handleDecrement} className='mx-3'>-</InputButton>
-        <input data-html2canvas-ignore type="range" className={`form-range slider col`} min="0" max="5" step="1" id={scale} value={currentValue} onChange={onChange}></input>
-        <InputButton onClick={handleIncrement} className='ms-3'>+</InputButton>
+        <InputButton 
+          onClick={() => dispatch(decrementField(scale))} 
+          className='mx-3'
+        >
+          -
+        </InputButton>
+        <input
+          data-html2canvas-ignore
+          type="range"
+          className={`form-range slider col`}
+          min="0"
+          max="5"
+          step="1"
+          id={scale}
+          value={currentValue}
+          onChange={(e) => dispatch(setFieldValue({ 
+            id: scale, 
+            value: parseInt(e.target.value) 
+          }))}
+        />
+        <InputButton 
+          onClick={() => dispatch(incrementField(scale))} 
+          className='ms-3'
+        >
+          +
+        </InputButton>
       </span>
     </div>
   );

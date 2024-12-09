@@ -2,7 +2,7 @@
 export default function InputButton({
     children,
     onClick,
-    className
+    className,
 }: {
     children: React.ReactNode;
     onClick: () => void;

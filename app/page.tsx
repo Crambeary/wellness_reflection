@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useEffect } from 'react'
+import React, { useEffect, useRef } from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faDownload } from '@fortawesome/free-solid-svg-icons'
 import FormInput from './components/FormInput';
@@ -10,7 +10,8 @@ import ActivitySection from './components/ActivitySection';
 import html2canvas from 'html2canvas';
 import { createClient } from '@/utils/supabase/client';
 import { useAppDispatch, useAppSelector } from './store/hooks';
-import { updateField, clearForm, loadSavedForm, setLoading } from './store/wellnessSlice';
+import { updateField, clearForm, loadSavedForm, setLoading, setFieldValue } from './store/wellnessSlice';
+import { debounce } from 'lodash';
 
 let formIsSubmitted = false;
 let submitButton: HTMLElement | null = null;
@@ -18,9 +19,18 @@ let wellnessForm: HTMLElement | null = null;
 let form: HTMLFormElement | null = null;
 let captureRegion: HTMLElement | null = null;
 
+const debouncedSave = debounce((state: any) => {
+  localStorage.setItem('form', JSON.stringify(state));
+}, 500);
+
 export default function App() {
   const dispatch = useAppDispatch();
   const state = useAppSelector((state) => state.wellness);
+  const captureRegionRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    debouncedSave(state);
+  }, [state]);
 
   useEffect(() => {
     submitButton = document.getElementById("submit");
@@ -28,21 +38,20 @@ export default function App() {
     form = document.querySelector('form');
     captureRegion = document.getElementById("region-to-capture");
 
-    let retrievedObject = localStorage.getItem('form');
-    if (retrievedObject) {
-      dispatch(loadSavedForm(JSON.parse(retrievedObject)));
-    } else {
-      dispatch(setLoading(false));
-    }
-
     const fetchUser = async () => {
       const supabase = createClient();
       const { data: { user } } = await supabase.auth.getUser();
       if (user) {
-        dispatch(updateField({ id: 'name', value: user.user_metadata.full_name }));
+        dispatch(setFieldValue({ id: 'name', value: user.user_metadata.full_name || '' }));
       }
-    };
-    
+      dispatch(setLoading(false));
+    }
+
+    const savedForm = localStorage.getItem('form');
+    if (savedForm) {
+      dispatch(loadSavedForm(JSON.parse(savedForm)));
+    }
+
     fetchUser();
   }, [dispatch]);
 
@@ -70,28 +79,21 @@ export default function App() {
     
     if (id) {
       dispatch(updateField({ id, value }));
-      const currentForm = {
-        ...state,
-        [id]: value
-      };
-      localStorage.setItem('form', JSON.stringify(currentForm));
     }
   };
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    if (!captureRegion) return;
+    if (!captureRegionRef.current) return;
 
     try {
-      const canvas = await html2canvas(captureRegion);
+      const canvas = await html2canvas(captureRegionRef.current);
       const dataUrl = canvas.toDataURL();
       const link = document.createElement('a');
       const formattedDate = state.date || 'undated';
       link.download = `wellness-reflection-${formattedDate}.png`;
       link.href = dataUrl;
-      document.body.appendChild(link);
       link.click();
-      document.body.removeChild(link);
     } catch (error) {
       console.error('Error generating image:', error);
     }
@@ -104,7 +106,7 @@ export default function App() {
 
   return (
     <div style={{ position: 'relative', marginBottom: '50vh' }}>
-      <section id="region-to-capture" className="container-sm">
+      <section id="region-to-capture" className="container-sm" ref={captureRegionRef}>
         <h1 className="text-center">Wellness Reflection</h1>
         <div className="row">
           <div className="col-md-12" id="wellness-form" >
