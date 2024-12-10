@@ -13,7 +13,7 @@ export default async function Header() {
         <nav className="navbar navbar-expand-lg bg-body-tertiary">
             <div className="container-fluid">
             <a className="navbar-brand" href="#"style={{ fontFamily: 'Nunito Sans', fontWeight: 'bold'}}>
-                <img src="/logo.svg" alt="Logo" width="48" height="48" />
+                <img src="/logo.png" alt="Logo" width="48" height="48" />
                 Wellness Dashboard
             </a>
             <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
