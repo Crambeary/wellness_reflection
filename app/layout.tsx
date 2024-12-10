@@ -40,7 +40,27 @@ export default function RootLayout({
         <meta name="apple-mobile-web-app-title" content="Elevate" />
         <link rel="manifest" href="/site.webmanifest" />
         <meta property="og:image" content="/opengraph-image.png" />
-      </head>
+        {/* <!-- HTML Meta Tags --> */}
+        <title>Wellness Reflection</title>
+        <meta name="description" content="Track your daily wellness journey"/>
+
+        {/* <!-- Facebook Meta Tags --> */}
+        <meta property="og:url" content="https://wellness-reflection.vercel.app/" />
+        <meta property="og:type" content="website" />
+        <meta property="og:title" content="Wellness Reflection" />
+        <meta property="og:description" content="Track your daily wellness journey" />
+        <meta property="og:image" content="https://wellness-reflection.vercel.app/opengraph-image.png" />
+
+        {/* <!-- Twitter Meta Tags --> */}
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta property="twitter:domain" content="wellness-reflection.vercel.app" />
+        <meta property="twitter:url" content="https://wellness-reflection.vercel.app/" />
+        <meta name="twitter:title" content="Wellness Reflection" />
+        <meta name="twitter:description" content="Track your daily wellness journey" />
+        <meta name="twitter:image" content="https://wellness-reflection.vercel.app/opengraph-image.png" />
+
+        {/* <!-- Meta Tags Generated via https://www.opengraph.xyz --> */}
+        </head>
       <body className={inter.className}>
         <Providers>
           <Header />
