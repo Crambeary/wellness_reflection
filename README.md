@@ -36,9 +36,9 @@
     - [ ] Update header to use an attractive font
     - [ ] Add a logo
     - [ ] Add a favicon
+    - [ ] Add opengraph image
     - [ ] Add a manifest
     - [ ] Add a robots.txt
-    - [ ] Add a sitemap
     - [ ] Add a sitemap generator
 - [ ] Connect form submissions to a database Supabase
     - [ ] Add a database
