@@ -30,11 +30,11 @@
     - [x] Redesign to focus on Time of Day for entries to the form
         - [x] Move Vitality to their respective time of day sections
         - [x] Move Activity to their respective time of day sections
-    - [X] Add a Time Picker
+    - [x] Add a Time Picker
     - [x] Add a Date Picker
-    - [ ] Add last nights bed time input
-    - [ ] Update header to use an attractive font
-    - [ ] Add a logo
+    - [x] Add last nights bed time input
+    - [x] Update header to use an attractive font
+    - [x] Add a logo
     - [ ] Add a favicon
     - [ ] Add opengraph image
     - [ ] Add a manifest
