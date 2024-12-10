@@ -2,9 +2,9 @@ import type { MetadataRoute } from 'next'
  
 export default function manifest(): MetadataRoute.Manifest {
   return {
-    name: '',
-    short_name: 'Next.js App',
-    description: 'Next.js App',
+    name: 'Elevate Wellness',
+    short_name: 'Elevate',
+    description: 'Wellness Tracker and Reflection',
     start_url: '/',
     display: 'standalone',
     background_color: '#fff',
