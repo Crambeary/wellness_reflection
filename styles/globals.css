@@ -11,3 +11,12 @@
     transform: scale(1.5);
   }
 }
+
+
+input[type=range]::-webkit-slider-runnable-track {
+    background: #ddd;
+}
+
+input[type=range]::-moz-range-track {
+    background: #ddd;
+}

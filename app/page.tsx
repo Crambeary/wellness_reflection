@@ -152,68 +152,77 @@ export default function App() {
                 onChange={handleChange}
                 fieldType="textarea"
               />
-              <h2>Vitality Levels</h2>
-              <VitalitySection 
-                section="Hydration" 
-                value={state.hydration} 
-                onChange={handleChange} 
-              />
-              <VitalitySection 
-                section="Morning" 
-                value={state['morning-vitality']} 
-                onChange={handleChange} 
-              />
-              <VitalitySection 
-                section="Afternoon" 
-                value={state['afternoon-vitality']} 
-                onChange={handleChange} 
-              />
-              <VitalitySection 
-                section="Evening" 
-                value={state['evening-vitality']} 
-                onChange={handleChange} 
-              />
-              <h2>Meals + Supplements + Beverages</h2>
-              <MealSection 
-                timeOfDay="Morning" 
-                id="morning-meals"
-                meals={state['morning-meals']}
-                notes={state['morning-meals-notes']}
-                cravings={state['morning-meals-cravings']}
-                onChange={handleChange} 
-              />
-              <MealSection 
-                timeOfDay="Afternoon" 
-                id="afternoon-meals"
-                meals={state['afternoon-meals']}
-                notes={state['afternoon-meals-notes']}
-                cravings={state['afternoon-meals-cravings']}
-                onChange={handleChange} 
-              />
-              <MealSection 
-                timeOfDay="Evening" 
-                id="evening-meals"
-                meals={state['evening-meals']}
-                notes={state['evening-meals-notes']}
-                cravings={state['evening-meals-cravings']}
-                onChange={handleChange} 
-              />
-              <h3>Daily Activities</h3>
-              <ActivitySection 
-                timeOfDay="Morning" 
-                activity={state['morning-activity']}
-                onChange={handleChange} 
-              />
-              <ActivitySection 
-                timeOfDay="Afternoon" 
-                activity={state['afternoon-activity']}
-                onChange={handleChange} 
-              />
-              <ActivitySection 
-                timeOfDay="Evening" 
-                activity={state['evening-activity']}
-                onChange={handleChange} 
-              />
+              <div className='card bg-light p-3 m-1'>
+                <h2>Vitality Levels</h2>
+                <VitalitySection 
+                  section="Hydration" 
+                  value={state.hydration} 
+                  onChange={handleChange} 
+                />
+              </div>
+              <div className='card text-bg-light p-3 m-1'>
+                <h2>Morning</h2>
+                <VitalitySection 
+                  section="Morning" 
+                  value={state['morning-vitality']} 
+                  onChange={handleChange} 
+                />
+                <ActivitySection 
+                  timeOfDay="Morning" 
+                  activity={state['morning-activity']}
+                  onChange={handleChange} 
+                />
+                <MealSection 
+                  timeOfDay="Morning" 
+                  id="morning-meals"
+                  meals={state['morning-meals']}
+                  notes={state['morning-meals-notes']}
+                  cravings={state['morning-meals-cravings']}
+                  onChange={handleChange} 
+                />
+              </div>
+              <div className='card text-bg-light p-3 m-1'>
+                <h2>Afternoon</h2>
+                <VitalitySection 
+                  section="Afternoon" 
+                  value={state['afternoon-vitality']} 
+                  onChange={handleChange} 
+                />
+                <ActivitySection 
+                  timeOfDay="Afternoon" 
+                  activity={state['afternoon-activity']}
+                  onChange={handleChange} 
+                />
+                <MealSection 
+                  timeOfDay="Afternoon" 
+                  id="afternoon-meals"
+                  meals={state['afternoon-meals']}
+                  notes={state['afternoon-meals-notes']}
+                  cravings={state['afternoon-meals-cravings']}
+                  onChange={handleChange} 
+                />
+              </div>
+              <div className='card text-bg-light p-3 m-1'>
+                <h2>Evening</h2>
+                <VitalitySection 
+                  section="Evening" 
+                  value={state['evening-vitality']} 
+                  onChange={handleChange} 
+                />
+                <ActivitySection 
+                  timeOfDay="Evening" 
+                  activity={state['evening-activity']}
+                  onChange={handleChange} 
+                />
+                <MealSection 
+                  timeOfDay="Evening" 
+                  id="evening-meals"
+                  meals={state['evening-meals']}
+                  notes={state['evening-meals-notes']}
+                  cravings={state['evening-meals-cravings']}
+                  onChange={handleChange} 
+                />
+              </div>
               <div className="d-grid gap-2 d-md-block">
                 <button data-html2canvas-ignore id="submit" type="submit" className="btn btn-primary"><FontAwesomeIcon icon={faDownload} /> Generate</button>
               </div>

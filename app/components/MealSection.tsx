@@ -20,14 +20,14 @@ const MealSection: React.FC<MealSectionProps> = ({
   onChange 
 }) => (
   <div>
-    <h3>{timeOfDay} Meals</h3>
+    <h4>{timeOfDay} Meals</h4>
     <FormInput
       label="Meals"
       id={`${timeOfDay.toLowerCase()}-meals`}
       value={meals}
       onChange={onChange}
       fieldType='textarea'
-    />
+    b-3 />
     <FormInput
       label="Notes"
       id={`${timeOfDay.toLowerCase()}-meals-notes`}

@@ -12,7 +12,7 @@ interface ActivitySectionProps {
 const ActivitySection: React.FC<ActivitySectionProps> = ({ timeOfDay, activity, onChange}) => {
   return (
     <FormInput
-      label={`${timeOfDay}`}
+      label={`${timeOfDay} Activity`}
       id={`${timeOfDay.toLowerCase()}-activity`}
       value={activity}
       onChange={onChange}
