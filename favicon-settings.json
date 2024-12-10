@@ -1,0 +1,32 @@
+{
+  "icon": {
+    "desktop": {
+      "regularIconTransformation": {
+        "type": "none"
+      },
+      "darkIconType": "none"
+    },
+    "touch": {
+      "transformation": {
+        "type": "background",
+        "backgroundColor": "#ffffff",
+        "backgroundRadius": 0,
+        "imageScale": 1
+      },
+      "appTitle": "Elevate"
+    },
+    "webAppManifest": {
+      "transformation": {
+        "type": "background",
+        "backgroundColor": "#ffffff",
+        "backgroundRadius": 0,
+        "imageScale": 1
+      },
+      "backgroundColor": "#ffffff",
+      "name": "Elevate Wellness",
+      "shortName": "Elevate",
+      "themeColor": "#ffffff"
+    }
+  },
+  "path": "/"
+}
