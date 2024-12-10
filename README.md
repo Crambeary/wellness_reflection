@@ -37,9 +37,9 @@
     - [x] Add a logo
     - [x] Add a favicon
     - [ ] Add opengraph image
-    - [ ] Add a manifest
-    - [ ] Add a robots.txt
-    - [ ] Add a sitemap generator
+    - [x] Add a manifest
+    - [x] Add a robots.txt
+    - [x] Add a sitemap generator
 - [ ] Connect form submissions to a database Supabase
     - [ ] Add a database
     - [ ] Add a database connection
