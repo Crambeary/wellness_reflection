@@ -35,7 +35,7 @@
     - [x] Add last nights bed time input
     - [x] Update header to use an attractive font
     - [x] Add a logo
-    - [ ] Add a favicon
+    - [x] Add a favicon
     - [ ] Add opengraph image
     - [ ] Add a manifest
     - [ ] Add a robots.txt
