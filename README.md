@@ -40,12 +40,12 @@
     - [x] Add a manifest
     - [x] Add a robots.txt
     - [x] Add a sitemap generator
-- [ ] Connect form submissions to a database Supabase
+- [x] Connect form submissions to a database Supabase
     - [x] Add a database
     - [x] Add a database connection
     - [x] Personal wellness entries linked to user accounts
     - [x] Encrypt data in rest and in route. - default behavior of supabase
-    - [ ] Load todays data from database on page load
+    - [x] Load todays data from database on page load
 - [ ] Improve the UI to work with a database as the source of truth
     - [ ] Move date selection to be a navbar
     - [ ] Move name to be seen at the navbar
