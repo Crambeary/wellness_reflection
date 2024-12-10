@@ -19,7 +19,7 @@
 - [x] Demo mode - no account needed to generate wellness entries
 - [x] Textarea form types overflow in image is working
 - [x] Use Redux for State Management
-- [ ] Update UI to be more human friendly
+- [x] Update UI to be more human friendly
     - [x] Change the 1/5 numbers to stars to be selected and allow swipe gestures
     - [x] Make slider control mobile friendly
     - [x] Finalize data types for the form
@@ -36,7 +36,7 @@
     - [x] Update header to use an attractive font
     - [x] Add a logo
     - [x] Add a favicon
-    - [ ] Add opengraph image
+    - [x] Add opengraph image
     - [x] Add a manifest
     - [x] Add a robots.txt
     - [x] Add a sitemap generator
