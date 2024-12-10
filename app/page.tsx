@@ -2,13 +2,14 @@
 
 import React, { useEffect, useRef } from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faDownload } from '@fortawesome/free-solid-svg-icons'
+import { faDownload, faSave } from '@fortawesome/free-solid-svg-icons'
 import FormInput from './components/FormInput';
 import MealSection from './components/MealSection';
 import VitalitySection from './components/VitalitySection';
 import ActivitySection from './components/ActivitySection';
 import html2canvas from 'html2canvas';
 import { createClient } from '@/utils/supabase/client';
+import { upsertWellnessReflection, getTodaysReflection } from '@/utils/supabase/database';
 import { useAppDispatch, useAppSelector } from './store/hooks';
 import { updateField, clearForm, loadSavedForm, setLoading, setFieldValue } from './store/wellnessSlice';
 import { debounce } from 'lodash';
@@ -43,6 +44,35 @@ export default function App() {
       const { data: { user } } = await supabase.auth.getUser();
       if (user) {
         dispatch(setFieldValue({ id: 'name', value: user.user_metadata.full_name || '' }));
+        
+        // Fetch today's reflection if it exists
+        const { reflection } = await getTodaysReflection(user.id);
+        if (reflection) {
+          // Map the database fields back to the state format
+          const stateData = {
+            date: reflection.date,
+            'wake-time': reflection.wake_time,
+            bedtime: reflection.bedtime,
+            qotd: reflection.quote_of_day,
+            hydration: reflection.hydration,
+            'morning-vitality': reflection.morning_vitality,
+            'afternoon-vitality': reflection.afternoon_vitality,
+            'evening-vitality': reflection.evening_vitality,
+            'morning-meals': reflection.morning_meals,
+            'morning-meals-notes': reflection.morning_meals_notes,
+            'morning-meals-cravings': reflection.morning_meals_cravings,
+            'afternoon-meals': reflection.afternoon_meals,
+            'afternoon-meals-notes': reflection.afternoon_meals_notes,
+            'afternoon-meals-cravings': reflection.afternoon_meals_cravings,
+            'evening-meals': reflection.evening_meals,
+            'evening-meals-notes': reflection.evening_meals_notes,
+            'evening-meals-cravings': reflection.evening_meals_cravings,
+            'morning-activity': reflection.morning_activity,
+            'afternoon-activity': reflection.afternoon_activity,
+            'evening-activity': reflection.evening_activity,
+          };
+          dispatch(loadSavedForm({ ...state, ...stateData, isLoading: false }));
+        }
       }
       dispatch(setLoading(false));
     }
@@ -82,10 +112,8 @@ export default function App() {
     }
   };
 
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
+  const generateImage = async () => {
     if (!captureRegionRef.current) return;
-
     try {
       const canvas = await html2canvas(captureRegionRef.current);
       const dataUrl = canvas.toDataURL();
@@ -96,6 +124,31 @@ export default function App() {
       link.click();
     } catch (error) {
       console.error('Error generating image:', error);
+    }
+  };
+
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+
+    try {
+      const supabase = createClient();
+      const { data: { user } } = await supabase.auth.getUser();
+      
+      if (!user) {
+        console.error('User not authenticated');
+        return;
+      }
+
+      console.log(state);
+      const { reflection, error } = await upsertWellnessReflection(state, user.id);
+      if (error) {
+        console.error('Error saving reflection:', error);
+        return;
+      }
+
+      console.log('Reflection saved successfully:', reflection);
+    } catch (error) {
+      console.error('Error:', error);
     }
   };
 
@@ -231,7 +284,8 @@ export default function App() {
                 />
               </div>
               <div className="d-grid gap-2 d-md-block">
-                <button data-html2canvas-ignore id="submit" type="submit" className="btn btn-primary"><FontAwesomeIcon icon={faDownload} /> Generate</button>
+                <button data-html2canvas-ignore id="export-image" type="button" className="btn btn-primary" onClick={generateImage}><FontAwesomeIcon icon={faDownload} /> Generate</button>
+                <button data-html2canvas-ignore id="save" type="submit" className="btn btn-primary" ><FontAwesomeIcon icon={faSave} /> Save</button>
               </div>
             </form>
           </div>

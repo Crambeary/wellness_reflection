@@ -41,12 +41,17 @@
     - [x] Add a robots.txt
     - [x] Add a sitemap generator
 - [ ] Connect form submissions to a database Supabase
-    - [ ] Add a database
-    - [ ] Add a database connection
-    - [ ] Personal wellness entries linked to user accounts
-    - [ ] Encrypt data in rest and in route.
-    - [ ] Add a database schema
-    - [ ] Data export
+    - [x] Add a database
+    - [x] Add a database connection
+    - [x] Personal wellness entries linked to user accounts
+    - [x] Encrypt data in rest and in route. - default behavior of supabase
+    - [ ] Load todays data from database on page load
+- [ ] Improve the UI to work with a database as the source of truth
+    - [ ] Move date selection to be a navbar
+    - [ ] Move name to be seen at the navbar
+    - [ ] Load todays data from database on authentication
+    - [ ] Change data in the form to come from the db on date change
+    - [ ] Add a data export feature
 - [ ] Create a page for the user to view their wellness entries
     - [ ] Add a date picker
     - [ ] Add a search bar
