@@ -5,6 +5,7 @@ interface WellnessState {
   name: string;
   date: string;
   'wake-time': string;
+  'bedtime': string;
   qotd: string;
   hydration: number;
   'morning-vitality': number;
@@ -29,6 +30,7 @@ const initialState: WellnessState = {
   name: "",
   date: "",
   'wake-time': "",
+  'bedtime': "",
   qotd: "",
   hydration: 0,
   'morning-vitality': 0,

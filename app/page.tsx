@@ -146,6 +146,13 @@ export default function App() {
                 onChange={handleChange}
               />
               <FormInput
+                label="Last Night's Bedtime"
+                id="bedtime"
+                type='time'
+                value={state['bedtime']}
+                onChange={handleChange}
+              />
+              <FormInput
                 label="Quote of the Day"
                 id="qotd"
                 value={state.qotd}
