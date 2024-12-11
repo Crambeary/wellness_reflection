@@ -35,6 +35,7 @@ export async function upsertWellnessReflection(data: any, userId: string) {
       morning_activity: data['morning-activity'],
       afternoon_activity: data['afternoon-activity'],
       evening_activity: data['evening-activity'],
+      last_updated: new Date().toISOString()
     }
 
     let result;

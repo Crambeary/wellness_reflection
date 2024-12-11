@@ -2,6 +2,7 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 interface WellnessState {
   isLoading: boolean;
+  lastUpdated: string;
   name: string;
   date: string;
   'wake-time': string;
@@ -27,6 +28,7 @@ interface WellnessState {
 
 const initialState: WellnessState = {
   isLoading: true,
+  lastUpdated: "",
   name: "",
   date: "",
   'wake-time': "",
@@ -47,7 +49,7 @@ const initialState: WellnessState = {
   'evening-meals-cravings': "",
   'morning-activity': "",
   'afternoon-activity': "",
-  'evening-activity': ""
+  'evening-activity': "",
 };
 
 export const wellnessSlice = createSlice({
@@ -57,12 +59,13 @@ export const wellnessSlice = createSlice({
     updateField(state, action: PayloadAction<{ id: keyof WellnessState | string; value: string | number }>) {
       const { id, value } = action.payload;
       (state as any)[id] = value;
+      state.lastUpdated = new Date().toISOString();
     },
     clearForm(state) {
-      return { ...initialState, isLoading: false };
+      return { ...initialState, isLoading: false, lastUpdated: new Date().toISOString() };
     },
     loadSavedForm(state, action: PayloadAction<WellnessState>) {
-      return action.payload;
+      return { ...action.payload, lastUpdated: new Date().toISOString() };
     },
     setLoading(state, action: PayloadAction<boolean>) {
       state.isLoading = action.payload;
@@ -71,12 +74,14 @@ export const wellnessSlice = createSlice({
       const id = action.payload;
       if (typeof (state as any)[id] === 'number' && (state as any)[id] < 5) {
         (state as any)[id] = (state as any)[id] + 1;
+        state.lastUpdated = new Date().toISOString();
       }
     },
     decrementField: (state, action: PayloadAction<string>) => {
       const id = action.payload;
       if (typeof (state as any)[id] === 'number' && (state as any)[id] > 0) {
         (state as any)[id] = (state as any)[id] - 1;
+        state.lastUpdated = new Date().toISOString();
       }
     },
     setFieldValue: (state, action: PayloadAction<{ id: keyof WellnessState | string; value: number | string }>) => {
@@ -85,9 +90,11 @@ export const wellnessSlice = createSlice({
         const numValue = Number(value);
         if (!isNaN(numValue) && numValue >= 0 && numValue <= 5) {
           (state as any)[id] = numValue;
+          state.lastUpdated = new Date().toISOString();
         }
       } else {
         (state as any)[id] = value;
+        state.lastUpdated = new Date().toISOString();
       }
     }
   },

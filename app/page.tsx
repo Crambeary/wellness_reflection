@@ -39,7 +39,7 @@ export default function App() {
     form = document.querySelector('form');
     captureRegion = document.getElementById("region-to-capture");
 
-    const fetchUser = async () => {
+    const fetchTodaysReflection = async () => {
       const supabase = createClient();
       const { data: { user } } = await supabase.auth.getUser();
       if (user) {
@@ -70,19 +70,34 @@ export default function App() {
             'morning-activity': reflection.morning_activity,
             'afternoon-activity': reflection.afternoon_activity,
             'evening-activity': reflection.evening_activity,
+            lastUpdated: reflection.last_updated,
           };
-          dispatch(loadSavedForm({ ...state, ...stateData, isLoading: false }));
+          return stateData;
         }
       }
       dispatch(setLoading(false));
     }
 
-    const savedForm = localStorage.getItem('form');
-    if (savedForm) {
-      dispatch(loadSavedForm(JSON.parse(savedForm)));
+    const updateForm = async () => {
+      const savedForm = JSON.parse(localStorage.getItem('form') || '{}');
+
+      try {
+        const stateData = await fetchTodaysReflection();
+        const formDate = new Date(savedForm.lastUpdated);
+        const dbDate = new Date(stateData?.lastUpdated || '');
+        console.log('formDate', formDate.toISOString());
+        console.log('dbDate', dbDate.toISOString());
+        if (dbDate > formDate) {
+          dispatch(loadSavedForm({ ...state, ...stateData, isLoading: false }));
+        } else {
+          dispatch(loadSavedForm(savedForm));
+        }
+      } catch (error) {
+        console.error('Error updating form:', error);
+      }
     }
 
-    fetchUser();
+    updateForm();
   }, [dispatch]);
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLDivElement> | React.FormEvent<HTMLDivElement>) => {
