@@ -115,3 +115,22 @@ export async function getTodaysReflection(userId: string) {
     return { reflection: null, error }
   }
 }
+
+export async function getSelectedReflection(userId: string, date: string) {
+  const supabase = createClient()
+  
+  try {
+    const { data: reflection, error } = await supabase
+      .from('wellness_reflections')
+      .select('*')
+      .eq('user_id', userId)
+      .eq('date', date)
+      .single()
+
+    if (error) throw error
+    return { reflection, error: null }
+  } catch (error) {
+    console.error('Error fetching selected reflection:', error)
+    return { reflection: null, error }
+  }
+}
