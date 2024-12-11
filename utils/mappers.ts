@@ -2,6 +2,7 @@
 export const mapReflectionToState = (reflection: any) => {
     const stateData = {
         date: reflection.date,
+        lastUpdated: reflection.last_updated,
         'wake-time': reflection.wake_time,
         bedtime: reflection.bedtime,
         qotd: reflection.quote_of_day,
