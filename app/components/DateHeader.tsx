@@ -1,10 +1,14 @@
 'use client'
 
-import { useAppSelector } from '../store/hooks';
+import { useAppSelector, useAppDispatch } from '@/store/hooks';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowLeft, faArrowRight, faCalendar } from '@fortawesome/free-solid-svg-icons';
+import { setDate } from '@/store/wellnessSlice';
 
 export default function DateHeader() {
+
+    const dispatch = useAppDispatch();
+    const stateDate = useAppSelector((state) => state.wellness.date);
 
     const formatDateInLocalTimezone = (dateString: string) => {
         if (!dateString) {
@@ -20,26 +24,41 @@ export default function DateHeader() {
         const formattedDate = new Intl.DateTimeFormat('en-US', options).format(localDate);
         return formattedDate;
     }
-    const formattedDate = formatDateInLocalTimezone(useAppSelector((state) => state.wellness.date));
+    const formattedDate = formatDateInLocalTimezone(stateDate);
+
+    const prevDay = () => {
+        const date = new Date(stateDate);
+        date.setDate(date.getDate() - 1);
+        return date.toISOString();
+    }
+
+    const nextDay = () => {
+        const date = new Date(stateDate);
+        date.setDate(date.getDate() + 1);
+        if (date > new Date()) {
+            date.setDate(date.getDate() - 1);
+        }
+        return date.toISOString();
+    }
 
     return (
         <nav className="navbar sticky-top bg-primary text-white" data-bs-theme="dark">
             <div className='container-fluid'>
                 <div className='d-flex mx-auto'>
-                    <div className='mx-1'>
+                    <button className='mx-1 btn' onClick={() => dispatch(setDate(prevDay()))}>
                         <FontAwesomeIcon icon={faArrowLeft} />
-                    </div>
-                    <div className='mx-1'>
+                    </button>
+                    <button className='mx-1 btn' onClick={() => dispatch(setDate(new Date().toISOString()))}>
                         <FontAwesomeIcon icon={faCalendar} />
-                    </div>
-                    <div className='mx-1'>
+                    </button>
+                    <div className='mx-1 my-auto'>
                         <h5>
                             {formattedDate}
                         </h5>
                     </div>
-                    <div className='mx-1'>
+                    <button className='mx-1 btn' onClick={() => dispatch(setDate(nextDay()))}>
                         <FontAwesomeIcon icon={faArrowRight} />
-                    </div>
+                    </button>
                 </div>
             </div>
         </nav>
