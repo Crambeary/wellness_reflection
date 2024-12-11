@@ -1,4 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { WritableDraft } from 'immer';
 
 interface WellnessState {
   isLoading: boolean;
@@ -98,6 +99,12 @@ export const wellnessSlice = createSlice({
         (state as any)[id] = value;
         state.lastUpdated = new Date().toISOString();
       }
+    },
+    getDate: (state: WritableDraft<WellnessState>): WellnessState => {
+      // Your logic here
+      // For example, modifying the state directly
+      // state.date = new Date().toISOString();
+      return state; // Ensure it returns the modified state
     }
   },
 });
@@ -109,6 +116,7 @@ export const {
   setLoading,
   incrementField,
   decrementField,
-  setFieldValue
+  setFieldValue,
+  getDate
 } = wellnessSlice.actions;
 export default wellnessSlice.reducer;
