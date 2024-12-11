@@ -52,6 +52,8 @@
     - [ ] Move name to be seen at the navbar
     - [ ] Load todays data from database on authentication
     - [ ] Change data in the form to come from the db on date change
+    - [ ] Modal to confirm leaving the page or changing date with unsaved data - localStorage is newer than db
+        - "You have unsaved data, are you sure you want to load another date?"
     - [ ] Add a data export feature
 - [ ] Reorganize the sections Meals > Cravings > Notes
 - [ ] Remove the "Morning Meals" etc. Sub Headers
