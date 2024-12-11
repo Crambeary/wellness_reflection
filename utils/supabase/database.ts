@@ -2,7 +2,11 @@ import { createClient } from './client'
 
 export async function upsertWellnessReflection(data: any, userId: string) {
   const supabase = createClient()
-  
+
+  const utcDate = new Date(data.date)
+  utcDate.setHours(utcDate.getHours() - utcDate.getTimezoneOffset() / 60)
+  data.date = utcDate.toISOString()
+
   try {
     // Check if a reflection exists for this date and user
     const { data: existingReflection } = await supabase
