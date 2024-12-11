@@ -58,6 +58,8 @@
     - [ ] Load todays data from database on authentication
     - [ ] Change data in the form to come from the db on date change
     - [ ] Add a data export feature
+- [ ] Reorganize the sections Meals > Cravings > Notes
+- [ ] Remove the "Morning Meals" etc. Sub Headers
 - [ ] Create a page for the user to view their wellness entries
     - [ ] Add a date picker
     - [ ] Add a search bar
