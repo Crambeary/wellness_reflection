@@ -75,7 +75,6 @@ export default function App() {
           return stateData;
         }
       }
-      dispatch(setLoading(false));
     }
 
     const updateForm = async () => {
@@ -90,7 +89,7 @@ export default function App() {
         if (dbDate > formDate) {
           dispatch(loadSavedForm({ ...state, ...stateData, isLoading: false }));
         } else {
-          dispatch(loadSavedForm(savedForm));
+          dispatch(loadSavedForm({ ...state, ...savedForm, isLoading: false }));
         }
       } catch (error) {
         console.error('Error updating form:', error);
