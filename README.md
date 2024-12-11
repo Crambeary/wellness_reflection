@@ -47,7 +47,7 @@
     - [x] Encrypt data in rest and in route. - default behavior of supabase
     - [x] Load todays data from database on page load
 - [ ] Improve the UI to work with a database as the source of truth
-    - [ ] Move date selection to be a navbar
+    - [x] Move date selection to be a navbar
         - [ ] Load selected date data from database to the form
     - [ ] Move name to be seen at the navbar
     - [ ] Load todays data from database on authentication
@@ -63,7 +63,18 @@
 - [ ] Create a page for the user to view their wellness entries
     - [ ] Add a date picker
     - [ ] Add a search bar
-
+- [ ] Fix all errors
+    - Idle and console shows this error:
+        ```
+            VM7781:1 
+                Uncaught (in promise) SyntaxError: "[object Object]" is not valid JSON
+                    at JSON.parse (<anonymous>)
+                    at l._storageChangeDispatcher (content.js:2:898238)
+                    at _storageChangeDispatcherCallback (content.js:2:897686)
+                _storageChangeDispatcher	@	content.js:2
+                _storageChangeDispatcherCallback	@	content.js:2
+        ```
+    - [ ] Make sure that all elements do not change from controlled to uncontrolled and vice versa
 ----
 ### Nice to have
 - [ ] Tailwind CSS replacing bootstrap
