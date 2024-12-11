@@ -100,9 +100,6 @@ export const wellnessSlice = createSlice({
         state.lastUpdated = new Date().toISOString();
       }
     },
-    getDate: (state: WritableDraft<WellnessState>): WellnessState => {
-      return state; 
-    },
     setDate: (state: WritableDraft<WellnessState>, action: PayloadAction<string>): WellnessState => {
       state.date = action.payload;
       return state;     
@@ -118,7 +115,6 @@ export const {
   incrementField,
   decrementField,
   setFieldValue,
-  getDate,
   setDate
 } = wellnessSlice.actions;
 export default wellnessSlice.reducer;

@@ -47,13 +47,8 @@
     - [x] Encrypt data in rest and in route. - default behavior of supabase
     - [x] Load todays data from database on page load
 - [ ] Improve the UI to work with a database as the source of truth
-    - [ ] Profile page with edit options
-        - [ ] Add a profile edit page
-        - [ ] Onboard with time zone
-        - [ ] Save prolile user data to database 
-    - [ ] Save date on form in UTC timezone
-    - [ ] Show date on form in local timezone
     - [ ] Move date selection to be a navbar
+        - [ ] Load selected date data from database to the form
     - [ ] Move name to be seen at the navbar
     - [ ] Load todays data from database on authentication
     - [ ] Change data in the form to come from the db on date change
@@ -69,9 +64,10 @@
 
 ----
 ### Nice to have
+- [ ] Tailwind CSS replacing bootstrap
 - [ ] Add a test suite
 - [x] Debounce localStorage updates?
-- [ ] Checkout redux-persist
+- [ ] Change localStorage to redux-persist
 - [ ] Auto-save form data to database every time user is idle for 5 seconds unless there are costs to supabase
 - [ ] Add a motivational quote generator
 - [ ] Setup a11y best practices
@@ -90,13 +86,16 @@
     - [ ] Profile picture
 - [ ] Add a dark mode
 - [ ] Add a theme switcher
-- [ ] Tailwind CSS
 - [ ] Redesign the UI
     - [ ] Research UI that works for similar apps
 - [ ] Automatically ask users if they want to change timezone
 - [ ] Add a privacy policy
 - [ ] Add a terms of service
 - [ ] Add a cookie policy
+- [ ] Profile page with edit options
+    - [ ] Add a profile edit page
+    - [ ] Onboard with time zone
+    - [ ] Save prolile user data to database 
 - [ ] Admin dashboard
     - [ ] Configure roles and permissions
     - [ ] View user data

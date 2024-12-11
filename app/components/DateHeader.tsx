@@ -3,7 +3,8 @@
 import { useAppSelector, useAppDispatch } from '@/store/hooks';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowLeft, faArrowRight, faCalendar } from '@fortawesome/free-solid-svg-icons';
-import { setDate } from '@/store/wellnessSlice';
+import { setDate as setDateAction } from '@/store/wellnessSlice';
+import { setDate } from '@/store/actions'
 
 export default function DateHeader() {
 
@@ -29,7 +30,7 @@ export default function DateHeader() {
     const prevDay = () => {
         const date = new Date(stateDate);
         date.setDate(date.getDate() - 1);
-        return date.toISOString();
+        return date.toISOString().split('T')[0];
     }
 
     const nextDay = () => {
@@ -38,7 +39,7 @@ export default function DateHeader() {
         if (date > new Date()) {
             date.setDate(date.getDate() - 1);
         }
-        return date.toISOString();
+        return date.toISOString().split('T')[0];
     }
 
     return (
