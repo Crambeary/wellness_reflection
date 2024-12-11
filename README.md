@@ -48,7 +48,8 @@
     - [x] Load todays data from database on page load
 - [ ] Improve the UI to work with a database as the source of truth
     - [ ] Profile page with edit options
-        - [ ] Add a profile edit page
+        - [x] Add a profile edit page
+        - [ ] Link to page from navbar
         - [ ] Onboard with time zone
         - [ ] Save prolile user data to database 
     - [ ] Save date on form in UTC timezone

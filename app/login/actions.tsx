@@ -12,7 +12,7 @@ export async function login() {
   const { data, error} = await supabase.auth.signInWithOAuth({
     provider: 'google',
     options: {
-      redirectTo: process.env.NODE_ENV === 'development' ? `${window.location.origin}` : `https://wellness-reflection.vercel.app/auth/callback`,
+      redirectTo: process.env.NODE_ENV === 'development' ? 'http://localhost:3000' : `https://wellness-reflection.vercel.app/auth/callback`,
     },
   })
 
