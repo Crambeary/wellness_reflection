@@ -54,6 +54,8 @@
     - [ ] Change data in the form to come from the db on date change
     - [ ] Modal to confirm leaving the page or changing date with unsaved data - localStorage is newer than db
         - "You have unsaved data, are you sure you want to load another date?"
+    - [ ] Modal to confirm clear form
+        - "You have unsaved data, are you sure you want to clear the form?"
     - [ ] Add a data export feature
 - [ ] Reorganize the sections Meals > Cravings > Notes
 - [ ] Remove the "Morning Meals" etc. Sub Headers
