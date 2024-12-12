@@ -60,6 +60,9 @@
     - [ ] Add a data export feature
 - [ ] Reorganize the sections Meals > Cravings > Notes
 - [ ] Remove the "Morning Meals" etc. Sub Headers
+- [ ] Load today on refresh
+- [ ] Set days loaded to be a URL parameter day=2024-12-12 always sets the date if logged in
+- [ ] Set redirect with wildcards and NEXT_VERCEL env. Check ticktick link
 - [ ] Create a page for the user to view their wellness entries
     - [ ] Add a date picker
     - [ ] Add a search bar
