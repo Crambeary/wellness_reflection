@@ -48,12 +48,12 @@
     - [x] Load todays data from database on page load
 - [ ] Improve the UI to work with a database as the source of truth
     - [x] Move date selection to be a navbar
-        - [ ] Load selected date data from database to the form
+        - [x] Load selected date data from database to the form
+    - [x] Change data in the form to come from the db on date change if it exists
+    - [x] Move name to be seen at the top of the page
     - [ ] Fix switching to a date with no db data
     - [ ] Fix loading the page while the db has no date for "today"
-    - [ ] Move name to be seen at the navbar
     - [ ] Load todays data from database on authentication
-    - [ ] Change data in the form to come from the db on date change
     - [ ] Modal to confirm leaving the page or changing date with unsaved data - localStorage is newer than db
         - "You have unsaved data, are you sure you want to load another date?"
     - [ ] Modal to confirm clear form

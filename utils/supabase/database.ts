@@ -127,7 +127,10 @@ export async function getSelectedReflection(userId: string, date: string) {
       .eq('date', date)
       .single()
 
-    if (error) throw error
+    if (error && error.code !== 'PGRST116') { // PGRST116 is the "no rows returned" error
+      throw error
+    }
+
     return { reflection, error: null }
   } catch (error) {
     console.error('Error fetching selected reflection:', error)

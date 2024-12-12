@@ -201,19 +201,6 @@ export default function App() {
               <button data-html2canvas-ignore id="clear" type="button" className="btn btn-primary m-2" onClick={clearFormHandler}>New Form</button>
             </div>
             <form id="form" onSubmit={handleSubmit}>
-              {/*<FormInput
-                label="Name"
-                id="name"
-                value={state.name}
-                onChange={handleChange}
-              /> */}
-              {/* <FormInput
-                label="Date"
-                id="date"
-                type="date"
-                value={state.date}
-                onChange={handleChange}
-              /> */}
               <FormInput
                 label="Wake Time"
                 id="wake-time"

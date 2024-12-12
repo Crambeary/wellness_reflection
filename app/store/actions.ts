@@ -1,6 +1,6 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { getSelectedReflection } from '@/utils/supabase/database';
-import { loadSavedForm, setLoading } from './wellnessSlice';
+import { loadSavedForm, setLoading, clearForm } from './wellnessSlice';
 import { createClient } from '@/utils/supabase/client';
 import { setDate as setDateAction } from './wellnessSlice';
 import { mapReflectionToState } from '@/utils/mappers';
@@ -15,10 +15,19 @@ export const setDate = createAsyncThunk(
             console.error('User not authenticated');
             return;
         }
+        
         dispatch(setLoading(true));
         const response = await getSelectedReflection(user.id, date);
-        dispatch(setDateAction(response.reflection.date));
-        dispatch(loadSavedForm(mapReflectionToState(response.reflection)));
+        
+        if (response.reflection) {
+            dispatch(setDateAction(response.reflection.date));
+            dispatch(loadSavedForm(mapReflectionToState(response.reflection)));
+        } else {
+            // No reflection found for this date
+            dispatch(setDateAction(date));
+            dispatch(clearForm());
+        }
+        
         dispatch(setLoading(false));
     }
 );
