@@ -66,7 +66,6 @@
     - [ ] Modal to confirm clear form
         - "You have unsaved data, are you sure you want to clear the form?"
     - [ ] Show errors about db in the UI
-        - [ ] Show errors about missing time - zod?
     - [ ] Show success message about saving data
     - [ ] Move the buttons to be spaced evenly at the bottom of the form
 - [ ] Fix all errors

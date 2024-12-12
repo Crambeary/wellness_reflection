@@ -16,8 +16,8 @@ export async function upsertWellnessReflection(data: any, userId: string) {
     const reflectionData = {
       user_id: userId,
       date: data.date,
-      wake_time: data['wake-time'],
-      bedtime: data.bedtime,
+      wake_time: data['wake-time'] === '' ? null : data['wake-time'],
+      bedtime: data.bedtime === '' ? null : data.bedtime,
       quote_of_day: data.qotd,
       hydration: data.hydration,
       morning_vitality: data['morning-vitality'],
