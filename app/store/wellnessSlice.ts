@@ -65,7 +65,7 @@ export const wellnessSlice = createSlice({
       return { ...initialState, isLoading: false, lastUpdated: new Date().toISOString() };
     },
     loadSavedForm(state, action: PayloadAction<WellnessState>) {
-      return { ...action.payload, lastUpdated: new Date().toISOString() };
+      return { ...state, ...action.payload, lastUpdated: new Date().toISOString() };
     },
     setLoading(state, action: PayloadAction<boolean>) {
       state.isLoading = action.payload;

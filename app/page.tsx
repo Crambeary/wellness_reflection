@@ -74,6 +74,8 @@ export default function App() {
           };
           return stateData;
         }
+        console.log('no reflection found');
+        return null;
       }
     }
 
@@ -82,14 +84,35 @@ export default function App() {
 
       try {
         const stateData = await fetchTodaysReflection();
-        const formDate = new Date(savedForm.lastUpdated);
+        console.log('stateData', stateData);
+        const formDate = new Date(savedForm?.lastUpdated || '');
         const dbDate = new Date(stateData?.lastUpdated || '');
-        console.log('formDate', formDate.toISOString());
-        console.log('dbDate', dbDate.toISOString());
-        if (dbDate > formDate) {
+        // if (formDate?.toISOString() !== '') {
+        //   console.log('formDate', formDate.toISOString());
+        //   console.log('dbDate', dbDate.toISOString());
+        // }
+        console.log('formDate', formDate);
+        console.log('dbDate', dbDate);
+        // if local form is blank, load from db
+        // if db is blank, load from local form
+        // if local and db are blank, clear form
+        // if db is newer than local form, load from db
+        // if local form is newer than db, load from local form
+        // if (Object.prototype.toString.call(formDate) === '[object Date]') {
+        //   console.log('formDate is a Date');
+        // }
+        if (isNaN(formDate.getTime()) && stateData) {
           dispatch(loadSavedForm({ ...state, ...stateData, isLoading: false }));
-        } else {
+        } else if (isNaN(dbDate.getTime()) && savedForm) {
           dispatch(loadSavedForm({ ...state, ...savedForm, isLoading: false }));
+        } else if (isNaN(formDate.getTime()) && isNaN(dbDate.getTime())) {
+          dispatch(clearForm());
+        } else if (dbDate > formDate && stateData) {
+          dispatch(loadSavedForm({ ...state, ...stateData, isLoading: false }));
+        } else if (formDate?.toISOString() !== '' && savedForm) {
+          dispatch(loadSavedForm({ ...state, ...savedForm, isLoading: false }));
+        } else {
+          dispatch(clearForm());
         }
       } catch (error) {
         console.error('Error updating form:', error);
