@@ -91,8 +91,6 @@ export default function App() {
         //   console.log('formDate', formDate.toISOString());
         //   console.log('dbDate', dbDate.toISOString());
         // }
-        console.log('formDate', formDate);
-        console.log('dbDate', dbDate);
         // if local form is blank, load from db
         // if db is blank, load from local form
         // if local and db are blank, clear form
@@ -102,16 +100,26 @@ export default function App() {
         //   console.log('formDate is a Date');
         // }
         if (isNaN(formDate.getTime()) && stateData) {
+          console.log('loading from db');
+          console.log('stateData', stateData);
           dispatch(loadSavedForm({ ...state, ...stateData, isLoading: false }));
         } else if (isNaN(dbDate.getTime()) && savedForm) {
+          console.log('loading from local form');
+          console.log('savedForm', savedForm);
           dispatch(loadSavedForm({ ...state, ...savedForm, isLoading: false }));
         } else if (isNaN(formDate.getTime()) && isNaN(dbDate.getTime())) {
+          console.log('clearing form');
           dispatch(clearForm());
         } else if (dbDate > formDate && stateData) {
+          console.log('loading from db');
+          console.log('stateData', stateData);
           dispatch(loadSavedForm({ ...state, ...stateData, isLoading: false }));
         } else if (formDate?.toISOString() !== '' && savedForm) {
+          console.log('loading from local form');
+          console.log('savedForm', savedForm);
           dispatch(loadSavedForm({ ...state, ...savedForm, isLoading: false }));
         } else {
+          console.log('clearing form');
           dispatch(clearForm());
         }
       } catch (error) {
@@ -215,12 +223,12 @@ export default function App() {
               <button data-html2canvas-ignore id="clear" type="button" className="btn btn-primary m-2" onClick={clearFormHandler}>New Form</button>
             </div>
             <form id="form" onSubmit={handleSubmit}>
-              <FormInput
+              {/*<FormInput
                 label="Name"
                 id="name"
                 value={state.name}
                 onChange={handleChange}
-              />
+              /> */}
               <FormInput
                 label="Date"
                 id="date"
