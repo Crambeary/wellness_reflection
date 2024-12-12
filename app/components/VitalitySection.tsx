@@ -116,7 +116,7 @@ const VitalitySection: React.FC<VitalitySectionProps> = ({ section, value, onCha
           max="5"
           step="1"
           id={scale}
-          value={storeValue}
+          value={storeValue.toString()}
           onChange={(e) => {
             const newValue = parseInt(e.target.value);
             dispatch(setFieldValue({ 

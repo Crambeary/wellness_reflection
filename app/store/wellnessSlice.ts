@@ -1,7 +1,7 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { WritableDraft } from 'immer';
 
-interface WellnessState {
+export interface WellnessState {
   isLoading: boolean;
   lastUpdated: string;
   name: string;

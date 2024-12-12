@@ -1,7 +1,11 @@
-export const mapReflectionToState = (reflection: any) => {
-    const stateData = {
-        date: reflection.date,
+import { WellnessState } from '@/store/wellnessSlice';
+
+export const mapReflectionToState = (reflection: any): WellnessState => {
+    const stateData: WellnessState = {
+        isLoading: false,
         lastUpdated: reflection.last_updated,
+        name: reflection.name,
+        date: reflection.date,
         'wake-time': reflection.wake_time,
         bedtime: reflection.bedtime,
         qotd: reflection.quote_of_day,
@@ -22,12 +26,5 @@ export const mapReflectionToState = (reflection: any) => {
         'afternoon-activity': reflection.afternoon_activity,
         'evening-activity': reflection.evening_activity,
     };
-    
-    // Add debug logging
-    console.log("Mapping reflection to state:", {
-        original: reflection,
-        mapped: stateData
-    });
-    
     return stateData;
 }

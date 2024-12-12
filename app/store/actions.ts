@@ -15,14 +15,10 @@ export const setDate = createAsyncThunk(
             console.error('User not authenticated');
             return;
         }
-        console.log('Selected date:', date);
-        // Perform the database call here
         dispatch(setLoading(true));
         const response = await getSelectedReflection(user.id, date);
-        console.log(response);
         dispatch(setDateAction(response.reflection.date));
         dispatch(loadSavedForm(mapReflectionToState(response.reflection)));
         dispatch(setLoading(false));
-        // Dispatch any additional actions if necessary
     }
 );
