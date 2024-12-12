@@ -49,6 +49,8 @@
 - [ ] Improve the UI to work with a database as the source of truth
     - [x] Move date selection to be a navbar
         - [ ] Load selected date data from database to the form
+    - [ ] Fix switching to a date with no db data
+    - [ ] Fix loading the page while the db has no date for "today"
     - [ ] Move name to be seen at the navbar
     - [ ] Load todays data from database on authentication
     - [ ] Change data in the form to come from the db on date change
