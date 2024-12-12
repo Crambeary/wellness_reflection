@@ -52,13 +52,15 @@
     - [x] Change data in the form to come from the db on date change if it exists
     - [x] Move name to be seen at the top of the page
     - [x] Fix switching to a date with no db data
-    - [ ] Fix loading the page while the db has no date for "today"
-    - [ ] Load todays data from database on authentication
+    - [x] Fix loading the page while the db has no date for "today"
+    - [x] Load todays data from database on authentication
     - [ ] Modal to confirm leaving the page or changing date with unsaved data - localStorage is newer than db
         - "You have unsaved data, are you sure you want to load another date?"
     - [ ] Modal to confirm clear form
         - "You have unsaved data, are you sure you want to clear the form?"
-    - [ ] Add a data export feature
+    - [ ] Show errors about db in the UI
+        - [ ] Show errors about missing time - zod?
+    - [ ] Show success message about saving data
 - [ ] Reorganize the sections Meals > Cravings > Notes
 - [ ] Remove the "Morning Meals" etc. Sub Headers
 - [ ] Load today on refresh
@@ -87,6 +89,7 @@
 - [ ] Change localStorage to redux-persist
 - [ ] Auto-save form data to database every time user is idle for 5 seconds unless there are costs to supabase
 - [ ] Add a motivational quote generator
+- [ ] Add a data export feature
 - [ ] Setup a11y best practices
     - [ ] ARIA labels
     - [ ] Keyboard navigation
