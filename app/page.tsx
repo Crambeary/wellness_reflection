@@ -166,11 +166,10 @@ export default function App() {
   return (
     <div style={{ position: 'relative', marginBottom: '50vh'}}>
       <section id="region-to-capture" className="container-sm" ref={captureRegionRef}>
-        <h1 className="text-center" style={{ fontFamily: 'Nunito Sans', fontWeight: 'bold'}}>Wellness Reflection</h1>
         <div className="row">
           <div className="col-md-12" id="wellness-form" >
             <div className='row'>
-              <h2 className='text-muted col-auto'style={{ fontFamily: 'Nunito Sans', fontWeight: 'bold'}}>
+              <h2 className='text-muted col-auto my-3'style={{ fontFamily: 'Nunito Sans', fontWeight: 'bold'}}>
                 How are you lately{state.name ? ', ' : ''}
                 {state.name && (
                   <div id='name' className={`fw-bold col-auto`}>
