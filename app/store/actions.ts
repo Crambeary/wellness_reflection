@@ -3,6 +3,7 @@ import { getSelectedReflection } from '@/utils/supabase/database';
 import { loadSavedForm, setLoading } from './wellnessSlice';
 import { createClient } from '@/utils/supabase/client';
 import { setDate as setDateAction } from './wellnessSlice';
+import { mapReflectionToState } from '@/utils/mappers';
 
 export const setDate = createAsyncThunk(
     'wellness/setDate',
@@ -20,7 +21,7 @@ export const setDate = createAsyncThunk(
         const response = await getSelectedReflection(user.id, date);
         console.log(response);
         dispatch(setDateAction(response.reflection.date));
-        dispatch(loadSavedForm(response.reflection));
+        dispatch(loadSavedForm(mapReflectionToState(response.reflection)));
         dispatch(setLoading(false));
         // Dispatch any additional actions if necessary
     }

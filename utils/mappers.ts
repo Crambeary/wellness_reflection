@@ -1,4 +1,3 @@
-
 export const mapReflectionToState = (reflection: any) => {
     const stateData = {
         date: reflection.date,
@@ -22,6 +21,13 @@ export const mapReflectionToState = (reflection: any) => {
         'morning-activity': reflection.morning_activity,
         'afternoon-activity': reflection.afternoon_activity,
         'evening-activity': reflection.evening_activity,
-        }
-        return stateData;
-    }
+    };
+    
+    // Add debug logging
+    console.log("Mapping reflection to state:", {
+        original: reflection,
+        mapped: stateData
+    });
+    
+    return stateData;
+}

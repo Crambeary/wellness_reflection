@@ -9,7 +9,10 @@ import { setDate } from '@/store/actions'
 export default function DateHeader() {
 
     const dispatch = useAppDispatch();
-    const stateDate = useAppSelector((state) => state.wellness.date);
+    const stateDate = useAppSelector((state) => {
+        console.log("DateHeader state:", state.wellness);
+        return state.wellness.date;
+    });
 
     const formatDateInLocalTimezone = (dateString: string) => {
         if (!dateString) {
@@ -46,7 +49,11 @@ export default function DateHeader() {
         <nav className="navbar sticky-top bg-primary text-white" data-bs-theme="dark">
             <div className='container-fluid'>
                 <div className='d-flex mx-auto'>
-                    <button className='mx-1 btn' onClick={() => dispatch(setDate(prevDay()))}>
+                    <button className='mx-1 btn' onClick={() => {
+                        const prev = prevDay();
+                        console.log("Navigating to previous day:", prev);
+                        dispatch(setDate(prev));
+                    }}>
                         <FontAwesomeIcon icon={faArrowLeft} />
                     </button>
                     <button className='mx-1 btn' onClick={() => dispatch(setDate(new Date().toISOString()))}>
