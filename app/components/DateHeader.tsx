@@ -3,7 +3,6 @@
 import { useAppSelector, useAppDispatch } from '@/store/hooks';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowLeft, faArrowRight, faCalendar } from '@fortawesome/free-solid-svg-icons';
-import { setDate as setDateAction } from '@/store/wellnessSlice';
 import { setDate } from '@/store/actions'
 
 export default function DateHeader() {
@@ -59,7 +58,7 @@ export default function DateHeader() {
                     <button className='mx-1 btn' onClick={() => dispatch(setDate(new Date().toISOString()))}>
                         <FontAwesomeIcon icon={faCalendar} />
                     </button>
-                    <div className='mx-1 my-auto'>
+                    <div className='mx-1 mt-1'>
                         <h5>
                             {formattedDate}
                         </h5>

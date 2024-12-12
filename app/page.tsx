@@ -207,13 +207,13 @@ export default function App() {
                 value={state.name}
                 onChange={handleChange}
               /> */}
-              <FormInput
+              {/* <FormInput
                 label="Date"
                 id="date"
                 type="date"
                 value={state.date}
                 onChange={handleChange}
-              />
+              /> */}
               <FormInput
                 label="Wake Time"
                 id="wake-time"
