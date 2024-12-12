@@ -83,6 +83,7 @@ export default function App() {
         } else {
           console.log('clearing form 2');
           dispatch(clearForm());
+          dispatch(setDate(new Date().toISOString()));
         }
       } catch (error) {
         console.error('Error updating form:', error);
