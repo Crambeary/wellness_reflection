@@ -1,6 +1,7 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { WritableDraft } from 'immer';
 
-interface WellnessState {
+export interface WellnessState {
   isLoading: boolean;
   lastUpdated: string;
   name: string;
@@ -63,7 +64,8 @@ export const wellnessSlice = createSlice({
     },
     clearForm(state) {
       const name = state.name;
-      return { ...initialState, isLoading: false, lastUpdated: new Date().toISOString(), name: name };
+      const date = state.date;
+      return { ...initialState, isLoading: false, lastUpdated: new Date().toISOString(), name: name, date: date };
     },
     loadSavedForm(state, action: PayloadAction<WellnessState>) {
       const name = state.name;
@@ -98,7 +100,11 @@ export const wellnessSlice = createSlice({
         (state as any)[id] = value;
         state.lastUpdated = new Date().toISOString();
       }
-    }
+    },
+    setDate: (state: WritableDraft<WellnessState>, action: PayloadAction<string>): WellnessState => {
+      state.date = action.payload;
+      return state;     
+    },
   },
 });
 
@@ -109,6 +115,7 @@ export const {
   setLoading,
   incrementField,
   decrementField,
-  setFieldValue
+  setFieldValue,
+  setDate
 } = wellnessSlice.actions;
 export default wellnessSlice.reducer;

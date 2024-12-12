@@ -11,8 +11,9 @@ import html2canvas from 'html2canvas';
 import { createClient } from '@/utils/supabase/client';
 import { upsertWellnessReflection, getTodaysReflection } from '@/utils/supabase/database';
 import { useAppDispatch, useAppSelector } from './store/hooks';
-import { updateField, clearForm, loadSavedForm, setLoading, setFieldValue } from './store/wellnessSlice';
+import { updateField, clearForm, loadSavedForm, setLoading, setFieldValue, setDate } from './store/wellnessSlice';
 import { debounce } from 'lodash';
+import { mapReflectionToState } from '@/utils/mappers';
 
 let formIsSubmitted = false;
 let submitButton: HTMLElement | null = null;
@@ -48,30 +49,7 @@ export default function App() {
         // Fetch today's reflection if it exists
         const { reflection } = await getTodaysReflection(user.id);
         if (reflection) {
-          // Map the database fields back to the state format
-          const stateData = {
-            date: reflection.date,
-            'wake-time': reflection.wake_time,
-            bedtime: reflection.bedtime,
-            qotd: reflection.quote_of_day,
-            hydration: reflection.hydration,
-            'morning-vitality': reflection.morning_vitality,
-            'afternoon-vitality': reflection.afternoon_vitality,
-            'evening-vitality': reflection.evening_vitality,
-            'morning-meals': reflection.morning_meals,
-            'morning-meals-notes': reflection.morning_meals_notes,
-            'morning-meals-cravings': reflection.morning_meals_cravings,
-            'afternoon-meals': reflection.afternoon_meals,
-            'afternoon-meals-notes': reflection.afternoon_meals_notes,
-            'afternoon-meals-cravings': reflection.afternoon_meals_cravings,
-            'evening-meals': reflection.evening_meals,
-            'evening-meals-notes': reflection.evening_meals_notes,
-            'evening-meals-cravings': reflection.evening_meals_cravings,
-            'morning-activity': reflection.morning_activity,
-            'afternoon-activity': reflection.afternoon_activity,
-            'evening-activity': reflection.evening_activity,
-            lastUpdated: reflection.last_updated,
-          };
+          const stateData = mapReflectionToState(reflection);
           return stateData;
         }
         console.log('no reflection found');
@@ -84,43 +62,28 @@ export default function App() {
 
       try {
         const stateData = await fetchTodaysReflection();
-        console.log('stateData', stateData);
         const formDate = new Date(savedForm?.lastUpdated || '');
         const dbDate = new Date(stateData?.lastUpdated || '');
-        // if (formDate?.toISOString() !== '') {
-        //   console.log('formDate', formDate.toISOString());
-        //   console.log('dbDate', dbDate.toISOString());
-        // }
-        // if local form is blank, load from db
-        // if db is blank, load from local form
-        // if local and db are blank, clear form
-        // if db is newer than local form, load from db
-        // if local form is newer than db, load from local form
-        // if (Object.prototype.toString.call(formDate) === '[object Date]') {
-        //   console.log('formDate is a Date');
-        // }
         if (isNaN(formDate.getTime()) && stateData) {
           console.log('loading from db');
-          console.log('stateData', stateData);
           dispatch(loadSavedForm({ ...state, ...stateData, isLoading: false }));
-        } else if (isNaN(dbDate.getTime()) && savedForm) {
+        } else if (isNaN(dbDate.getTime()) && savedForm.length > 0) {
           console.log('loading from local form');
-          console.log('savedForm', savedForm);
           dispatch(loadSavedForm({ ...state, ...savedForm, isLoading: false }));
         } else if (isNaN(formDate.getTime()) && isNaN(dbDate.getTime())) {
-          console.log('clearing form');
+          console.log('clearing form 1');
           dispatch(clearForm());
+          dispatch(setDate(new Date().toISOString()));
         } else if (dbDate > formDate && stateData) {
           console.log('loading from db');
-          console.log('stateData', stateData);
           dispatch(loadSavedForm({ ...state, ...stateData, isLoading: false }));
-        } else if (formDate?.toISOString() !== '' && savedForm) {
-          console.log('loading from local form');
-          console.log('savedForm', savedForm);
+        } else if (formDate?.toISOString() !== '' && savedForm.length > 0) {
+          console.log('loading from local form 2');
           dispatch(loadSavedForm({ ...state, ...savedForm, isLoading: false }));
         } else {
-          console.log('clearing form');
+          console.log('clearing form 2');
           dispatch(clearForm());
+          dispatch(setDate(new Date().toISOString()));
         }
       } catch (error) {
         console.error('Error updating form:', error);
@@ -184,14 +147,12 @@ export default function App() {
         return;
       }
 
-      console.log(state);
       const { reflection, error } = await upsertWellnessReflection(state, user.id);
       if (error) {
         console.error('Error saving reflection:', error);
         return;
       }
 
-      console.log('Reflection saved successfully:', reflection);
     } catch (error) {
       console.error('Error:', error);
     }
@@ -223,19 +184,6 @@ export default function App() {
               <button data-html2canvas-ignore id="clear" type="button" className="btn btn-primary m-2" onClick={clearFormHandler}>New Form</button>
             </div>
             <form id="form" onSubmit={handleSubmit}>
-              {/*<FormInput
-                label="Name"
-                id="name"
-                value={state.name}
-                onChange={handleChange}
-              /> */}
-              <FormInput
-                label="Date"
-                id="date"
-                type="date"
-                value={state.date}
-                onChange={handleChange}
-              />
               <FormInput
                 label="Wake Time"
                 id="wake-time"

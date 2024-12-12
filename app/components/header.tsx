@@ -12,7 +12,7 @@ export default async function Header() {
         <>
         <nav className="navbar navbar-expand-lg bg-body-tertiary">
             <div className="container-fluid">
-            <a className="navbar-brand" href="#"style={{ fontFamily: 'Nunito Sans', fontWeight: 'bold'}}>
+            <a className="navbar-brand" href="/"style={{ fontFamily: 'Nunito Sans', fontWeight: 'bold'}}>
                 <img src="/logo.png" alt="Logo" width="48" height="48" />
                 Wellness Dashboard
             </a>

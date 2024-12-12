@@ -50,34 +50,17 @@ const emojiMap = {
 const VitalitySection: React.FC<VitalitySectionProps> = ({ section, value, onChange }) => {
   const dispatch = useDispatch();
   const isLoading = useSelector((state: RootState) => state.wellness.isLoading);
-  const [mounted, setMounted] = React.useState(false);
+  
+  const storeValue = useSelector((state: RootState) => {
+    const scale = section === "Hydration" ? "hydration" : `${section.toLowerCase()}-vitality`;
+    return state.wellness[scale as keyof typeof state.wellness];
+  });
+  
   const scale = section === "Hydration" ? "hydration" : `${section.toLowerCase()}-vitality`;
-  const [currentValue, setCurrentValue] = React.useState(value);
-  const value_key = currentValue as keyof VitalityData;
+  const value_key = storeValue as keyof VitalityData;
   const scale_key = scale as keyof typeof emojiMap;
 
-  React.useEffect(() => {
-    setMounted(true);
-    return () => setMounted(false);
-  }, []);
-
-  React.useEffect(() => {
-    setCurrentValue(value);
-  }, [value]);
-
-  const handleIncrement = () => {
-    if (currentValue < 5) {
-      setCurrentValue(currentValue + 1);
-    }
-  };
-
-  const handleDecrement = () => {
-    if (currentValue > 0) {
-      setCurrentValue(currentValue - 1);
-    }
-  };
-
-  if (!mounted || isLoading) {
+  if (isLoading) {
     return (
       <div className="input-group mb-3 row">
         <div className="col-auto me-auto">
@@ -108,7 +91,7 @@ const VitalitySection: React.FC<VitalitySectionProps> = ({ section, value, onCha
   return (
     <div className="input-group mb-3 row">
       <label htmlFor={scale} className="form-label col-auto me-auto">
-        {section} {section === "Hydration" ? "Level" : "Vitality"}: {currentValue}
+        {section} {section === "Hydration" ? "Level" : "Vitality"}: {storeValue}
       </label>
       <span className='col-auto p-0'>{emojiMap[scale_key][value_key]}</span>
       <span className='row p-0'>
@@ -126,11 +109,14 @@ const VitalitySection: React.FC<VitalitySectionProps> = ({ section, value, onCha
           max="5"
           step="1"
           id={scale}
-          value={currentValue}
-          onChange={(e) => dispatch(setFieldValue({ 
-            id: scale, 
-            value: parseInt(e.target.value) 
-          }))}
+          value={storeValue.toString()}
+          onChange={(e) => {
+            const newValue = parseInt(e.target.value);
+            dispatch(setFieldValue({ 
+              id: scale, 
+              value: newValue 
+            }));
+          }}
         />
         <InputButton 
           onClick={() => dispatch(incrementField(scale))} 

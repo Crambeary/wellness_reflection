@@ -46,3 +46,6 @@ bun.lockb
 *.njsproj
 *.sln
 *.sw?
+
+# Ignore swap files 
+*~

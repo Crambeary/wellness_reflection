@@ -47,17 +47,20 @@
     - [x] Encrypt data in rest and in route. - default behavior of supabase
     - [x] Load todays data from database on page load
 - [ ] Improve the UI to work with a database as the source of truth
-    - [ ] Profile page with edit options
-        - [ ] Add a profile edit page
-        - [ ] Onboard with time zone
-        - [ ] Save prolile user data to database 
-    - [ ] Save date on form in UTC timezone
-    - [ ] Show date on form in local timezone
-    - [ ] Move date selection to be a navbar
-    - [ ] Move name to be seen at the navbar
-    - [ ] Load todays data from database on authentication
-    - [ ] Change data in the form to come from the db on date change
-    - [ ] Add a data export feature
+    - [x] Move date selection to be a navbar
+        - [x] Load selected date data from database to the form
+    - [x] Change data in the form to come from the db on date change if it exists
+    - [x] Move name to be seen at the top of the page
+    - [x] Fix switching to a date with no db data
+    - [x] Fix loading the page while the db has no date for "today"
+    - [x] Load todays data from database on authentication
+    - [ ] Modal to confirm leaving the page or changing date with unsaved data - localStorage is newer than db
+        - "You have unsaved data, are you sure you want to load another date?"
+    - [ ] Modal to confirm clear form
+        - "You have unsaved data, are you sure you want to clear the form?"
+    - [ ] Show errors about db in the UI
+        - [ ] Show errors about missing time - zod?
+    - [ ] Show success message about saving data
 - [ ] Reorganize the sections Meals > Cravings > Notes
 - [ ] Remove the "Morning Meals" etc. Sub Headers
 - [ ] Load today on refresh
@@ -66,14 +69,27 @@
 - [ ] Create a page for the user to view their wellness entries
     - [ ] Add a date picker
     - [ ] Add a search bar
-
+- [ ] Fix all errors
+    - Idle and console shows this error:
+        ```
+            VM7781:1 
+                Uncaught (in promise) SyntaxError: "[object Object]" is not valid JSON
+                    at JSON.parse (<anonymous>)
+                    at l._storageChangeDispatcher (content.js:2:898238)
+                    at _storageChangeDispatcherCallback (content.js:2:897686)
+                _storageChangeDispatcher	@	content.js:2
+                _storageChangeDispatcherCallback	@	content.js:2
+        ```
+    - [ ] Make sure that all elements do not change from controlled to uncontrolled and vice versa
 ----
 ### Nice to have
+- [ ] Tailwind CSS replacing bootstrap
 - [ ] Add a test suite
 - [x] Debounce localStorage updates?
-- [ ] Checkout redux-persist
+- [ ] Change localStorage to redux-persist
 - [ ] Auto-save form data to database every time user is idle for 5 seconds unless there are costs to supabase
 - [ ] Add a motivational quote generator
+- [ ] Add a data export feature
 - [ ] Setup a11y best practices
     - [ ] ARIA labels
     - [ ] Keyboard navigation
@@ -90,13 +106,16 @@
     - [ ] Profile picture
 - [ ] Add a dark mode
 - [ ] Add a theme switcher
-- [ ] Tailwind CSS
 - [ ] Redesign the UI
     - [ ] Research UI that works for similar apps
 - [ ] Automatically ask users if they want to change timezone
 - [ ] Add a privacy policy
 - [ ] Add a terms of service
 - [ ] Add a cookie policy
+- [ ] Profile page with edit options
+    - [ ] Add a profile edit page
+    - [ ] Onboard with time zone
+    - [ ] Save prolile user data to database 
 - [ ] Admin dashboard
     - [ ] Configure roles and permissions
     - [ ] View user data
