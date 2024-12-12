@@ -11,7 +11,7 @@ import html2canvas from 'html2canvas';
 import { createClient } from '@/utils/supabase/client';
 import { upsertWellnessReflection, getTodaysReflection } from '@/utils/supabase/database';
 import { useAppDispatch, useAppSelector } from './store/hooks';
-import { updateField, clearForm, loadSavedForm, setLoading, setFieldValue } from './store/wellnessSlice';
+import { updateField, clearForm, loadSavedForm, setLoading, setFieldValue, setDate } from './store/wellnessSlice';
 import { debounce } from 'lodash';
 import { mapReflectionToState } from '@/utils/mappers';
 
@@ -67,20 +67,21 @@ export default function App() {
         if (isNaN(formDate.getTime()) && stateData) {
           console.log('loading from db');
           dispatch(loadSavedForm({ ...state, ...stateData, isLoading: false }));
-        } else if (isNaN(dbDate.getTime()) && savedForm) {
+        } else if (isNaN(dbDate.getTime()) && savedForm.length > 0) {
           console.log('loading from local form');
           dispatch(loadSavedForm({ ...state, ...savedForm, isLoading: false }));
         } else if (isNaN(formDate.getTime()) && isNaN(dbDate.getTime())) {
-          console.log('clearing form');
+          console.log('clearing form 1');
           dispatch(clearForm());
+          dispatch(setDate(new Date().toISOString()));
         } else if (dbDate > formDate && stateData) {
           console.log('loading from db');
           dispatch(loadSavedForm({ ...state, ...stateData, isLoading: false }));
-        } else if (formDate?.toISOString() !== '' && savedForm) {
-          console.log('loading from local form');
+        } else if (formDate?.toISOString() !== '' && savedForm.length > 0) {
+          console.log('loading from local form 2');
           dispatch(loadSavedForm({ ...state, ...savedForm, isLoading: false }));
         } else {
-          console.log('clearing form');
+          console.log('clearing form 2');
           dispatch(clearForm());
         }
       } catch (error) {
