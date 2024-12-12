@@ -51,7 +51,7 @@
         - [x] Load selected date data from database to the form
     - [x] Change data in the form to come from the db on date change if it exists
     - [x] Move name to be seen at the top of the page
-    - [ ] Fix switching to a date with no db data
+    - [x] Fix switching to a date with no db data
     - [ ] Fix loading the page while the db has no date for "today"
     - [ ] Load todays data from database on authentication
     - [ ] Modal to confirm leaving the page or changing date with unsaved data - localStorage is newer than db

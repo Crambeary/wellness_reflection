@@ -56,13 +56,6 @@ const VitalitySection: React.FC<VitalitySectionProps> = ({ section, value, onCha
     return state.wellness[scale as keyof typeof state.wellness];
   });
   
-  console.log(`VitalitySection ${section}:`, { 
-    section, 
-    propsValue: value,
-    storeValue,
-    scale: section === "Hydration" ? "hydration" : `${section.toLowerCase()}-vitality` 
-  });
-
   const scale = section === "Hydration" ? "hydration" : `${section.toLowerCase()}-vitality`;
   const value_key = storeValue as keyof VitalityData;
   const scale_key = scale as keyof typeof emojiMap;

@@ -8,7 +8,6 @@ import { mapReflectionToState } from '@/utils/mappers';
 export const setDate = createAsyncThunk(
     'wellness/setDate',
     async (date: string, { dispatch }) => { 
-        console.log(date);
         const supabase = createClient();
         const { data: { user } } = await supabase.auth.getUser();
         if (!user) {

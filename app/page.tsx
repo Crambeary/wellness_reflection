@@ -62,39 +62,22 @@ export default function App() {
 
       try {
         const stateData = await fetchTodaysReflection();
-        console.log('stateData', stateData);
         const formDate = new Date(savedForm?.lastUpdated || '');
         const dbDate = new Date(stateData?.lastUpdated || '');
-        // if (formDate?.toISOString() !== '') {
-        //   console.log('formDate', formDate.toISOString());
-        //   console.log('dbDate', dbDate.toISOString());
-        // }
-        // if local form is blank, load from db
-        // if db is blank, load from local form
-        // if local and db are blank, clear form
-        // if db is newer than local form, load from db
-        // if local form is newer than db, load from local form
-        // if (Object.prototype.toString.call(formDate) === '[object Date]') {
-        //   console.log('formDate is a Date');
-        // }
         if (isNaN(formDate.getTime()) && stateData) {
           console.log('loading from db');
-          console.log('stateData', stateData);
           dispatch(loadSavedForm({ ...state, ...stateData, isLoading: false }));
         } else if (isNaN(dbDate.getTime()) && savedForm) {
           console.log('loading from local form');
-          console.log('savedForm', savedForm);
           dispatch(loadSavedForm({ ...state, ...savedForm, isLoading: false }));
         } else if (isNaN(formDate.getTime()) && isNaN(dbDate.getTime())) {
           console.log('clearing form');
           dispatch(clearForm());
         } else if (dbDate > formDate && stateData) {
           console.log('loading from db');
-          console.log('stateData', stateData);
           dispatch(loadSavedForm({ ...state, ...stateData, isLoading: false }));
         } else if (formDate?.toISOString() !== '' && savedForm) {
           console.log('loading from local form');
-          console.log('savedForm', savedForm);
           dispatch(loadSavedForm({ ...state, ...savedForm, isLoading: false }));
         } else {
           console.log('clearing form');
@@ -162,14 +145,12 @@ export default function App() {
         return;
       }
 
-      console.log(state);
       const { reflection, error } = await upsertWellnessReflection(state, user.id);
       if (error) {
         console.error('Error saving reflection:', error);
         return;
       }
 
-      console.log('Reflection saved successfully:', reflection);
     } catch (error) {
       console.error('Error:', error);
     }

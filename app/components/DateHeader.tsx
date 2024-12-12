@@ -9,7 +9,6 @@ export default function DateHeader() {
 
     const dispatch = useAppDispatch();
     const stateDate = useAppSelector((state) => {
-        console.log("DateHeader state:", state.wellness);
         return state.wellness.date;
     });
 
@@ -50,7 +49,6 @@ export default function DateHeader() {
                 <div className='d-flex mx-auto'>
                     <button className='btn' onClick={() => {
                         const prev = prevDay();
-                        console.log("Navigating to previous day:", prev);
                         dispatch(setDate(prev));
                     }}>
                         <FontAwesomeIcon icon={faArrowLeft} />
