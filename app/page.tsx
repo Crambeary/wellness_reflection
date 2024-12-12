@@ -205,7 +205,7 @@ export default function App() {
                 onChange={handleChange}
                 fieldType="textarea"
               />
-              <div className='card bg-light p-3 m-1'>
+              <div className='card bg-light p-3 m-1 my-3'>
                 <h2>Vitality Levels</h2>
                 <VitalitySection 
                   section="Hydration" 
@@ -213,7 +213,7 @@ export default function App() {
                   onChange={handleChange} 
                 />
               </div>
-              <div className='card text-bg-light p-3 m-1'>
+              <div className='card text-bg-light p-3 m-1 my-3'>
                 <h2>Morning</h2>
                 <VitalitySection 
                   section="Morning" 
@@ -234,7 +234,7 @@ export default function App() {
                   onChange={handleChange} 
                 />
               </div>
-              <div className='card text-bg-light p-3 m-1'>
+              <div className='card text-bg-light p-3 m-1 my-3'>
                 <h2>Afternoon</h2>
                 <VitalitySection 
                   section="Afternoon" 
@@ -255,7 +255,7 @@ export default function App() {
                   onChange={handleChange} 
                 />
               </div>
-              <div className='card text-bg-light p-3 m-1'>
+              <div className='card text-bg-light p-3 m-1 my-3'>
                 <h2>Evening</h2>
                 <VitalitySection 
                   section="Evening" 
