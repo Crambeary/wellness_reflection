@@ -14,7 +14,8 @@
 ## TODO
 
 ### Must have before launch
-- [x] Containerize the app
+- [x] Componentize the app
+- [x] Add a CI/CD pipeline
 - [x] Move the name to the header 'How are you lately, [name]?' when logged in
 - [x] Demo mode - no account needed to generate wellness entries
 - [x] Textarea form types overflow in image is working
@@ -40,12 +41,18 @@
     - [x] Add a manifest
     - [x] Add a robots.txt
     - [x] Add a sitemap generator
+- [x] Add Authentication and Authorization next-auth
+    - [x] OAuth Google
 - [x] Connect form submissions to a database Supabase
     - [x] Add a database
     - [x] Add a database connection
     - [x] Personal wellness entries linked to user accounts
     - [x] Encrypt data in rest and in route. - default behavior of supabase
     - [x] Load todays data from database on page load
+- [x] Debounce localStorage updates?
+- [x] Reorganize the sections Meals > Cravings > Notes
+- [x] Remove the "Morning Meals" etc. Sub Headers
+- [x] Set redirect with wildcards and NEXT_VERCEL env. Check ticktick link
 - [ ] Improve the UI to work with a database as the source of truth
     - [x] Move date selection to be a navbar
         - [x] Load selected date data from database to the form
@@ -61,14 +68,7 @@
     - [ ] Show errors about db in the UI
         - [ ] Show errors about missing time - zod?
     - [ ] Show success message about saving data
-- [ ] Reorganize the sections Meals > Cravings > Notes
-- [ ] Remove the "Morning Meals" etc. Sub Headers
-- [ ] Load today on refresh
-- [ ] Set days loaded to be a URL parameter day=2024-12-12 always sets the date if logged in
-- [ ] Set redirect with wildcards and NEXT_VERCEL env. Check ticktick link
-- [ ] Create a page for the user to view their wellness entries
-    - [ ] Add a date picker
-    - [ ] Add a search bar
+    - [ ] Move the buttons to be spaced evenly at the bottom of the form
 - [ ] Fix all errors
     - Idle and console shows this error:
         ```
@@ -85,7 +85,7 @@
 ### Nice to have
 - [ ] Tailwind CSS replacing bootstrap
 - [ ] Add a test suite
-- [x] Debounce localStorage updates?
+- [ ] Set days loaded to be a URL parameter day=2024-12-12 always sets the date if logged in
 - [ ] Change localStorage to redux-persist
 - [ ] Auto-save form data to database every time user is idle for 5 seconds unless there are costs to supabase
 - [ ] Add a motivational quote generator
@@ -96,11 +96,11 @@
     - [ ] Screen reader support
 - [ ] Documentation
     - [ ] JSDoc
-- [x] Add a CI/CD pipeline
+- [ ] Create a page for the user to view their wellness entries and analytics
+    - [ ] Add a date picker
+    - [ ] Add a search bar
 - [ ] Add a Dockerfile
 - [ ] Add a Docker Compose file
-- [x] Add Authentication and Authorization next-auth
-    - [x] OAuth Google
 - [ ] Profiles for coaches with assigned roles
     - [ ] Edit name
     - [ ] Profile picture

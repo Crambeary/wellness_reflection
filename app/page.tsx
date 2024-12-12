@@ -2,7 +2,7 @@
 
 import React, { useEffect, useRef } from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faDownload, faSave } from '@fortawesome/free-solid-svg-icons'
+import { faDownload, faSave, faTrash } from '@fortawesome/free-solid-svg-icons'
 import FormInput from './components/FormInput';
 import MealSection from './components/MealSection';
 import VitalitySection from './components/VitalitySection';
@@ -180,9 +180,6 @@ export default function App() {
                 {state.name ? '' : '?'}
               </h2>
             </div>
-            <div className="d-grid gap-2 d-md-block">
-              <button data-html2canvas-ignore id="clear" type="button" className="btn btn-primary m-2" onClick={clearFormHandler}>New Form</button>
-            </div>
             <form id="form" onSubmit={handleSubmit}>
               <FormInput
                 label="Wake Time"
@@ -277,8 +274,16 @@ export default function App() {
                 />
               </div>
               <div className="d-grid gap-2 d-md-block">
-                <button data-html2canvas-ignore id="export-image" type="button" className="btn btn-primary" onClick={generateImage}><FontAwesomeIcon icon={faDownload} /> Generate</button>
-                <button data-html2canvas-ignore id="save" type="submit" className="btn btn-primary" ><FontAwesomeIcon icon={faSave} /> Save</button>
+                <button data-html2canvas-ignore id="save" type="submit" className="btn btn-primary m-2"><FontAwesomeIcon icon={faSave} /> Submit</button>
+                <div className="dropdown d-grid gap-2 d-md-block">
+                  <button className="btn btn-secondary dropdown-toggle m-2" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    Extra Options
+                  </button>
+                  <ul className="dropdown-menu">
+                    <li><button data-html2canvas-ignore id="export-image" type="button" className="dropdown-item" onClick={generateImage}><FontAwesomeIcon icon={faDownload} /> Save Image</button></li>
+                    <li><button data-html2canvas-ignore id="clear" type="button" className="dropdown-item" onClick={clearFormHandler}><FontAwesomeIcon icon={faTrash} /> Reset Today</button></li>
+                  </ul>
+                </div>
               </div>
             </form>
           </div>
