@@ -48,22 +48,20 @@ export default function DateHeader() {
         <nav className="navbar sticky-top bg-primary text-white" data-bs-theme="dark">
             <div className='container-fluid'>
                 <div className='d-flex mx-auto'>
-                    <button className='mx-1 btn' onClick={() => {
+                    <button className='btn' onClick={() => {
                         const prev = prevDay();
                         console.log("Navigating to previous day:", prev);
                         dispatch(setDate(prev));
                     }}>
                         <FontAwesomeIcon icon={faArrowLeft} />
                     </button>
-                    <button className='mx-1 btn' onClick={() => dispatch(setDate(new Date().toISOString()))}>
+                    <button className='btn' onClick={() => dispatch(setDate(new Date().toISOString()))}>
                         <FontAwesomeIcon icon={faCalendar} />
                     </button>
-                    <div className='mx-1 mt-1'>
-                        <h5>
-                            {formattedDate}
-                        </h5>
+                    <div className='mx-auto my-auto'>
+                        {formattedDate}
                     </div>
-                    <button className='mx-1 btn' onClick={() => dispatch(setDate(nextDay()))}>
+                    <button className='btn' onClick={() => dispatch(setDate(nextDay()))}>
                         <FontAwesomeIcon icon={faArrowRight} />
                     </button>
                 </div>
