@@ -17,12 +17,6 @@ import { debounce } from 'lodash';
 import { mapReflectionToState } from '@/utils/mappers';
 import { Dropdown } from 'react-bootstrap';
 
-let formIsSubmitted = false;
-let submitButton: HTMLElement | null = null;
-let wellnessForm: HTMLElement | null = null;
-let form: HTMLFormElement | null = null;
-let captureRegion: HTMLElement | null = null;
-
 const debouncedSave = debounce((state: any) => {
   localStorage.setItem('form', JSON.stringify(state));
 }, 500);
@@ -37,11 +31,6 @@ export default function App() {
   }, [state]);
 
   useEffect(() => {
-    submitButton = document.getElementById("submit");
-    wellnessForm = document.getElementById("wellness-form");
-    form = document.querySelector('form');
-    captureRegion = document.getElementById("region-to-capture");
-
     const fetchTodaysReflection = async () => {
       const supabase = createClient();
       const { data: { user } } = await supabase.auth.getUser();
@@ -152,13 +141,20 @@ export default function App() {
         return;
       }
 
-      dispatch(setSaveButton({ text: 'Saving...', icon: faSpinner }));
+      dispatch(setSaveButton({ text: 'Saving...', icon: faSpinner, variant: 'outline-primary' }));
       const { reflection, error } = await upsertWellnessReflection(state, user.id);
       if (error) {
         console.error('Error saving reflection:', error);
+        dispatch(setSaveButton({ text: 'Error', icon: faXmark, variant: 'outline-danger' }));
+        setTimeout(() => {
+          dispatch(setSaveButton({ text: 'Submit', icon: faSave, variant: 'primary' }));
+        }, 2000);
         return;
       } else if (reflection && reflection.length > 0) {
-        dispatch(setSaveButton({ text: 'Saved', icon: faCheck }));
+        dispatch(setSaveButton({ text: 'Saved', icon: faCheck, variant: 'outline-success' }));
+        setTimeout(() => {
+          dispatch(setSaveButton({ text: 'Submit', icon: faSave, variant: 'primary' }));
+        }, 2000);
       }
 
     } catch (error) {
@@ -281,16 +277,11 @@ export default function App() {
                   id="save" 
                   type="button" 
                   onClick={saveForm}
-                  // disabled={true}
-                  // variant="primary" // Submit
-                  // variant="outline-primary" // Saving...
-                  // variant="outline-success" // Saved
-                  // variant="outline-danger" // Error
+                  disabled={state.saveButton.text !== 'Submit'}
+                  variant={state.saveButton.variant}
+                  className='mb-3'
                 >
-                  {/* <FontAwesomeIcon icon={faSave} /> Submit */}
-                  {/* <FontAwesomeIcon icon={faSpinner} /> Saving... */}
-                  {/* <FontAwesomeIcon icon={faCheck} /> Saved */}
-                  {/* <FontAwesomeIcon icon={faXmark} /> Error */}
+                  <FontAwesomeIcon icon={state.saveButton.icon} /> {state.saveButton.text}
                 </Button>
                 <Dropdown
                     className="d-grid gap-2 d-md-block"

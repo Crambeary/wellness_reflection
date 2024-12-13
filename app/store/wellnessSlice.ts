@@ -6,8 +6,9 @@ import { faSave, faSpinner, faCheck, faXmark } from '@fortawesome/free-solid-svg
 export interface WellnessState {
   isLoading: boolean;
   saveButton: {
-    text: string;
+    text: 'Submit' | 'Saving...' | 'Saved' | 'Error';
     icon: IconDefinition;
+    variant: 'primary' | 'outline-primary' | 'outline-success' | 'outline-danger';
   };
   lastUpdated: string;
   name: string;
@@ -38,6 +39,7 @@ const initialState: WellnessState = {
   saveButton: {
     text: "Submit",
     icon: faSave,
+    variant: 'primary',
   },
   lastUpdated: "",
   name: "",
@@ -115,7 +117,7 @@ export const wellnessSlice = createSlice({
       state.date = action.payload;
       return state;     
     },
-    setSaveButton: (state, action: PayloadAction<{ text: string; icon: IconDefinition }>) => {
+    setSaveButton: (state, action: PayloadAction<{ text: 'Submit' | 'Saving...' | 'Saved' | 'Error'; icon: IconDefinition; variant: 'primary' | 'outline-primary' | 'outline-success' | 'outline-danger' }>) => {
       state.saveButton = action.payload;
     },
   },

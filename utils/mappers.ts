@@ -7,6 +7,7 @@ export const mapReflectionToState = (reflection: any): WellnessState => {
         saveButton: {
             text: 'Submit',
             icon: faSave,
+            variant: 'primary',
         },
         lastUpdated: reflection.last_updated,
         name: reflection.name,
