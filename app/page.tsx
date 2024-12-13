@@ -15,15 +15,10 @@ import { createClient } from '@/utils/supabase/client';
 import { upsertWellnessReflection, getTodaysReflection } from '@/utils/supabase/database';
 import { useAppDispatch, useAppSelector } from './store/hooks';
 import { updateField, clearForm, loadSavedForm, setFieldValue, setDate, setSaveButton, setErrorMessage, setShowModal, setModalMessage, setIsDiverged, setTargetDate, clearName } from './store/wellnessSlice';
-import { debounce } from 'lodash';
 import { mapReflectionToState } from '@/utils/mappers';
 import { Dropdown } from 'react-bootstrap';
 import { confirmDateSwitch } from './store/actions';
 import { login, logout } from './login/actions';
-
-const debouncedSave = debounce((state: any) => {
-  localStorage.setItem('form', JSON.stringify(state));
-}, 500);
 
 export default function App() {
   const dispatch = useAppDispatch();
@@ -31,10 +26,7 @@ export default function App() {
   const captureRegionRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    debouncedSave(state);
-  }, [state]);
-
-  useEffect(() => {
+    // This is the main function that fetches the todays reflection from the db or local storage on page load
     const fetchTodaysReflection = async () => {
       const supabase = createClient();
       const { data: { user } } = await supabase.auth.getUser();
@@ -71,6 +63,8 @@ export default function App() {
           dispatch(loadSavedForm({ ...state, ...savedForm, isLoading: false }));
         } else if (isNaN(formDate.getTime()) && isNaN(dbDate.getTime())) {
           console.log('clearing form 1');
+          console.log('savedForm', savedForm);
+          console.log('stateData', stateData);
           dispatch(clearForm());
           dispatch(setDate(new Date().toISOString()));
         } else if (dbDate > formDate && stateData) {
@@ -81,6 +75,8 @@ export default function App() {
           dispatch(loadSavedForm({ ...state, ...savedForm, isLoading: false }));
         } else {
           console.log('clearing form 2');
+          console.log('savedForm', savedForm);
+          console.log('stateData', stateData);
           dispatch(clearForm());
           dispatch(setDate(new Date().toISOString()));
         }
@@ -135,7 +131,6 @@ export default function App() {
   };
 
   const clearFormHandler = () => {
-    dispatch(setShowModal(true));
     dispatch(setModalMessage({
       title: 'Clear Form',
       body: 'Are you sure you want to clear the form?',

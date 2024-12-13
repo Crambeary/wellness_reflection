@@ -1,7 +1,7 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { WritableDraft } from 'immer';
 import { IconDefinition } from '@fortawesome/fontawesome-svg-core';
-import { faSave, faSpinner, faCheck, faXmark } from '@fortawesome/free-solid-svg-icons';
+import { faSave } from '@fortawesome/free-solid-svg-icons';
 
 export interface WellnessState {
   isLoading: boolean;
@@ -89,7 +89,12 @@ const initialState: WellnessState = {
 
 export const wellnessSlice = createSlice({
   name: 'wellness',
-  initialState,
+  initialState: (() => {
+    if (typeof window === 'undefined') return initialState;
+    
+    const saved = localStorage.getItem('wellnessForm');
+    return saved ? JSON.parse(saved) : initialState;
+  })(),
   reducers: {
     updateField(state, action: PayloadAction<{ id: keyof WellnessState | string; value: string | number }>) {
       const { id, value } = action.payload;
@@ -98,6 +103,7 @@ export const wellnessSlice = createSlice({
       state.isDiverged = true;
     },
     clearForm(state) {
+      localStorage.removeItem('wellnessForm');
       const name = state.name;
       const date = state.date;
       const isAuthenticated = state.isAuthenticated;
@@ -174,6 +180,10 @@ export const wellnessSlice = createSlice({
     setEmail: (state, action: PayloadAction<string>) => {
       state.email = action.payload;
     },
+    submitForm: (state) => {
+      localStorage.removeItem('wellnessForm');
+      return initialState;
+    }
   },
 });
 
@@ -195,5 +205,6 @@ export const {
   setTargetDate,
   setIsAuthenticated,
   setEmail,
+  submitForm
 } = wellnessSlice.actions;
 export default wellnessSlice.reducer;
