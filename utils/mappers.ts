@@ -10,6 +10,11 @@ export const mapReflectionToState = (reflection: any): WellnessState => {
             variant: 'primary',
         },
         errorMessage: '',
+        showModal: false,
+        modalMessage: {
+            title: '',
+            body: '',
+        },
         lastUpdated: reflection.last_updated,
         name: reflection.name,
         date: reflection.date,

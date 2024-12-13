@@ -5,6 +5,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faDownload, faSave, faTrash, faSpinner, faCheck, faXmark } from '@fortawesome/free-solid-svg-icons'
 import Button from 'react-bootstrap/Button'
 import Alert from 'react-bootstrap/Alert'
+import Modal from 'react-bootstrap/Modal'
 import FormInput from './components/FormInput';
 import MealSection from './components/MealSection';
 import VitalitySection from './components/VitalitySection';
@@ -13,7 +14,7 @@ import html2canvas from 'html2canvas';
 import { createClient } from '@/utils/supabase/client';
 import { upsertWellnessReflection, getTodaysReflection } from '@/utils/supabase/database';
 import { useAppDispatch, useAppSelector } from './store/hooks';
-import { updateField, clearForm, loadSavedForm, setLoading, setFieldValue, setDate, setSaveButton, setErrorMessage } from './store/wellnessSlice';
+import { updateField, clearForm, loadSavedForm, setLoading, setFieldValue, setDate, setSaveButton, setErrorMessage, setShowModal, setModalMessage } from './store/wellnessSlice';
 import { debounce } from 'lodash';
 import { mapReflectionToState } from '@/utils/mappers';
 import { Dropdown } from 'react-bootstrap';
@@ -138,6 +139,8 @@ export default function App() {
       const { data: { user } } = await supabase.auth.getUser();
       
       if (!user) {
+        dispatch(setShowModal(true));
+        dispatch(setModalMessage({ title: 'Unauthenticated', body: "You must be logged in to save your reflection, it's free! \nOnly seconds to login with Google. \nOr export an image of your data under 'Extra Options'." }));
         console.error('User not authenticated');
         return;
       }
@@ -302,6 +305,14 @@ export default function App() {
                     </Dropdown.Item>
                   </Dropdown.Menu>
                 </Dropdown>
+                <Modal show={state.showModal} onHide={() => dispatch(setShowModal(false))} centered>
+                  <Modal.Header closeButton>
+                    <Modal.Title>{state.modalMessage.title}</Modal.Title>
+                  </Modal.Header>
+                  <Modal.Body>{state.modalMessage.body.split('\n').map((line, index) => (
+                    <p key={index}>{line}</p>
+                  ))}</Modal.Body>
+                </Modal>
               </div>
             </div>
           </div>
