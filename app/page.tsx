@@ -283,13 +283,8 @@ export default function App() {
                 >
                   <FontAwesomeIcon icon={state.saveButton.icon} /> {state.saveButton.text}
                 </Button>
-                <Dropdown
-                    className="d-grid gap-2 d-md-block"
-                >
-                  <Dropdown.Toggle 
-                    variant="secondary" 
-                    id="dropdown-basic-button"
-                  >
+                <Dropdown className="d-grid gap-2 d-md-block">
+                  <Dropdown.Toggle variant="secondary" id="dropdown-basic-button" >
                     Extra Options
                   </Dropdown.Toggle>
                   <Dropdown.Menu>
