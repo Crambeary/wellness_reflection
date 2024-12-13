@@ -66,12 +66,12 @@
         - [x] On submit turn the button into a spinner
         - [x] On success response turn the button into a success message
         - [x] After 2 seconds turn the button back to the original text
+    - [x] UI Show error when saving without authentication
     - [ ] Modal to confirm leaving the page or changing date with unsaved data - localStorage is newer than db
         - "You have unsaved data, are you sure you want to load another date?"
     - [ ] Modal to confirm clear form
         - "You have unsaved data, are you sure you want to clear the form?"
-    - [ ] UI Show error when saving without authentication
-        - It would be better to explain it as benefits of logging in
+    - [ ] Explain a benefits of logging in as modal when attempting to save without authentication
     - [ ] Show errors about db in the UI
 - [ ] Fix all errors
     - Idle and console shows this error:
