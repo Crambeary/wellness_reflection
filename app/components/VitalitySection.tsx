@@ -91,7 +91,7 @@ const VitalitySection: React.FC<VitalitySectionProps> = ({ section, value, onCha
   return (
     <div className="input-group mb-3 row">
       <label htmlFor={scale} className="form-label col-auto me-auto">
-        {section} {section === "Hydration" ? "Level" : "Vitality"}: {storeValue}
+        {section} {section === "Hydration" ? "Level" : "Vitality"}: {storeValue.toString()}
       </label>
       <span className='col-auto p-0'>{emojiMap[scale_key][value_key]}</span>
       <span className='row p-0'>

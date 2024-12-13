@@ -11,6 +11,11 @@ export interface WellnessState {
     variant: 'primary' | 'outline-primary' | 'outline-success' | 'outline-danger';
   };
   errorMessage: string;
+  showModal: boolean;
+  modalMessage: {
+    title: string;
+    body: string;
+  };
   lastUpdated: string;
   name: string;
   date: string;
@@ -43,6 +48,11 @@ const initialState: WellnessState = {
     variant: 'primary',
   },
   errorMessage: "",
+  showModal: false,
+  modalMessage: {
+    title: "",
+    body: "",
+  },
   lastUpdated: "",
   name: "",
   date: "",
@@ -125,6 +135,12 @@ export const wellnessSlice = createSlice({
     setErrorMessage: (state, action: PayloadAction<string>) => {
       state.errorMessage = action.payload;
     },
+    setShowModal: (state, action: PayloadAction<boolean>) => {
+      state.showModal = action.payload;
+    },
+    setModalMessage: (state, action: PayloadAction<{ title: string; body: string }>) => {
+      state.modalMessage = action.payload;
+    },
   },
 });
 
@@ -138,6 +154,8 @@ export const {
   setFieldValue,
   setDate,
   setSaveButton,
-  setErrorMessage
+  setErrorMessage,
+  setShowModal,
+  setModalMessage
 } = wellnessSlice.actions;
 export default wellnessSlice.reducer;
