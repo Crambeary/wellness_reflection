@@ -9,6 +9,7 @@ export const mapReflectionToState = (reflection: any): WellnessState => {
             icon: faSave,
             variant: 'primary',
         },
+        errorMessage: '',
         lastUpdated: reflection.last_updated,
         name: reflection.name,
         date: reflection.date,

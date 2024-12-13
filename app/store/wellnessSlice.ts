@@ -10,6 +10,7 @@ export interface WellnessState {
     icon: IconDefinition;
     variant: 'primary' | 'outline-primary' | 'outline-success' | 'outline-danger';
   };
+  errorMessage: string;
   lastUpdated: string;
   name: string;
   date: string;
@@ -41,6 +42,7 @@ const initialState: WellnessState = {
     icon: faSave,
     variant: 'primary',
   },
+  errorMessage: "",
   lastUpdated: "",
   name: "",
   date: "",
@@ -120,6 +122,9 @@ export const wellnessSlice = createSlice({
     setSaveButton: (state, action: PayloadAction<{ text: 'Submit' | 'Saving...' | 'Saved' | 'Error'; icon: IconDefinition; variant: 'primary' | 'outline-primary' | 'outline-success' | 'outline-danger' }>) => {
       state.saveButton = action.payload;
     },
+    setErrorMessage: (state, action: PayloadAction<string>) => {
+      state.errorMessage = action.payload;
+    },
   },
 });
 
@@ -132,6 +137,7 @@ export const {
   decrementField,
   setFieldValue,
   setDate,
-  setSaveButton
+  setSaveButton,
+  setErrorMessage
 } = wellnessSlice.actions;
 export default wellnessSlice.reducer;

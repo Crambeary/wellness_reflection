@@ -4,6 +4,7 @@ import React, { useEffect, useRef } from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faDownload, faSave, faTrash, faSpinner, faCheck, faXmark } from '@fortawesome/free-solid-svg-icons'
 import Button from 'react-bootstrap/Button'
+import Alert from 'react-bootstrap/Alert'
 import FormInput from './components/FormInput';
 import MealSection from './components/MealSection';
 import VitalitySection from './components/VitalitySection';
@@ -12,7 +13,7 @@ import html2canvas from 'html2canvas';
 import { createClient } from '@/utils/supabase/client';
 import { upsertWellnessReflection, getTodaysReflection } from '@/utils/supabase/database';
 import { useAppDispatch, useAppSelector } from './store/hooks';
-import { updateField, clearForm, loadSavedForm, setLoading, setFieldValue, setDate, setSaveButton } from './store/wellnessSlice';
+import { updateField, clearForm, loadSavedForm, setLoading, setFieldValue, setDate, setSaveButton, setErrorMessage } from './store/wellnessSlice';
 import { debounce } from 'lodash';
 import { mapReflectionToState } from '@/utils/mappers';
 import { Dropdown } from 'react-bootstrap';
@@ -141,11 +142,13 @@ export default function App() {
         return;
       }
 
+      dispatch(setErrorMessage(''));
       dispatch(setSaveButton({ text: 'Saving...', icon: faSpinner, variant: 'outline-primary' }));
       const { reflection, error } = await upsertWellnessReflection(state, user.id);
       if (error) {
         console.error('Error saving reflection:', error);
         dispatch(setSaveButton({ text: 'Error', icon: faXmark, variant: 'outline-danger' }));
+        dispatch(setErrorMessage(`Error saving: ${error instanceof Error ? error.message : 'Unknown error'}`));
         setTimeout(() => {
           dispatch(setSaveButton({ text: 'Submit', icon: faSave, variant: 'primary' }));
         }, 2000);
@@ -283,6 +286,9 @@ export default function App() {
                 >
                   <FontAwesomeIcon icon={state.saveButton.icon} /> {state.saveButton.text}
                 </Button>
+                {state.errorMessage && (
+                  <Alert variant="danger" id="error-message" className='mb-3'>{state.errorMessage}</Alert>
+                )}
                 <Dropdown className="d-grid gap-2 d-md-block">
                   <Dropdown.Toggle variant="secondary" id="dropdown-basic-button" >
                     Extra Options
