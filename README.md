@@ -70,6 +70,7 @@
     - [x] Show errors about db in the UI
     - [x] Explain a benefits of logging in as modal when attempting to save without authentication
     - [ ] Use local form for today's data after logging in
+    - [ ] Double check the localStorage is used for today's data when newer than db on reload
     - [ ] Modal to confirm leaving the page or changing date with unsaved data - localStorage is newer than db
         - "You have unsaved data, are you sure you want to load another date?"
     - [ ] Modal to confirm clear form
@@ -90,6 +91,8 @@
 ### Nice to have
 - [ ] Tailwind CSS replacing bootstrap
 - [ ] Add a test suite
+- [ ] Add a dark mode
+- [ ] Add a theme switcher
 - [ ] Set days loaded to be a URL parameter day=2024-12-12 always sets the date if logged in
 - [ ] Change localStorage to redux-persist
 - [ ] Auto-save form data to database every time user is idle for 5 seconds unless there are costs to supabase
@@ -109,8 +112,6 @@
 - [ ] Profiles for coaches with assigned roles
     - [ ] Edit name
     - [ ] Profile picture
-- [ ] Add a dark mode
-- [ ] Add a theme switcher
 - [ ] Redesign the UI
     - [ ] Research UI that works for similar apps
 - [ ] Automatically ask users if they want to change timezone
