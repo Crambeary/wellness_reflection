@@ -1,8 +1,14 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { WritableDraft } from 'immer';
+import { IconDefinition } from '@fortawesome/fontawesome-svg-core';
+import { faSave, faSpinner, faCheck, faXmark } from '@fortawesome/free-solid-svg-icons';
 
 export interface WellnessState {
   isLoading: boolean;
+  saveButton: {
+    text: string;
+    icon: IconDefinition;
+  };
   lastUpdated: string;
   name: string;
   date: string;
@@ -29,6 +35,10 @@ export interface WellnessState {
 
 const initialState: WellnessState = {
   isLoading: true,
+  saveButton: {
+    text: "Submit",
+    icon: faSave,
+  },
   lastUpdated: "",
   name: "",
   date: "",
@@ -105,6 +115,9 @@ export const wellnessSlice = createSlice({
       state.date = action.payload;
       return state;     
     },
+    setSaveButton: (state, action: PayloadAction<{ text: string; icon: IconDefinition }>) => {
+      state.saveButton = action.payload;
+    },
   },
 });
 
@@ -116,6 +129,7 @@ export const {
   incrementField,
   decrementField,
   setFieldValue,
-  setDate
+  setDate,
+  setSaveButton
 } = wellnessSlice.actions;
 export default wellnessSlice.reducer;

@@ -1,8 +1,13 @@
 import { WellnessState } from '@/store/wellnessSlice';
+import { faSave } from '@fortawesome/free-solid-svg-icons';
 
 export const mapReflectionToState = (reflection: any): WellnessState => {
     const stateData: WellnessState = {
         isLoading: false,
+        saveButton: {
+            text: 'Submit',
+            icon: faSave,
+        },
         lastUpdated: reflection.last_updated,
         name: reflection.name,
         date: reflection.date,

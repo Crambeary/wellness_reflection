@@ -61,13 +61,18 @@
     - [x] Fix switching to a date with no db data
     - [x] Fix loading the page while the db has no date for "today"
     - [x] Load todays data from database on authentication
+    - [x] Move the buttons to be spaced evenly at the bottom of the form
+    - [ ] Show success message about saving data
+        - [ ] On submit turn the button into a spinner
+        - [ ] On success response turn the button into a success message
+        - [ ] After 3 seconds turn the button back to the original text
     - [ ] Modal to confirm leaving the page or changing date with unsaved data - localStorage is newer than db
         - "You have unsaved data, are you sure you want to load another date?"
     - [ ] Modal to confirm clear form
         - "You have unsaved data, are you sure you want to clear the form?"
+    - [ ] UI Show error when saving without authentication
+        - It would be better to explain it as benefits of logging in
     - [ ] Show errors about db in the UI
-    - [ ] Show success message about saving data
-    - [ ] Move the buttons to be spaced evenly at the bottom of the form
 - [ ] Fix all errors
     - Idle and console shows this error:
         ```

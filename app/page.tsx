@@ -2,7 +2,8 @@
 
 import React, { useEffect, useRef } from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faDownload, faSave, faTrash } from '@fortawesome/free-solid-svg-icons'
+import { faDownload, faSave, faTrash, faSpinner, faCheck, faXmark } from '@fortawesome/free-solid-svg-icons'
+import Button from 'react-bootstrap/Button'
 import FormInput from './components/FormInput';
 import MealSection from './components/MealSection';
 import VitalitySection from './components/VitalitySection';
@@ -11,9 +12,10 @@ import html2canvas from 'html2canvas';
 import { createClient } from '@/utils/supabase/client';
 import { upsertWellnessReflection, getTodaysReflection } from '@/utils/supabase/database';
 import { useAppDispatch, useAppSelector } from './store/hooks';
-import { updateField, clearForm, loadSavedForm, setLoading, setFieldValue, setDate } from './store/wellnessSlice';
+import { updateField, clearForm, loadSavedForm, setLoading, setFieldValue, setDate, setSaveButton } from './store/wellnessSlice';
 import { debounce } from 'lodash';
 import { mapReflectionToState } from '@/utils/mappers';
+import { Dropdown } from 'react-bootstrap';
 
 let formIsSubmitted = false;
 let submitButton: HTMLElement | null = null;
@@ -135,9 +137,12 @@ export default function App() {
     }
   };
 
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
+  const clearFormHandler = () => {
+    dispatch(clearForm());
+    localStorage.removeItem('form');
+  };
 
+  const saveForm = async () => {
     try {
       const supabase = createClient();
       const { data: { user } } = await supabase.auth.getUser();
@@ -147,20 +152,18 @@ export default function App() {
         return;
       }
 
+      dispatch(setSaveButton({ text: 'Saving...', icon: faSpinner }));
       const { reflection, error } = await upsertWellnessReflection(state, user.id);
       if (error) {
         console.error('Error saving reflection:', error);
         return;
+      } else if (reflection && reflection.length > 0) {
+        dispatch(setSaveButton({ text: 'Saved', icon: faCheck }));
       }
 
     } catch (error) {
       console.error('Error:', error);
     }
-  };
-
-  const clearFormHandler = () => {
-    dispatch(clearForm());
-    localStorage.removeItem('form');
   };
 
   return (
@@ -179,7 +182,7 @@ export default function App() {
                 {state.name ? '' : '?'}
               </h2>
             </div>
-            <form id="form" onSubmit={handleSubmit}>
+            <div id="form">
               <FormInput
                 label="Wake Time"
                 id="wake-time"
@@ -273,18 +276,42 @@ export default function App() {
                 />
               </div>
               <div className="d-grid gap-2 d-md-block">
-                <button data-html2canvas-ignore id="save" type="submit" className="btn btn-primary m-2"><FontAwesomeIcon icon={faSave} /> Submit</button>
-                <div className="dropdown d-grid gap-2 d-md-block">
-                  <button className="btn btn-secondary dropdown-toggle m-2" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                <Button 
+                  data-html2canvas-ignore 
+                  id="save" 
+                  type="button" 
+                  onClick={saveForm}
+                  // disabled={true}
+                  // variant="primary" // Submit
+                  // variant="outline-primary" // Saving...
+                  // variant="outline-success" // Saved
+                  // variant="outline-danger" // Error
+                >
+                  {/* <FontAwesomeIcon icon={faSave} /> Submit */}
+                  {/* <FontAwesomeIcon icon={faSpinner} /> Saving... */}
+                  {/* <FontAwesomeIcon icon={faCheck} /> Saved */}
+                  {/* <FontAwesomeIcon icon={faXmark} /> Error */}
+                </Button>
+                <Dropdown
+                    className="d-grid gap-2 d-md-block"
+                >
+                  <Dropdown.Toggle 
+                    variant="secondary" 
+                    id="dropdown-basic-button"
+                  >
                     Extra Options
-                  </button>
-                  <ul className="dropdown-menu">
-                    <li><button data-html2canvas-ignore id="export-image" type="button" className="dropdown-item" onClick={generateImage}><FontAwesomeIcon icon={faDownload} /> Save Image</button></li>
-                    <li><button data-html2canvas-ignore id="clear" type="button" className="dropdown-item" onClick={clearFormHandler}><FontAwesomeIcon icon={faTrash} /> Reset Today</button></li>
-                  </ul>
-                </div>
+                  </Dropdown.Toggle>
+                  <Dropdown.Menu>
+                    <Dropdown.Item>
+                      <button data-html2canvas-ignore id="export-image" type="button" className="dropdown-item" onClick={generateImage}><FontAwesomeIcon icon={faDownload} /> Save Image</button>
+                    </Dropdown.Item>
+                    <Dropdown.Item>
+                      <button data-html2canvas-ignore id="clear" type="button" className="dropdown-item" onClick={clearFormHandler}><FontAwesomeIcon icon={faTrash} /> Reset Today</button>
+                    </Dropdown.Item>
+                  </Dropdown.Menu>
+                </Dropdown>
               </div>
-            </form>
+            </div>
           </div>
         </div>
       </section>
