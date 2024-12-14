@@ -76,7 +76,7 @@
         - "You have unsaved data, are you sure you want to clear the form?"
     - [x] Add a Modal to confirm logout
     - [x] Show user email in the header
-- [ ] Define app behavior for unauthenticated users
+- [x] Define app behavior for unauthenticated users
     - Change dates without changing form contents and no modal warning?
 - [ ] Fix all errors
     - [x] Hide the Extra Options button on image export

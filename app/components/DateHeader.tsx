@@ -17,7 +17,7 @@ export default function DateHeader() {
     const confirmAuth = async () => {
         const supabase = createClient();
         const { data, error } = await supabase.auth.getUser();
-        if (error) {
+        if (error && error.toString() !== 'AuthSessionMissingError: Auth session missing!') {
             console.error(error);
         }
         setIsAuthenticated(data.user !== null);
@@ -97,16 +97,16 @@ export default function DateHeader() {
                     )} 
                     {!isAuthenticated && (
                         <>
-                        <button className='btn' onClick={() => { showModal(); }}>
+                        <button className='btn' onClick={() => showModal()}>
                             <FontAwesomeIcon icon={faArrowLeft} />
                         </button>
-                        <button className='btn' onClick={() => { showModal(); }}>
+                        <button className='btn' onClick={() => showModal()}>
                             <FontAwesomeIcon icon={faCalendar} />
                         </button>
                         <div className='mx-auto my-auto'>
                             {formattedDate}
                         </div>
-                        <button className='btn' onClick={() => { showModal(); }}>
+                        <button className='btn' onClick={() => showModal()}>
                             <FontAwesomeIcon icon={faArrowRight} />
                         </button>
                         </>
