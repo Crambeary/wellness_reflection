@@ -3,12 +3,13 @@
 import { createClient } from "@/utils/supabase/client";
 import { login } from "@/login/actions";
 import { useAppSelector, useAppDispatch } from "@/store/hooks";
-import { setIsAuthenticated, setModalMessage, setShowModal } from "@/store/wellnessSlice";
+import { setIsAuthenticated, setModalMessage, setShowModal, setEmail } from "@/store/wellnessSlice";
 import { useEffect } from "react";
 
 export default function Header() {
 
     const isAuthenticated = useAppSelector((state) => state.wellness.isAuthenticated);
+    const email = useAppSelector((state) => state.wellness.email);
     const dispatch = useAppDispatch();
     const handleAuth = async () => {
         const supabase = createClient();
@@ -16,6 +17,7 @@ export default function Header() {
             data: { user },
         } = await supabase.auth.getUser();
         if (user) {
+            dispatch(setEmail(user.email || ''));
             dispatch(setIsAuthenticated(true));
         } else {
             dispatch(setIsAuthenticated(false));
@@ -47,9 +49,11 @@ export default function Header() {
             <span className="navbar-toggler-icon"></span>
             </button>
             <div className="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul className="navbar-nav me-auto mb-2 mb-lg-0">
-                <li className="nav-item">
-                    <a className="nav-link active" aria-current="page"></a>
+            <ul className="navbar-nav ms-auto my-auto">
+                <li className="nav-item ms-auto">
+                    {email && email.length > 0 && (
+                        <p className="nav-link text-muted">{email}</p>
+                    )}
                 </li>
             </ul>
             {isAuthenticated ? (

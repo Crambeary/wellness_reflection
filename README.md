@@ -72,7 +72,7 @@
     - [ ] Use local form for today's data after logging in unless a db form exists
     - [x] Modal to confirm leaving the page or changing date with unsaved data - localStorage is diverged than db
         - "You have unsaved data, are you sure you want to load another date?"
-    - [ ] Modal to confirm clear form
+    - [x] Modal to confirm clear form
         - "You have unsaved data, are you sure you want to clear the form?"
     - [x] Add a Modal to confirm logout
     - [ ] Show user email in the header

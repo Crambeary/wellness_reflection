@@ -21,6 +21,7 @@ export const mapReflectionToState = (reflection: any): WellnessState => {
         isDiverged: false,
         targetDate: null,
         name: reflection.name,
+        email: reflection.email,
         date: reflection.date,
         'wake-time': reflection.wake_time || '',
         bedtime: reflection.bedtime || '',

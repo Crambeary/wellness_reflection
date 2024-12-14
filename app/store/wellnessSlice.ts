@@ -22,6 +22,7 @@ export interface WellnessState {
   isDiverged: boolean;
   targetDate: string | null;
   name: string;
+  email: string;
   date: string;
   'wake-time': string;
   'bedtime': string;
@@ -63,6 +64,7 @@ const initialState: WellnessState = {
   isDiverged: false,
   targetDate: null,
   name: "",
+  email: "",
   date: "",
   'wake-time': "",
   'bedtime': "",
@@ -99,7 +101,8 @@ export const wellnessSlice = createSlice({
       const name = state.name;
       const date = state.date;
       const isAuthenticated = state.isAuthenticated;
-      return { ...initialState, isLoading: false, lastUpdated: new Date().toISOString(), name: name, date: date, isAuthenticated: isAuthenticated, isDiverged: false };
+      const email = state.email;
+      return { ...initialState, isLoading: false, lastUpdated: new Date().toISOString(), name: name, date: date, isAuthenticated: isAuthenticated, isDiverged: false, email: email };
     },
     clearName(state) {
       return {...state, name: ''}
@@ -167,6 +170,9 @@ export const wellnessSlice = createSlice({
     setIsAuthenticated: (state, action: PayloadAction<boolean>) => {
       state.isAuthenticated = action.payload;
     },
+    setEmail: (state, action: PayloadAction<string>) => {
+      state.email = action.payload;
+    },
   },
 });
 
@@ -187,5 +193,6 @@ export const {
   setIsDiverged,
   setTargetDate,
   setIsAuthenticated,
+  setEmail,
 } = wellnessSlice.actions;
 export default wellnessSlice.reducer;
