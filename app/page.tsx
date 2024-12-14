@@ -14,7 +14,7 @@ import html2canvas from 'html2canvas';
 import { createClient } from '@/utils/supabase/client';
 import { upsertWellnessReflection, getTodaysReflection } from '@/utils/supabase/database';
 import { useAppDispatch, useAppSelector } from './store/hooks';
-import { updateField, clearForm, loadSavedForm, setLoading, setFieldValue, setDate, setSaveButton, setErrorMessage, setShowModal, setModalMessage, setIsDiverged, setTargetDate } from './store/wellnessSlice';
+import { updateField, clearForm, loadSavedForm, setLoading, setFieldValue, setDate, setSaveButton, setErrorMessage, setShowModal, setModalMessage, setIsDiverged, setTargetDate, clearName } from './store/wellnessSlice';
 import { debounce } from 'lodash';
 import { mapReflectionToState } from '@/utils/mappers';
 import { Dropdown } from 'react-bootstrap';
@@ -48,6 +48,10 @@ export default function App() {
           return stateData;
         }
         console.log('no reflection found');
+        return null;
+      } else {
+        dispatch(clearName());
+        dispatch(clearForm());
         return null;
       }
     }

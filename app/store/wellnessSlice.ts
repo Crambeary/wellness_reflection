@@ -98,6 +98,9 @@ export const wellnessSlice = createSlice({
       const date = state.date;
       return { ...initialState, isLoading: false, lastUpdated: new Date().toISOString(), name: name, date: date, isDiverged: false };
     },
+    clearName(state) {
+      return {...state, name: ''}
+    },
     loadSavedForm(state, action: PayloadAction<WellnessState>) {
       const name = state.name;
       return { ...state, ...action.payload, lastUpdated: new Date().toISOString(), name: name, isDiverged: false };
@@ -164,6 +167,7 @@ export const wellnessSlice = createSlice({
 export const { 
   updateField, 
   clearForm, 
+  clearName,
   loadSavedForm, 
   setLoading,
   incrementField,
