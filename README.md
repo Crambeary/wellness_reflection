@@ -1,15 +1,14 @@
 # Wellness Reflection
 
 ## Goals
-- Personal wellness entries linked to user accounts
-- Ability to view historical entries
-- Data analytics/trends over time
-- Data export capabilities
-- Privacy & Security:
-- Data encryption
-- Role-based access control
-- Secure password handling
-- GDPR compliance features
+- [x] Personal wellness entries linked to user accounts
+- [x] Ability to view historical entries
+- [ ] Data analytics/trends over time
+- [ ] Data export capabilities
+- [ ] Data encryption
+- [ ] Role-based access control
+- [ ] Secure password handling
+- [ ] GDPR compliance features
 
 ## TODO
 
@@ -101,6 +100,7 @@
 - [ ] Set days loaded to be a URL parameter day=2024-12-12 always sets the date if logged in
 - [ ] Change localStorage to redux-persist
 - [ ] Auto-save form data to database every time user is idle for 5 seconds unless there are costs to supabase
+- [ ] Merge the db with local storage if a field was empty before
 - [ ] Add a motivational quote generator
 - [ ] Add a data export feature
 - [ ] Setup a11y best practices

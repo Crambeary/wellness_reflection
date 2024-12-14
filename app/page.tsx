@@ -348,7 +348,7 @@ export default function App() {
                   <Modal.Header closeButton>
                     <Modal.Title>{state.modalMessage.title}</Modal.Title>
                   </Modal.Header>
-                  <Modal.Body>{state.modalMessage.body.split('\n').map((line, index) => (
+                  <Modal.Body>{state.modalMessage.body.split('\n').map((line: string, index: number) => (
                     <p key={`modal-body-${index}`}>{line}</p>
                   ))}</Modal.Body>
                   <Modal.Footer>
