@@ -34,7 +34,12 @@ export default function DateHeader() {
 
     const formatDateInLocalTimezone = (dateString: string) => {
         if (!dateString) {
-            return '';
+            return new Intl.DateTimeFormat('en-US', {
+                timeZone: 'UTC',
+                year: 'numeric',
+                month: 'long',
+                day: 'numeric',
+            }).format(new Date());
         }
         const localDate = new Date(dateString);
         const options: Intl.DateTimeFormatOptions = {

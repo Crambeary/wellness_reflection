@@ -49,34 +49,38 @@ export default function App() {
     }
 
     const updateForm = async () => {
-      const savedForm = JSON.parse(localStorage.getItem('form') || '{}');
+      const savedForm = JSON.parse(localStorage.getItem('wellnessForm') || '{}');
 
       try {
+        // : If no local form, load from db
+        // : If db has no form, but local has a form, keep local form on refresh
+        // : If no local or db form, clear form
+        // : If db is updated on another device, stomp local form
+        // TODO: If local is an updated form from db, keep local form on refresh
+        // TODO: If database has a form, stomp local change on login by using the db form
         const stateData = await fetchTodaysReflection();
         const formDate = new Date(savedForm?.lastUpdated || '');
         const dbDate = new Date(stateData?.lastUpdated || '');
-        if (isNaN(formDate.getTime()) && stateData) {
+        console.log('formDate', formDate);
+        console.log('dbDate', dbDate);
+        console.log('savedForm', savedForm);
+        console.log('stateData', stateData);
+        console.log(formDate?.toISOString() !== '');
+        if (isNaN(formDate.getTime()) && stateData) { // If local form is empty, load from db
           console.log('loading from db');
           dispatch(loadSavedForm({ ...state, ...stateData, isLoading: false }));
-        } else if (isNaN(dbDate.getTime()) && savedForm.length > 0) {
+        } else if (isNaN(dbDate.getTime()) && savedForm.length > 0) { // If db form is empty, load from local
           console.log('loading from local form');
           dispatch(loadSavedForm({ ...state, ...savedForm, isLoading: false }));
-        } else if (isNaN(formDate.getTime()) && isNaN(dbDate.getTime())) {
+        } else if (isNaN(formDate.getTime()) && isNaN(dbDate.getTime())) { // If both forms are empty, clear form
           console.log('clearing form 1');
-          console.log('savedForm', savedForm);
-          console.log('stateData', stateData);
           dispatch(clearForm());
           dispatch(setDate(new Date().toISOString()));
-        } else if (dbDate > formDate && stateData) {
+        } else if (dbDate > formDate && Object.keys(stateData || {}).length > 0) { // If db form is newer than local form, load from db
           console.log('loading from db');
           dispatch(loadSavedForm({ ...state, ...stateData, isLoading: false }));
-        } else if (formDate?.toISOString() !== '' && savedForm.length > 0) {
-          console.log('loading from local form 2');
-          dispatch(loadSavedForm({ ...state, ...savedForm, isLoading: false }));
         } else {
           console.log('clearing form 2');
-          console.log('savedForm', savedForm);
-          console.log('stateData', stateData);
           dispatch(clearForm());
           dispatch(setDate(new Date().toISOString()));
         }
