@@ -14,10 +14,11 @@ import html2canvas from 'html2canvas';
 import { createClient } from '@/utils/supabase/client';
 import { upsertWellnessReflection, getTodaysReflection } from '@/utils/supabase/database';
 import { useAppDispatch, useAppSelector } from './store/hooks';
-import { updateField, clearForm, loadSavedForm, setLoading, setFieldValue, setDate, setSaveButton, setErrorMessage, setShowModal, setModalMessage } from './store/wellnessSlice';
+import { updateField, clearForm, loadSavedForm, setLoading, setFieldValue, setDate, setSaveButton, setErrorMessage, setShowModal, setModalMessage, setIsDiverged, setTargetDate } from './store/wellnessSlice';
 import { debounce } from 'lodash';
 import { mapReflectionToState } from '@/utils/mappers';
 import { Dropdown } from 'react-bootstrap';
+import { confirmDateSwitch } from './store/actions';
 
 const debouncedSave = debounce((state: any) => {
   localStorage.setItem('form', JSON.stringify(state));
@@ -158,6 +159,7 @@ export default function App() {
         return;
       } else if (reflection && reflection.length > 0) {
         dispatch(setSaveButton({ text: 'Saved', icon: faCheck, variant: 'outline-success' }));
+        dispatch(setIsDiverged(false));
         setTimeout(() => {
           dispatch(setSaveButton({ text: 'Submit', icon: faSave, variant: 'primary' }));
         }, 2000);
@@ -166,6 +168,15 @@ export default function App() {
     } catch (error) {
       console.error('Error:', error);
     }
+  };
+
+  const handleConfirm = () => {
+    dispatch(confirmDateSwitch());
+  };
+
+  const handleCancel = () => {
+    dispatch(setShowModal(false));
+    dispatch(setTargetDate(null));
   };
 
   return (
@@ -310,8 +321,12 @@ export default function App() {
                     <Modal.Title>{state.modalMessage.title}</Modal.Title>
                   </Modal.Header>
                   <Modal.Body>{state.modalMessage.body.split('\n').map((line, index) => (
-                    <p key={index}>{line}</p>
+                    <p key={`modal-body-${index}`}>{line}</p>
                   ))}</Modal.Body>
+                  <Modal.Footer>
+                    <Button variant="secondary" onClick={handleCancel}>Close</Button>
+                    <Button variant="primary" onClick={handleConfirm}>Continue</Button>
+                  </Modal.Footer>
                 </Modal>
               </div>
             </div>
