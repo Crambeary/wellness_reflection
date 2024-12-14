@@ -91,6 +91,7 @@
                 _storageChangeDispatcherCallback	@	content.js:2
         ```
     - [ ] Make sure that all elements do not change from controlled to uncontrolled and vice versa
+    - [ ] Fix authenticate error on login from vercel main site
 ----
 ### Nice to have
 - [ ] Tailwind CSS replacing bootstrap
