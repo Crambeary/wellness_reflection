@@ -1,9 +1,9 @@
 'use client'
 
 import { createClient } from "@/utils/supabase/client";
-import { login, logout } from "@/login/actions";
+import { login } from "@/login/actions";
 import { useAppSelector, useAppDispatch } from "@/store/hooks";
-import { setIsAuthenticated } from "@/store/wellnessSlice";
+import { setIsAuthenticated, setModalMessage, setShowModal } from "@/store/wellnessSlice";
 import { useEffect } from "react";
 
 export default function Header() {
@@ -27,7 +27,12 @@ export default function Header() {
     }, []);
 
     const handleLogout = () => {
-        logout();
+        dispatch(setModalMessage({
+            title: 'Logout',
+            body: 'Are you sure you want to logout?',
+            footer: 'logout'
+        }));
+        dispatch(setShowModal(true));
     }
 
     return (

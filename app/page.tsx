@@ -187,16 +187,8 @@ export default function App() {
     login();
   };
 
-  const handleModalLogout = () => {
-    dispatch(setShowModal(true));
-    dispatch(setModalMessage({
-      title: 'Logout',
-      body: 'Are you sure you want to log out?',
-      footer: 'logout',
-    }));
-  };
-
   const handleConfirmLogout = () => {
+    dispatch(setShowModal(false));
     logout();
   };
 
