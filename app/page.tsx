@@ -310,9 +310,9 @@ export default function App() {
                   <FontAwesomeIcon icon={state.saveButton.icon} /> {state.saveButton.text}
                 </Button>
                 {state.errorMessage && (
-                  <Alert variant="danger" id="error-message" className='mb-3'>{state.errorMessage}</Alert>
+                  <Alert data-html2canvas-ignore variant="danger" id="error-message" className='mb-3'>{state.errorMessage}</Alert>
                 )}
-                <Dropdown className="d-grid gap-2 d-md-block">
+                <Dropdown data-html2canvas-ignore className="d-grid gap-2 d-md-block">
                   <Dropdown.Toggle variant="secondary" id="dropdown-basic-button" >
                     Extra Options
                   </Dropdown.Toggle>

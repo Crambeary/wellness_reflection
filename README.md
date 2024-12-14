@@ -70,7 +70,7 @@
     - [x] Show errors about db in the UI
     - [x] Explain a benefits of logging in as modal when attempting to save without authentication
     - [ ] Use local form for today's data after logging in unless a db form exists
-    - [ ] Modal to confirm leaving the page or changing date with unsaved data - localStorage is newer than db
+    - [x] Modal to confirm leaving the page or changing date with unsaved data - localStorage is diverged than db
         - "You have unsaved data, are you sure you want to load another date?"
     - [ ] Modal to confirm clear form
         - "You have unsaved data, are you sure you want to clear the form?"
@@ -78,8 +78,8 @@
 - [ ] Define app behavior for unauthenticated users
     - Change dates without changing form contents and no modal warning?
 - [ ] Fix all errors
-    - [ ] Hide the Extra Options button on image export
-    - [ ] Hide error alerts on image export
+    - [x] Hide the Extra Options button on image export
+    - [x] Hide error alerts on image export
     - Idle and console shows this error:
         ```
             VM7781:1 
