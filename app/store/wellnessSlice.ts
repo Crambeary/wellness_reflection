@@ -116,7 +116,9 @@ export const wellnessSlice = createSlice({
     loadSavedForm(state, action: PayloadAction<WellnessState>) {
       const name = state.name;
       const email = state.email;
-      return { ...state, ...action.payload, lastUpdated: new Date().toISOString(), name: name, email: email, isDiverged: false };
+      const isAuthenticated = state.isAuthenticated;
+      const isDiverged = state.isDiverged;
+      return { ...state, ...action.payload, lastUpdated: new Date().toISOString(), name: name, email: email, isAuthenticated: isAuthenticated, isDiverged: isDiverged };
     },
     setLoading(state, action: PayloadAction<boolean>) {
       state.isLoading = action.payload;

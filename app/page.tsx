@@ -69,7 +69,7 @@ export default function App() {
         if (isNaN(formDate.getTime()) && stateData) { // If local form is empty, load from db
           console.log('loading from db');
           dispatch(loadSavedForm({ ...state, ...stateData, isLoading: false }));
-        } else if (isNaN(dbDate.getTime()) && savedForm.length > 0) { // If db form is empty, load from local
+        } else if (isNaN(dbDate.getTime()) && Object.keys(savedForm || {}).length > 0) { // If db form is empty, load from local
           console.log('loading from local form');
           dispatch(loadSavedForm({ ...state, ...savedForm, isLoading: false }));
         } else if (isNaN(formDate.getTime()) && isNaN(dbDate.getTime())) { // If both forms are empty, clear form
