@@ -1,12 +1,34 @@
-import { createClient } from "@/utils/supabase/server";
+'use client'
+
+import { createClient } from "@/utils/supabase/client";
 import { login, logout } from "@/login/actions";
+import { useAppSelector, useAppDispatch } from "@/store/hooks";
+import { setIsAuthenticated } from "@/store/wellnessSlice";
+import { useEffect } from "react";
 
-export default async function Header() {
-    const supabase = await createClient();
+export default function Header() {
 
-    const {
-        data: { user },
-    } = await supabase.auth.getUser();
+    const isAuthenticated = useAppSelector((state) => state.wellness.isAuthenticated);
+    const dispatch = useAppDispatch();
+    const handleAuth = async () => {
+        const supabase = createClient();
+        const {
+            data: { user },
+        } = await supabase.auth.getUser();
+        if (user) {
+            dispatch(setIsAuthenticated(true));
+        } else {
+            dispatch(setIsAuthenticated(false));
+        }
+    }
+
+    useEffect(() => {
+        handleAuth();
+    }, []);
+
+    const handleLogout = () => {
+        logout();
+    }
 
     return (
         <>
@@ -25,8 +47,8 @@ export default async function Header() {
                     <a className="nav-link active" aria-current="page"></a>
                 </li>
             </ul>
-            {user ? (
-                <button onClick={logout} className="btn btn-outline-danger">Logout</button>
+            {isAuthenticated ? (
+                <button onClick={handleLogout} className="btn btn-outline-danger">Logout</button>
             ): 
                 <button onClick={login} className="btn btn-outline-success">Log in</button>
                 }

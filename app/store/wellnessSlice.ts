@@ -5,6 +5,7 @@ import { faSave, faSpinner, faCheck, faXmark } from '@fortawesome/free-solid-svg
 
 export interface WellnessState {
   isLoading: boolean;
+  isAuthenticated: boolean;
   saveButton: {
     text: 'Submit' | 'Saving...' | 'Saved' | 'Error';
     icon: IconDefinition;
@@ -15,7 +16,7 @@ export interface WellnessState {
   modalMessage: {
     title: string;
     body: string;
-    footer: 'unauthenticated' | 'unsaved' | '';
+    footer: 'unauthenticated' | 'unsaved' | 'logout' | '';
   };
   lastUpdated: string;
   isDiverged: boolean;
@@ -45,6 +46,7 @@ export interface WellnessState {
 
 const initialState: WellnessState = {
   isLoading: true,
+  isAuthenticated: false,
   saveButton: {
     text: "Submit",
     icon: faSave,
@@ -96,7 +98,8 @@ export const wellnessSlice = createSlice({
     clearForm(state) {
       const name = state.name;
       const date = state.date;
-      return { ...initialState, isLoading: false, lastUpdated: new Date().toISOString(), name: name, date: date, isDiverged: false };
+      const isAuthenticated = state.isAuthenticated;
+      return { ...initialState, isLoading: false, lastUpdated: new Date().toISOString(), name: name, date: date, isAuthenticated: isAuthenticated, isDiverged: false };
     },
     clearName(state) {
       return {...state, name: ''}
@@ -152,7 +155,7 @@ export const wellnessSlice = createSlice({
     setShowModal: (state, action: PayloadAction<boolean>) => {
       state.showModal = action.payload;
     },
-    setModalMessage: (state, action: PayloadAction<{ title: string; body: string; footer: 'unauthenticated' | 'unsaved' | '' }>) => {
+    setModalMessage: (state, action: PayloadAction<{ title: string; body: string; footer: 'unauthenticated' | 'unsaved' | 'logout' | '' }>) => {
       state.modalMessage = action.payload;
     },
     setIsDiverged: (state, action: PayloadAction<boolean>) => {
@@ -160,6 +163,9 @@ export const wellnessSlice = createSlice({
     },
     setTargetDate: (state, action: PayloadAction<string | null>) => {
       state.targetDate = action.payload;
+    },
+    setIsAuthenticated: (state, action: PayloadAction<boolean>) => {
+      state.isAuthenticated = action.payload;
     },
   },
 });
@@ -180,5 +186,6 @@ export const {
   setModalMessage,
   setIsDiverged,
   setTargetDate,
+  setIsAuthenticated,
 } = wellnessSlice.actions;
 export default wellnessSlice.reducer;

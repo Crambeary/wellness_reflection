@@ -19,7 +19,7 @@ import { debounce } from 'lodash';
 import { mapReflectionToState } from '@/utils/mappers';
 import { Dropdown } from 'react-bootstrap';
 import { confirmDateSwitch } from './store/actions';
-import { login } from './login/actions';
+import { login, logout } from './login/actions';
 
 const debouncedSave = debounce((state: any) => {
   localStorage.setItem('form', JSON.stringify(state));
@@ -187,6 +187,19 @@ export default function App() {
     login();
   };
 
+  const handleModalLogout = () => {
+    dispatch(setShowModal(true));
+    dispatch(setModalMessage({
+      title: 'Logout',
+      body: 'Are you sure you want to log out?',
+      footer: 'logout',
+    }));
+  };
+
+  const handleConfirmLogout = () => {
+    logout();
+  };
+
   const handleCancel = () => {
     dispatch(setShowModal(false));
     dispatch(setTargetDate(null));
@@ -347,6 +360,12 @@ export default function App() {
                       <>
                         <Button variant="secondary" onClick={handleCancel}>Close</Button>
                         <Button variant="outline-success" onClick={handleConfirmLogin}>Log in Now</Button>
+                      </>
+                    )}
+                    {state.modalMessage.footer === 'logout' && (
+                      <>
+                        <Button variant="secondary" onClick={handleCancel}>Close</Button>
+                        <Button variant="outline-danger" onClick={handleConfirmLogout}>Log out</Button>
                       </>
                     )}
                   </Modal.Footer>

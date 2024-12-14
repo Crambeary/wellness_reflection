@@ -4,6 +4,7 @@ import { faSave } from '@fortawesome/free-solid-svg-icons';
 export const mapReflectionToState = (reflection: any): WellnessState => {
     const stateData: WellnessState = {
         isLoading: false,
+        isAuthenticated: true,
         saveButton: {
             text: 'Submit',
             icon: faSave,
@@ -14,6 +15,7 @@ export const mapReflectionToState = (reflection: any): WellnessState => {
         modalMessage: {
             title: '',
             body: '',
+            footer: '',
         },
         lastUpdated: reflection.last_updated,
         isDiverged: false,

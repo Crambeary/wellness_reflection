@@ -45,6 +45,9 @@
       "@/store/*": [
         "./app/store/*"
       ],
+      "@/app/*": [
+        "./app/*"
+      ],
     }
   },
   "include": [
