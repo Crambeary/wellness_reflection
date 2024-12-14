@@ -79,12 +79,12 @@ export default function App() {
         } else if (dbDate > formDate && Object.keys(stateData || {}).length > 0) { // If db form is newer than local form, load from db
           console.log('loading from db');
           dispatch(loadSavedForm({ ...state, ...stateData, isLoading: false }));
+        } else if (state.isDiverged && state.isAuthenticated && Object.keys(stateData || {}).length > 0) {
+          console.log('loading from local form');
+          dispatch(loadSavedForm({ ...state, ...savedForm, isLoading: false }));
         } else if (Object.keys(stateData || {}).length > 0) { 
           console.log('loading from db form');
           dispatch(loadSavedForm({ ...state, ...stateData, isLoading: false }));
-        } else if (state.isDiverged && Object.keys(stateData || {}).length > 0) {
-          console.log('loading from local form');
-          dispatch(loadSavedForm({ ...state, ...savedForm, isLoading: false }));
         } else {
           console.log('clearing form 2');
           dispatch(clearForm());
