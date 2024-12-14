@@ -74,7 +74,7 @@
         - "You have unsaved data, are you sure you want to load another date?"
     - [ ] Modal to confirm clear form
         - "You have unsaved data, are you sure you want to clear the form?"
-    - [ ] Add a Modal to confirm logout
+    - [x] Add a Modal to confirm logout
     - [ ] Show user email in the header
 - [ ] show date on image export
 - [ ] Define app behavior for unauthenticated users

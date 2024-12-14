@@ -135,8 +135,12 @@ export default function App() {
   };
 
   const clearFormHandler = () => {
-    dispatch(clearForm());
-    localStorage.removeItem('form');
+    dispatch(setShowModal(true));
+    dispatch(setModalMessage({
+      title: 'Clear Form',
+      body: 'Are you sure you want to clear the form?',
+      footer: 'clearing',
+    }));
   };
 
   const saveForm = async () => {
@@ -195,6 +199,12 @@ export default function App() {
   const handleCancel = () => {
     dispatch(setShowModal(false));
     dispatch(setTargetDate(null));
+  };
+
+  const handleConfirmClear = () => {
+    dispatch(setShowModal(false));
+    dispatch(clearForm());
+    localStorage.removeItem('form');
   };
 
   return (
@@ -358,6 +368,12 @@ export default function App() {
                       <>
                         <Button variant="secondary" onClick={handleCancel}>Close</Button>
                         <Button variant="outline-danger" onClick={handleConfirmLogout}>Log out</Button>
+                      </>
+                    )}
+                    {state.modalMessage.footer === 'clearing' && (
+                      <>
+                        <Button variant="secondary" onClick={handleCancel}>Close</Button>
+                        <Button variant="outline-danger" onClick={handleConfirmClear}>Clear</Button>
                       </>
                     )}
                   </Modal.Footer>

@@ -16,7 +16,7 @@ export interface WellnessState {
   modalMessage: {
     title: string;
     body: string;
-    footer: 'unauthenticated' | 'unsaved' | 'logout' | '';
+    footer: 'unauthenticated' | 'unsaved' | 'logout' | 'clearing' | '';
   };
   lastUpdated: string;
   isDiverged: boolean;
@@ -155,7 +155,7 @@ export const wellnessSlice = createSlice({
     setShowModal: (state, action: PayloadAction<boolean>) => {
       state.showModal = action.payload;
     },
-    setModalMessage: (state, action: PayloadAction<{ title: string; body: string; footer: 'unauthenticated' | 'unsaved' | 'logout' | '' }>) => {
+    setModalMessage: (state, action: PayloadAction<{ title: string; body: string; footer: 'unauthenticated' | 'unsaved' | 'logout' | 'clearing' | '' }>) => {
       state.modalMessage = action.payload;
     },
     setIsDiverged: (state, action: PayloadAction<boolean>) => {
