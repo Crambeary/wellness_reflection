@@ -109,7 +109,8 @@ export const wellnessSlice = createSlice({
     },
     loadSavedForm(state, action: PayloadAction<WellnessState>) {
       const name = state.name;
-      return { ...state, ...action.payload, lastUpdated: new Date().toISOString(), name: name, isDiverged: false };
+      const email = state.email;
+      return { ...state, ...action.payload, lastUpdated: new Date().toISOString(), name: name, email: email, isDiverged: false };
     },
     setLoading(state, action: PayloadAction<boolean>) {
       state.isLoading = action.payload;
