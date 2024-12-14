@@ -131,3 +131,11 @@
     - [ ] View user data
     - [ ] View wellness data
     - [ ] View analytics data
+- [ ] Gamification
+    - [ ] Add a leaderboard
+    - [ ] Add a points system
+    - [ ] Add a rewards system  
+- [ ] Add a mobile app PWA refresh on pulldown
+- [ ] Add a mobile app PWA install prompt
+- [ ] Add a mobile app PWA badge in the header
+
