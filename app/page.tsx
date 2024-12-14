@@ -56,8 +56,8 @@ export default function App() {
         // : If db has no form, but local has a form, keep local form on refresh
         // : If no local or db form, clear form
         // : If db is updated on another device, stomp local form
-        // TODO: If local is an updated form from db, keep local form on refresh
         // TODO: If database has a form, stomp local change on login by using the db form
+        // TODO: If local is an updated form from db, keep local form on refresh
         const stateData = await fetchTodaysReflection();
         const formDate = new Date(savedForm?.lastUpdated || '');
         const dbDate = new Date(stateData?.lastUpdated || '');
@@ -79,6 +79,12 @@ export default function App() {
         } else if (dbDate > formDate && Object.keys(stateData || {}).length > 0) { // If db form is newer than local form, load from db
           console.log('loading from db');
           dispatch(loadSavedForm({ ...state, ...stateData, isLoading: false }));
+        } else if (Object.keys(stateData || {}).length > 0) { 
+          console.log('loading from db form');
+          dispatch(loadSavedForm({ ...state, ...stateData, isLoading: false }));
+        } else if (state.isDiverged && Object.keys(stateData || {}).length > 0) {
+          console.log('loading from local form');
+          dispatch(loadSavedForm({ ...state, ...savedForm, isLoading: false }));
         } else {
           console.log('clearing form 2');
           dispatch(clearForm());
