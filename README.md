@@ -78,6 +78,7 @@
 - [x] Define app behavior for unauthenticated users
     - Change dates without changing form contents and no modal warning?
 - [ ] Fix all errors
+    - [ ] Fix error with saving before pressing today button
     - [x] Hide the Extra Options button on image export
     - [x] Hide error alerts on image export
     - Idle and console shows this error:
