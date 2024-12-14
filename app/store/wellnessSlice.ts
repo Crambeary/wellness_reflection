@@ -15,6 +15,7 @@ export interface WellnessState {
   modalMessage: {
     title: string;
     body: string;
+    footer: 'unauthenticated' | 'unsaved' | '';
   };
   lastUpdated: string;
   isDiverged: boolean;
@@ -54,6 +55,7 @@ const initialState: WellnessState = {
   modalMessage: {
     title: "",
     body: "",
+    footer: ''
   },
   lastUpdated: "",
   isDiverged: false,
@@ -147,7 +149,7 @@ export const wellnessSlice = createSlice({
     setShowModal: (state, action: PayloadAction<boolean>) => {
       state.showModal = action.payload;
     },
-    setModalMessage: (state, action: PayloadAction<{ title: string; body: string }>) => {
+    setModalMessage: (state, action: PayloadAction<{ title: string; body: string; footer: 'unauthenticated' | 'unsaved' | '' }>) => {
       state.modalMessage = action.payload;
     },
     setIsDiverged: (state, action: PayloadAction<boolean>) => {

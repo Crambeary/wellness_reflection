@@ -16,7 +16,8 @@ export const setDate = createAsyncThunk(
             // Show confirmation modal
             dispatch(setModalMessage({ 
                 title: 'Unsaved Changes', 
-                body: 'You have unsaved changes. Are you sure you want to switch dates?' 
+                body: 'You have unsaved changes. Are you sure you want to switch dates?',
+                footer: 'unsaved'
             }));
             dispatch(setShowModal(true));
             

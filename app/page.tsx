@@ -19,6 +19,7 @@ import { debounce } from 'lodash';
 import { mapReflectionToState } from '@/utils/mappers';
 import { Dropdown } from 'react-bootstrap';
 import { confirmDateSwitch } from './store/actions';
+import { login } from './login/actions';
 
 const debouncedSave = debounce((state: any) => {
   localStorage.setItem('form', JSON.stringify(state));
@@ -141,7 +142,11 @@ export default function App() {
       
       if (!user) {
         dispatch(setShowModal(true));
-        dispatch(setModalMessage({ title: 'Unauthenticated', body: "You must be logged in to save your reflection, it's free! \nOnly seconds to login with Google. \nOr export an image of your data under 'Extra Options'." }));
+        dispatch(setModalMessage({
+          title: 'Save your progress',
+          body: "Log in to secure your data for this and other dates. \nYour wellness data is just a click away.",
+          footer: 'unauthenticated'
+        }));
         console.error('User not authenticated');
         return;
       }
@@ -170,8 +175,12 @@ export default function App() {
     }
   };
 
-  const handleConfirm = () => {
+  const handleConfirmDateSwitch = () => {
     dispatch(confirmDateSwitch());
+  };
+
+  const handleConfirmLogin = () => {
+    login();
   };
 
   const handleCancel = () => {
@@ -324,8 +333,18 @@ export default function App() {
                     <p key={`modal-body-${index}`}>{line}</p>
                   ))}</Modal.Body>
                   <Modal.Footer>
-                    <Button variant="secondary" onClick={handleCancel}>Close</Button>
-                    <Button variant="primary" onClick={handleConfirm}>Continue</Button>
+                    {state.modalMessage.footer === 'unsaved' && (
+                      <>
+                        <Button variant="secondary" onClick={handleCancel}>Close</Button>
+                        <Button variant="primary" onClick={handleConfirmDateSwitch}>Continue</Button>
+                      </>
+                    )}
+                    {state.modalMessage.footer === 'unauthenticated' && (
+                      <>
+                        <Button variant="secondary" onClick={handleCancel}>Close</Button>
+                        <Button variant="outline-success" onClick={handleConfirmLogin}>Log in Now</Button>
+                      </>
+                    )}
                   </Modal.Footer>
                 </Modal>
               </div>
