@@ -16,6 +16,8 @@ export const mapReflectionToState = (reflection: any): WellnessState => {
             body: '',
         },
         lastUpdated: reflection.last_updated,
+        isDiverged: false,
+        targetDate: null,
         name: reflection.name,
         date: reflection.date,
         'wake-time': reflection.wake_time || '',

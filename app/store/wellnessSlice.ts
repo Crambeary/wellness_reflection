@@ -17,6 +17,8 @@ export interface WellnessState {
     body: string;
   };
   lastUpdated: string;
+  isDiverged: boolean;
+  targetDate: string | null;
   name: string;
   date: string;
   'wake-time': string;
@@ -54,6 +56,8 @@ const initialState: WellnessState = {
     body: "",
   },
   lastUpdated: "",
+  isDiverged: false,
+  targetDate: null,
   name: "",
   date: "",
   'wake-time': "",
@@ -85,15 +89,16 @@ export const wellnessSlice = createSlice({
       const { id, value } = action.payload;
       (state as any)[id] = value;
       state.lastUpdated = new Date().toISOString();
+      state.isDiverged = true;
     },
     clearForm(state) {
       const name = state.name;
       const date = state.date;
-      return { ...initialState, isLoading: false, lastUpdated: new Date().toISOString(), name: name, date: date };
+      return { ...initialState, isLoading: false, lastUpdated: new Date().toISOString(), name: name, date: date, isDiverged: false };
     },
     loadSavedForm(state, action: PayloadAction<WellnessState>) {
       const name = state.name;
-      return { ...state, ...action.payload, lastUpdated: new Date().toISOString(), name: name };
+      return { ...state, ...action.payload, lastUpdated: new Date().toISOString(), name: name, isDiverged: false };
     },
     setLoading(state, action: PayloadAction<boolean>) {
       state.isLoading = action.payload;
@@ -103,6 +108,7 @@ export const wellnessSlice = createSlice({
       if (typeof (state as any)[id] === 'number' && (state as any)[id] < 5) {
         (state as any)[id] = (state as any)[id] + 1;
         state.lastUpdated = new Date().toISOString();
+        state.isDiverged = true;
       }
     },
     decrementField: (state, action: PayloadAction<string>) => {
@@ -110,6 +116,7 @@ export const wellnessSlice = createSlice({
       if (typeof (state as any)[id] === 'number' && (state as any)[id] > 0) {
         (state as any)[id] = (state as any)[id] - 1;
         state.lastUpdated = new Date().toISOString();
+        state.isDiverged = true;
       }
     },
     setFieldValue: (state, action: PayloadAction<{ id: keyof WellnessState | string; value: number | string }>) => {
@@ -119,10 +126,12 @@ export const wellnessSlice = createSlice({
         if (!isNaN(numValue) && numValue >= 0 && numValue <= 5) {
           (state as any)[id] = numValue;
           state.lastUpdated = new Date().toISOString();
+          state.isDiverged = true;
         }
       } else {
         (state as any)[id] = value;
         state.lastUpdated = new Date().toISOString();
+        state.isDiverged = true;
       }
     },
     setDate: (state: WritableDraft<WellnessState>, action: PayloadAction<string>): WellnessState => {
@@ -141,6 +150,12 @@ export const wellnessSlice = createSlice({
     setModalMessage: (state, action: PayloadAction<{ title: string; body: string }>) => {
       state.modalMessage = action.payload;
     },
+    setIsDiverged: (state, action: PayloadAction<boolean>) => {
+      state.isDiverged = action.payload;
+    },
+    setTargetDate: (state, action: PayloadAction<string | null>) => {
+      state.targetDate = action.payload;
+    },
   },
 });
 
@@ -156,6 +171,8 @@ export const {
   setSaveButton,
   setErrorMessage,
   setShowModal,
-  setModalMessage
+  setModalMessage,
+  setIsDiverged,
+  setTargetDate,
 } = wellnessSlice.actions;
 export default wellnessSlice.reducer;
