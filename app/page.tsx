@@ -136,6 +136,7 @@ export default function App() {
   };
 
   const clearFormHandler = () => {
+    dispatch(setShowModal(true));
     dispatch(setModalMessage({
       title: 'Clear Form',
       body: 'Are you sure you want to clear the form?',
@@ -204,7 +205,8 @@ export default function App() {
   const handleConfirmClear = () => {
     dispatch(setShowModal(false));
     dispatch(clearForm());
-    localStorage.removeItem('form');
+    dispatch(setDate(getLocalISOString().split(' ')[0]));
+    localStorage.removeItem('wellnessForm');
   };
 
   return (
