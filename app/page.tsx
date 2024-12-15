@@ -15,26 +15,26 @@ import { createClient } from '@/utils/supabase/client';
 import { upsertWellnessReflection, getTodaysReflection } from '@/utils/supabase/database';
 import { useAppDispatch, useAppSelector } from './store/hooks';
 import { updateField, clearForm, loadSavedForm, setFieldValue, setDate, setSaveButton, setErrorMessage, setShowModal, setModalMessage, setIsDiverged, setTargetDate, clearName } from './store/wellnessSlice';
-import { debounce } from 'lodash';
 import { mapReflectionToState } from '@/utils/mappers';
 import { Dropdown } from 'react-bootstrap';
 import { confirmDateSwitch } from './store/actions';
 import { login, logout } from './login/actions';
-
-const debouncedSave = debounce((state: any) => {
-  localStorage.setItem('form', JSON.stringify(state));
-}, 500);
+import { getLocalISOString } from '@/utils/helpers';
 
 export default function App() {
   const dispatch = useAppDispatch();
   const state = useAppSelector((state) => state.wellness);
   const captureRegionRef = useRef<HTMLDivElement>(null);
+  const nameRef = useRef<HTMLSpanElement>(null);
 
   useEffect(() => {
-    debouncedSave(state);
-  }, [state]);
+    if (nameRef.current && state.name && state.isAuthenticated && !state.isLoading) {
+      nameRef.current.textContent = `, ${state.name}?`;
+    }
+  }, [state.name, state.isAuthenticated, state.isLoading]);
 
   useEffect(() => {
+    // This is the main function that fetches the todays reflection from the db or local storage on page load
     const fetchTodaysReflection = async () => {
       const supabase = createClient();
       const { data: { user } } = await supabase.auth.getUser();
@@ -47,7 +47,6 @@ export default function App() {
           const stateData = mapReflectionToState(reflection);
           return stateData;
         }
-        console.log('no reflection found');
         return null;
       } else {
         dispatch(clearName());
@@ -57,32 +56,34 @@ export default function App() {
     }
 
     const updateForm = async () => {
-      const savedForm = JSON.parse(localStorage.getItem('form') || '{}');
+      const savedForm = JSON.parse(localStorage.getItem('wellnessForm') || '{}');
 
       try {
+        // : If no local form, load from db
+        // : If db has no form, but local has a form, keep local form on refresh
+        // : If no local or db form, clear form
+        // : If db is updated on another device, stomp local form
+        // : If database has a form, stomp local change on login by using the db form
+        // : If local is an updated form from db, keep local form on refresh
         const stateData = await fetchTodaysReflection();
         const formDate = new Date(savedForm?.lastUpdated || '');
         const dbDate = new Date(stateData?.lastUpdated || '');
-        if (isNaN(formDate.getTime()) && stateData) {
-          console.log('loading from db');
+        if (isNaN(formDate.getTime()) && stateData) { // If local form is empty, load from db
           dispatch(loadSavedForm({ ...state, ...stateData, isLoading: false }));
-        } else if (isNaN(dbDate.getTime()) && savedForm.length > 0) {
-          console.log('loading from local form');
+        } else if (isNaN(dbDate.getTime()) && Object.keys(savedForm || {}).length > 0) { // If db form is empty, load from local
           dispatch(loadSavedForm({ ...state, ...savedForm, isLoading: false }));
-        } else if (isNaN(formDate.getTime()) && isNaN(dbDate.getTime())) {
-          console.log('clearing form 1');
+        } else if (isNaN(formDate.getTime()) && isNaN(dbDate.getTime())) { // If both forms are empty, clear form
           dispatch(clearForm());
-          dispatch(setDate(new Date().toISOString()));
-        } else if (dbDate > formDate && stateData) {
-          console.log('loading from db');
+          dispatch(setDate(getLocalISOString().split(' ')[0]));
+        } else if (dbDate > formDate && Object.keys(stateData || {}).length > 0) { // If db form is newer than local form, load from db
           dispatch(loadSavedForm({ ...state, ...stateData, isLoading: false }));
-        } else if (formDate?.toISOString() !== '' && savedForm.length > 0) {
-          console.log('loading from local form 2');
+        } else if (state.isDiverged && state.isAuthenticated && Object.keys(stateData || {}).length > 0) {
           dispatch(loadSavedForm({ ...state, ...savedForm, isLoading: false }));
+        } else if (Object.keys(stateData || {}).length > 0) { 
+          dispatch(loadSavedForm({ ...state, ...stateData, isLoading: false }));
         } else {
-          console.log('clearing form 2');
           dispatch(clearForm());
-          dispatch(setDate(new Date().toISOString()));
+          dispatch(setDate(getLocalISOString().split(' ')[0]));
         }
       } catch (error) {
         console.error('Error updating form:', error);
@@ -135,7 +136,6 @@ export default function App() {
   };
 
   const clearFormHandler = () => {
-    dispatch(setShowModal(true));
     dispatch(setModalMessage({
       title: 'Clear Form',
       body: 'Are you sure you want to clear the form?',
@@ -213,14 +213,9 @@ export default function App() {
         <div className="row">
           <div className="col-md-12" id="wellness-form" >
             <div className='row'>
-              <h2 className='text-muted col-auto my-3'style={{ fontFamily: 'Nunito Sans', fontWeight: 'bold'}}>
-                How are you lately{state.name ? ', ' : ''}
-                {state.name && (
-                  <div id='name' className={`fw-bold col-auto`}>
-                    {state.name ? `${state.name}?` : ''}
-                  </div>
-                )}
-                {state.name ? '' : '?'}
+              <h2 className='text-muted col-auto my-3' style={{ fontFamily: 'Nunito Sans', fontWeight: 'bold'}}>
+                <span>How are you lately</span>
+                <span ref={nameRef} id='name' className={`fw-bold col-auto`}>?</span>
               </h2>
             </div>
             <div id="form">

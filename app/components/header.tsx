@@ -4,10 +4,11 @@ import { createClient } from "@/utils/supabase/client";
 import { login } from "@/login/actions";
 import { useAppSelector, useAppDispatch } from "@/store/hooks";
 import { setIsAuthenticated, setModalMessage, setShowModal, setEmail } from "@/store/wellnessSlice";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 
 export default function Header() {
 
+    const [isLoading, setIsLoading] = useState(true);
     const isAuthenticated = useAppSelector((state) => state.wellness.isAuthenticated);
     const email = useAppSelector((state) => state.wellness.email);
     const dispatch = useAppDispatch();
@@ -22,6 +23,7 @@ export default function Header() {
         } else {
             dispatch(setIsAuthenticated(false));
         }
+        setIsLoading(false);
     }
 
     useEffect(() => {
@@ -51,12 +53,10 @@ export default function Header() {
             <div className="collapse navbar-collapse" id="navbarSupportedContent">
             <ul className="navbar-nav ms-auto my-auto">
                 <li className="nav-item ms-auto">
-                    {email && email.length > 0 && (
-                        <p className="nav-link text-muted">{email}</p>
-                    )}
+                    {!isLoading && (email || 'Login for an upgraded experience')}
                 </li>
             </ul>
-            {isAuthenticated ? (
+            {!isLoading && isAuthenticated ? (
                 <button onClick={handleLogout} className="btn btn-outline-danger">Logout</button>
             ): 
                 <button onClick={login} className="btn btn-outline-success">Log in</button>

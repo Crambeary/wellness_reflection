@@ -1,8 +1,8 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { WritableDraft } from 'immer';
 import { IconDefinition } from '@fortawesome/fontawesome-svg-core';
-import { faSave, faSpinner, faCheck, faXmark } from '@fortawesome/free-solid-svg-icons';
-
+import { faSave } from '@fortawesome/free-solid-svg-icons';
+import { getLocalISOString } from '@/utils/helpers'
 export interface WellnessState {
   isLoading: boolean;
   isAuthenticated: boolean;
@@ -65,7 +65,7 @@ const initialState: WellnessState = {
   targetDate: null,
   name: "",
   email: "",
-  date: "",
+  date: getLocalISOString().split(' ')[0],
   'wake-time': "",
   'bedtime': "",
   qotd: "",
@@ -89,7 +89,12 @@ const initialState: WellnessState = {
 
 export const wellnessSlice = createSlice({
   name: 'wellness',
-  initialState,
+  initialState: (() => {
+    if (typeof window === 'undefined') return initialState;
+    
+    const saved = localStorage.getItem('wellnessForm');
+    return saved ? JSON.parse(saved) : initialState;
+  })(),
   reducers: {
     updateField(state, action: PayloadAction<{ id: keyof WellnessState | string; value: string | number }>) {
       const { id, value } = action.payload;
@@ -98,6 +103,7 @@ export const wellnessSlice = createSlice({
       state.isDiverged = true;
     },
     clearForm(state) {
+      localStorage.removeItem('wellnessForm');
       const name = state.name;
       const date = state.date;
       const isAuthenticated = state.isAuthenticated;
@@ -110,7 +116,9 @@ export const wellnessSlice = createSlice({
     loadSavedForm(state, action: PayloadAction<WellnessState>) {
       const name = state.name;
       const email = state.email;
-      return { ...state, ...action.payload, lastUpdated: new Date().toISOString(), name: name, email: email, isDiverged: false };
+      const isAuthenticated = state.isAuthenticated;
+      const isDiverged = state.isDiverged;
+      return { ...state, ...action.payload, lastUpdated: new Date().toISOString(), name: name, email: email, isAuthenticated: isAuthenticated, isDiverged: isDiverged };
     },
     setLoading(state, action: PayloadAction<boolean>) {
       state.isLoading = action.payload;
