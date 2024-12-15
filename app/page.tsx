@@ -222,14 +222,13 @@ export default function App() {
           <div className="col-md-12" id="wellness-form" >
             <div className='row'>
               <h2 className='text-muted col-auto my-3' style={{ fontFamily: 'Nunito Sans', fontWeight: 'bold'}}>
-                {isLoading && (
-                  <span>How are you lately</span>
-                )}
-                {!isLoading && state.isAuthenticated && (
+                {!isLoading && state.isAuthenticated ? (
                   <>
                     <span>How are you lately,</span>
                     <br/>
                   </>
+                ):(
+                  <span>How are you lately</span>
                 )}
                   <span ref={nameRef} id='name' className={`fw-bold col-auto`}>?</span>
               </h2>
