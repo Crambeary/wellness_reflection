@@ -52,7 +52,7 @@
 - [x] Reorganize the sections Meals > Cravings > Notes
 - [x] Remove the "Morning Meals" etc. Sub Headers
 - [x] Set redirect with wildcards and NEXT_VERCEL env. Check ticktick link
-- [ ] Improve the UI to work with a database as the source of truth
+- [x] Improve the UI to work with a database as the source of truth
     - [x] Move date selection to be a navbar
         - [x] Load selected date data from database to the form
     - [x] Change data in the form to come from the db on date change if it exists
@@ -68,7 +68,7 @@
     - [x] UI Show error when saving without authentication
     - [x] Show errors about db in the UI
     - [x] Explain a benefits of logging in as modal when attempting to save without authentication
-    - [ ] Use local form for today's data after logging in unless a db form exists
+    - [x] Use local form for today's data after logging in unless a db form exists
     - [x] Modal to confirm leaving the page or changing date with unsaved data - localStorage is diverged than db
         - "You have unsaved data, are you sure you want to load another date?"
     - [x] Modal to confirm clear form
@@ -91,7 +91,7 @@
                 _storageChangeDispatcherCallback	@	content.js:2
         ```
     - [ ] Make sure that all elements do not change from controlled to uncontrolled and vice versa
-    - [ ] Fix authenticate error on login from vercel main site
+    - [x] Fix authenticate error on login from vercel main site
 ----
 ### Nice to have
 - [ ] Tailwind CSS replacing bootstrap

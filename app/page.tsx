@@ -25,6 +25,13 @@ export default function App() {
   const dispatch = useAppDispatch();
   const state = useAppSelector((state) => state.wellness);
   const captureRegionRef = useRef<HTMLDivElement>(null);
+  const nameRef = useRef<HTMLSpanElement>(null);
+
+  useEffect(() => {
+    if (nameRef.current && state.name && state.isAuthenticated && !state.isLoading) {
+      nameRef.current.textContent = `, ${state.name}?`;
+    }
+  }, [state.name, state.isAuthenticated, state.isLoading]);
 
   useEffect(() => {
     // This is the main function that fetches the todays reflection from the db or local storage on page load
@@ -40,7 +47,6 @@ export default function App() {
           const stateData = mapReflectionToState(reflection);
           return stateData;
         }
-        console.log('no reflection found');
         return null;
       } else {
         dispatch(clearName());
@@ -62,32 +68,20 @@ export default function App() {
         const stateData = await fetchTodaysReflection();
         const formDate = new Date(savedForm?.lastUpdated || '');
         const dbDate = new Date(stateData?.lastUpdated || '');
-        console.log('formDate', formDate);
-        console.log('dbDate', dbDate);
-        console.log('savedForm', savedForm);
-        console.log('stateData', stateData);
-        console.log(formDate?.toISOString() !== '');
         if (isNaN(formDate.getTime()) && stateData) { // If local form is empty, load from db
-          console.log('loading from db');
           dispatch(loadSavedForm({ ...state, ...stateData, isLoading: false }));
         } else if (isNaN(dbDate.getTime()) && Object.keys(savedForm || {}).length > 0) { // If db form is empty, load from local
-          console.log('loading from local form');
           dispatch(loadSavedForm({ ...state, ...savedForm, isLoading: false }));
         } else if (isNaN(formDate.getTime()) && isNaN(dbDate.getTime())) { // If both forms are empty, clear form
-          console.log('clearing form 1');
           dispatch(clearForm());
           dispatch(setDate(getLocalISOString().split(' ')[0]));
         } else if (dbDate > formDate && Object.keys(stateData || {}).length > 0) { // If db form is newer than local form, load from db
-          console.log('loading from db');
           dispatch(loadSavedForm({ ...state, ...stateData, isLoading: false }));
         } else if (state.isDiverged && state.isAuthenticated && Object.keys(stateData || {}).length > 0) {
-          console.log('loading from local form');
           dispatch(loadSavedForm({ ...state, ...savedForm, isLoading: false }));
         } else if (Object.keys(stateData || {}).length > 0) { 
-          console.log('loading from db form');
           dispatch(loadSavedForm({ ...state, ...stateData, isLoading: false }));
         } else {
-          console.log('clearing form 2');
           dispatch(clearForm());
           dispatch(setDate(getLocalISOString().split(' ')[0]));
         }
@@ -219,14 +213,9 @@ export default function App() {
         <div className="row">
           <div className="col-md-12" id="wellness-form" >
             <div className='row'>
-              <h2 className='text-muted col-auto my-3'style={{ fontFamily: 'Nunito Sans', fontWeight: 'bold'}}>
-                How are you lately{state.name ? ', ' : ''}
-                {state.name && (
-                  <div id='name' className={`fw-bold col-auto`}>
-                    {state.name ? `${state.name}?` : ''}
-                  </div>
-                )}
-                {state.name ? '' : '?'}
+              <h2 className='text-muted col-auto my-3' style={{ fontFamily: 'Nunito Sans', fontWeight: 'bold'}}>
+                <span>How are you lately</span>
+                <span ref={nameRef} id='name' className={`fw-bold col-auto`}>?</span>
               </h2>
             </div>
             <div id="form">

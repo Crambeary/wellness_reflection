@@ -1,6 +1,6 @@
 'use client';
 
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
 import { useAppSelector } from '@/store/hooks';
 
 interface FormInputProps {
@@ -20,35 +20,42 @@ const FormInput: React.FC<FormInputProps> = ({
   onChange, 
   fieldType = "input"
 }) => {
+  const contentRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (contentRef.current && fieldType === "textarea") {
+      contentRef.current.textContent = value;
+    }
+  }, [value, fieldType]);
+
   return (
     <>
       {fieldType === "input" ? (
         <div className="input-group mb-3">
-        <label htmlFor={id} className="input-group-text">{label}</label>
-        <input
-          className="form-control"
-          type={type}
-          id={id}
-          value={value}
-          onChange={onChange}
-          spellCheck={false}
-        />
+          <label htmlFor={id} className="input-group-text">{label}</label>
+          <input
+            className="form-control"
+            type={type}
+            id={id}
+            value={value}
+            onChange={onChange}
+            spellCheck={false}
+          />
         </div>
       ) : (
         <div className="mb-3">
-        <label htmlFor={id} className="form-label">{label}</label>
-        <div 
-          contentEditable="true"
-          suppressContentEditableWarning={true}
-          className="form-control"
-          id={id}
-          onBlur={(e) => {
-            onChange(e);
-          }}
-          spellCheck={false}
-        >
-          {value}
-        </div>
+          <label htmlFor={id} className="form-label">{label}</label>
+          <div 
+            ref={contentRef}
+            contentEditable="true"
+            suppressContentEditableWarning={true}
+            className="form-control"
+            id={id}
+            onBlur={(e) => {
+              onChange(e);
+            }}
+            spellCheck={false}
+          />
         </div>
       )}
     </>

@@ -1,4 +1,6 @@
-import React from 'react';
+'use client';
+
+import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { incrementField, decrementField, setFieldValue } from '../store/wellnessSlice';
 import { RootState } from '../store/store';
@@ -49,6 +51,7 @@ const emojiMap = {
 
 const VitalitySection: React.FC<VitalitySectionProps> = ({ section, value, onChange }) => {
   const dispatch = useDispatch();
+  const [mounted, setMounted] = useState(false);
   const isLoading = useSelector((state: RootState) => state.wellness.isLoading);
   
   const storeValue = useSelector((state: RootState) => {
@@ -60,44 +63,47 @@ const VitalitySection: React.FC<VitalitySectionProps> = ({ section, value, onCha
   const value_key = storeValue as keyof VitalityData;
   const scale_key = scale as keyof typeof emojiMap;
 
-  if (isLoading) {
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  // During SSR and before mounting, show a simplified structure
+  if (!mounted) {
     return (
       <div className="input-group mb-3 row">
-        <div className="col-auto me-auto">
-          <div className="placeholder-glow">
-            <span className="placeholder col-12" style={{ width: '120px', height: '24px' }}></span>
-          </div>
+        <div className="form-label col-auto me-auto">
+          <label htmlFor={scale}>
+            {section} {section === "Hydration" ? "Level" : "Vitality"}: 0
+          </label>
         </div>
-        <div className="col-auto">
-          <div className="d-flex gap-1">
-            {[...Array(5)].map((_, i) => (
-              <div key={i} className="placeholder-glow">
-                <span className="placeholder" style={{ width: '16px', height: '16px', borderRadius: '4px' }}></span>
-              </div>
-            ))}
-          </div>
-        </div>
-        <div className="row w-100">
-          <div className="col">
-            <div className="placeholder-glow mt-2">
-              <span className="placeholder col-12" style={{ height: '8px' }}></span>
-            </div>
-          </div>
-        </div>
+        <span className='col-auto p-0'></span>
+        <span className='row p-0'>
+          <InputButton className='mx-3' disabled>-</InputButton>
+          <input
+            type="range"
+            className="form-range slider col"
+            value="0"
+            disabled
+          />
+          <InputButton className='ms-3' disabled>+</InputButton>
+        </span>
       </div>
     );
   }
 
   return (
     <div className="input-group mb-3 row">
-      <label htmlFor={scale} className="form-label col-auto me-auto">
-        {section} {section === "Hydration" ? "Level" : "Vitality"}: {storeValue?.toString() || '0'}
-      </label>
+      <div className="form-label col-auto me-auto">
+        <label htmlFor={scale}>
+          {section} {section === "Hydration" ? "Level" : "Vitality"}: {storeValue?.toString() || '0'}
+        </label>
+      </div>
       <span className='col-auto p-0'>{emojiMap[scale_key][value_key]}</span>
       <span className='row p-0'>
         <InputButton 
           onClick={() => dispatch(decrementField(scale))} 
           className='mx-3'
+          disabled={isLoading}
         >
           -
         </InputButton>
@@ -121,6 +127,7 @@ const VitalitySection: React.FC<VitalitySectionProps> = ({ section, value, onCha
         <InputButton 
           onClick={() => dispatch(incrementField(scale))} 
           className='ms-3'
+          disabled={isLoading}
         >
           +
         </InputButton>
