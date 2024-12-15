@@ -14,7 +14,7 @@ import html2canvas from 'html2canvas';
 import { createClient } from '@/utils/supabase/client';
 import { upsertWellnessReflection, getTodaysReflection } from '@/utils/supabase/database';
 import { useAppDispatch, useAppSelector } from './store/hooks';
-import { updateField, clearForm, loadSavedForm, setFieldValue, setDate, setSaveButton, setErrorMessage, setShowModal, setModalMessage, setIsDiverged, setTargetDate, clearName } from './store/wellnessSlice';
+import { updateField, clearForm, loadSavedForm, setDate, setSaveButton, setErrorMessage, setShowModal, setModalMessage, setIsDiverged, setTargetDate, clearName, setName } from './store/wellnessSlice';
 import { mapReflectionToState } from '@/utils/mappers';
 import { Dropdown } from 'react-bootstrap';
 import { confirmDateSwitch } from './store/actions';
@@ -39,7 +39,7 @@ export default function App() {
       const supabase = createClient();
       const { data: { user } } = await supabase.auth.getUser();
       if (user) {
-        dispatch(setFieldValue({ id: 'name', value: user.user_metadata.full_name || '' }));
+        dispatch(setName(user.user_metadata.full_name || ''));
         
         // Fetch today's reflection if it exists
         const { reflection } = await getTodaysReflection(user.id);

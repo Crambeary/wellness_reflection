@@ -182,6 +182,9 @@ export const wellnessSlice = createSlice({
     setEmail: (state, action: PayloadAction<string>) => {
       state.email = action.payload;
     },
+    setName: (state, action: PayloadAction<string>) => {
+      state.name = action.payload;
+    },
   },
 });
 
@@ -203,5 +206,6 @@ export const {
   setTargetDate,
   setIsAuthenticated,
   setEmail,
+  setName,
 } = wellnessSlice.actions;
 export default wellnessSlice.reducer;
