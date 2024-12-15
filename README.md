@@ -94,7 +94,8 @@
     - [x] Make sure that all elements do not change from controlled to uncontrolled and vice versa
     - [x] Fix authenticate error on login from vercel main site
 - [ ] Put name on new row when logged in without hydration error
-- [ ] Changing dates on a cleared form should not show modal unsaved changes warning
+- [x] Changing dates on a cleared form should not show modal unsaved changes warning
+- [ ] Fix hydration error with incorrect date when loading a state with a date that is not today
 ----
 ### Nice to have
 - [ ] Tailwind CSS replacing bootstrap
