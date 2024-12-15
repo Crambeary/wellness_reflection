@@ -1,7 +1,6 @@
 'use client';
 
 import React, { useEffect, useRef } from 'react';
-import { useAppSelector } from '@/store/hooks';
 
 interface FormInputProps {
   label: string;
@@ -41,6 +40,14 @@ const FormInput: React.FC<FormInputProps> = ({
             onChange={onChange}
             spellCheck={false}
           />
+          {type === 'time' && (
+            <button className='btn btn-outline-danger' onClick={() => {
+              console.log('clearing');
+              onChange({ target: { id, value: '' } } as React.ChangeEvent<HTMLInputElement>);
+              }}>
+              X
+            </button>
+          )}
         </div>
       ) : (
         <div className="mb-3">

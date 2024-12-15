@@ -98,8 +98,8 @@
 - [x] Fix hydration error with incorrect date when loading a state with a date that is not today
 ----
 ### Nice to have
-- [ ] Tailwind CSS replacing bootstrap
 - [ ] Clear time entries on iOS 
+- [ ] Tailwind CSS replacing bootstrap
 - [ ] Add a test suite
 - [ ] Add a dark mode
 - [ ] Add a theme switcher
