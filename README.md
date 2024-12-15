@@ -77,8 +77,8 @@
     - [x] Show user email in the header
 - [x] Define app behavior for unauthenticated users
     - Change dates without changing form contents and no modal warning?
-- [ ] Fix all errors
-    - [ ] Fix error with saving before pressing today button
+- [x] Fix all errors
+    - [x] Fix error with saving before pressing today button
     - [x] Hide the Extra Options button on image export
     - [x] Hide error alerts on image export
     - Idle and console shows this error:
@@ -91,7 +91,7 @@
                 _storageChangeDispatcher	@	content.js:2
                 _storageChangeDispatcherCallback	@	content.js:2
         ```
-    - [ ] Make sure that all elements do not change from controlled to uncontrolled and vice versa
+    - [x] Make sure that all elements do not change from controlled to uncontrolled and vice versa
     - [x] Fix authenticate error on login from vercel main site
 ----
 ### Nice to have
