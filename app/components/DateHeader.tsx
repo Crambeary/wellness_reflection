@@ -7,12 +7,13 @@ import { setDate } from '@/store/actions'
 import { createClient } from '@/utils/supabase/client';
 import { useEffect } from 'react';
 import { setShowModal, setModalMessage, setIsAuthenticated } from '@/store/wellnessSlice';
+import { useState } from 'react';
 
 export default function DateHeader() {
-
-    const isAuthenticated = useAppSelector((state) => {
-        return state.wellness.isAuthenticated;
-    });
+    const dispatch = useAppDispatch();
+    const stateDate = useAppSelector((state) => state.wellness.date);
+    const isAuthenticated = useAppSelector((state) => state.wellness.isAuthenticated);
+    const [isLoading, setIsLoading] = useState(true);
 
     const confirmAuth = async () => {
         const supabase = createClient();
@@ -23,10 +24,9 @@ export default function DateHeader() {
         setIsAuthenticated(data.user !== null);
     }
 
-    const dispatch = useAppDispatch();
-    const stateDate = useAppSelector((state) => {
-        return state.wellness.date;
-    });
+    useEffect(() => {
+        setIsLoading(false);
+    }, []);
     
     useEffect(() => {
         confirmAuth();
@@ -81,7 +81,12 @@ export default function DateHeader() {
         <nav className="navbar sticky-top bg-primary text-white" data-bs-theme="dark">
             <div className='container-fluid'>
                 <div className='d-flex mx-auto'>
-                    {isAuthenticated && (
+                    {isLoading && (
+                        <div className='mx-auto my-auto'>
+                            Loading...
+                        </div>
+                    )}
+                    {!isLoading && isAuthenticated && (
                         <>
                         <button className='btn' onClick={() => {
                             const prev = prevDay();
@@ -100,7 +105,7 @@ export default function DateHeader() {
                         </button>
                         </>
                     )} 
-                    {!isAuthenticated && (
+                    {!isLoading && !isAuthenticated && (
                         <>
                         <button className='btn' onClick={() => showModal()}>
                             <FontAwesomeIcon icon={faArrowLeft} />
