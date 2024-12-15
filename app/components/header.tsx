@@ -52,7 +52,7 @@ export default function Header() {
             </button>
             <div className="collapse navbar-collapse" id="navbarSupportedContent">
             <ul className="navbar-nav ms-auto my-auto">
-                <li className="nav-item ms-auto">
+                <li className="nav-item ms-auto px-1">
                     {!isLoading && (email || 'Login for an upgraded experience')}
                 </li>
             </ul>

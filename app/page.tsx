@@ -20,18 +20,24 @@ import { Dropdown } from 'react-bootstrap';
 import { confirmDateSwitch } from './store/actions';
 import { login, logout } from './login/actions';
 import { getLocalISOString } from '@/utils/helpers';
+import { useState } from 'react';
 
 export default function App() {
   const dispatch = useAppDispatch();
   const state = useAppSelector((state) => state.wellness);
   const captureRegionRef = useRef<HTMLDivElement>(null);
   const nameRef = useRef<HTMLSpanElement>(null);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     if (nameRef.current && state.name && state.isAuthenticated && !state.isLoading) {
-      nameRef.current.textContent = `, ${state.name}?`;
+      nameRef.current.textContent = `${state.name}?`;
     }
   }, [state.name, state.isAuthenticated, state.isLoading]);
+
+  useEffect(() => {
+    setIsLoading(false);
+  }, []);
 
   useEffect(() => {
     // This is the main function that fetches the todays reflection from the db or local storage on page load
@@ -216,8 +222,16 @@ export default function App() {
           <div className="col-md-12" id="wellness-form" >
             <div className='row'>
               <h2 className='text-muted col-auto my-3' style={{ fontFamily: 'Nunito Sans', fontWeight: 'bold'}}>
-                <span>How are you lately</span>
-                <span ref={nameRef} id='name' className={`fw-bold col-auto`}>?</span>
+                {isLoading && (
+                  <span>How are you lately</span>
+                )}
+                {!isLoading && state.isAuthenticated && (
+                  <>
+                    <span>How are you lately,</span>
+                    <br/>
+                  </>
+                )}
+                  <span ref={nameRef} id='name' className={`fw-bold col-auto`}>?</span>
               </h2>
             </div>
             <div id="form">
