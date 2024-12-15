@@ -12,7 +12,6 @@ export async function login() {
     options: {
       redirectTo: `${
         process.env.NEXT_PUBLIC_VERCEL_ENV === 'production'
-          // ? 'https://wellness-reflection.vercel.app/auth/callback'
           ? 'https://' + process.env.SITE_URL + '/auth/callback'
           :  process.env.NEXT_PUBLIC_VERCEL_URL
             ? 'https://' + process.env.NEXT_PUBLIC_VERCEL_URL + '/auth/callback'

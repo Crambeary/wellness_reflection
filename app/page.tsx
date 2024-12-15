@@ -19,6 +19,7 @@ import { mapReflectionToState } from '@/utils/mappers';
 import { Dropdown } from 'react-bootstrap';
 import { confirmDateSwitch } from './store/actions';
 import { login, logout } from './login/actions';
+import { getLocalISOString } from '@/utils/helpers';
 
 export default function App() {
   const dispatch = useAppDispatch();
@@ -56,8 +57,8 @@ export default function App() {
         // : If db has no form, but local has a form, keep local form on refresh
         // : If no local or db form, clear form
         // : If db is updated on another device, stomp local form
-        // TODO: If database has a form, stomp local change on login by using the db form
-        // TODO: If local is an updated form from db, keep local form on refresh
+        // : If database has a form, stomp local change on login by using the db form
+        // : If local is an updated form from db, keep local form on refresh
         const stateData = await fetchTodaysReflection();
         const formDate = new Date(savedForm?.lastUpdated || '');
         const dbDate = new Date(stateData?.lastUpdated || '');
@@ -75,7 +76,7 @@ export default function App() {
         } else if (isNaN(formDate.getTime()) && isNaN(dbDate.getTime())) { // If both forms are empty, clear form
           console.log('clearing form 1');
           dispatch(clearForm());
-          dispatch(setDate(new Date().toISOString()));
+          dispatch(setDate(getLocalISOString().split(' ')[0]));
         } else if (dbDate > formDate && Object.keys(stateData || {}).length > 0) { // If db form is newer than local form, load from db
           console.log('loading from db');
           dispatch(loadSavedForm({ ...state, ...stateData, isLoading: false }));
@@ -88,7 +89,7 @@ export default function App() {
         } else {
           console.log('clearing form 2');
           dispatch(clearForm());
-          dispatch(setDate(new Date().toISOString()));
+          dispatch(setDate(getLocalISOString().split(' ')[0]));
         }
       } catch (error) {
         console.error('Error updating form:', error);

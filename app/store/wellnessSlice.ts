@@ -2,7 +2,7 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { WritableDraft } from 'immer';
 import { IconDefinition } from '@fortawesome/fontawesome-svg-core';
 import { faSave } from '@fortawesome/free-solid-svg-icons';
-
+import { getLocalISOString } from '@/utils/helpers'
 export interface WellnessState {
   isLoading: boolean;
   isAuthenticated: boolean;
@@ -65,7 +65,7 @@ const initialState: WellnessState = {
   targetDate: null,
   name: "",
   email: "",
-  date: "",
+  date: getLocalISOString().split(' ')[0],
   'wake-time': "",
   'bedtime': "",
   qotd: "",
@@ -182,10 +182,6 @@ export const wellnessSlice = createSlice({
     setEmail: (state, action: PayloadAction<string>) => {
       state.email = action.payload;
     },
-    submitForm: (state) => {
-      localStorage.removeItem('wellnessForm');
-      return initialState;
-    }
   },
 });
 
@@ -207,6 +203,5 @@ export const {
   setTargetDate,
   setIsAuthenticated,
   setEmail,
-  submitForm
 } = wellnessSlice.actions;
 export default wellnessSlice.reducer;
