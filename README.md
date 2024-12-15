@@ -98,23 +98,38 @@
 - [x] Fix hydration error with incorrect date when loading a state with a date that is not today
 ----
 ### Nice to have
-- [ ] Clear time entries on iOS 
-- [ ] Tailwind CSS replacing bootstrap
+- [x] Clear time entries on iOS 
+- [ ] Learn what Tailwind CSS is and how it replaces bootstrap
+    - [ ] Learn Tailwind CSS fundamentals
+    - [ ] Learn Tailwind CSS functions
+    - [ ] Learn Tailwind CSS animations
+    - [ ] Learn Tailwind CSS components
+    - [ ] Learn Tailwind CSS utilities
+    - [ ] Learn Tailwind CSS plugins
+    - [ ] Learn Tailwind CSS configuration
+    - [ ] Learn Tailwind CSS best practices
+    - [ ] Outline a plan to replace bootstrap with tailwind - start date after a11y best practices are done
 - [ ] Add a test suite
+    - [ ] Learn how to write tests for React
+    - [ ] Learn how to write tests for Next.js
+    - [ ] Learn how to write tests for Supabase
+    - [ ] Learn how to write tests for Redux
+    - [ ] Learn how to write tests for React Testing Library
+    - [ ] Learn how to write tests for Jest
 - [ ] Add a dark mode
-- [ ] Add a theme switcher
-- [ ] Set days loaded to be a URL parameter day=2024-12-12 always sets the date if logged in
-- [ ] Change localStorage to redux-persist
-- [ ] Auto-save form data to database every time user is idle for 5 seconds unless there are costs to supabase
-- [ ] Merge the db with local storage if a field was empty before
-- [ ] Add a motivational quote generator
-- [ ] Add a data export feature
+- [ ] Add a theme switcher button
+- [ ] Add a date picker for the main page
 - [ ] Setup a11y best practices
     - [ ] ARIA labels
     - [ ] Keyboard navigation
     - [ ] Screen reader support
+- [ ] Add a motivational quote generator
 - [ ] Documentation
     - [ ] JSDoc
+- [ ] Set days loaded to be a URL parameter day=2024-12-12 always sets the date if logged in
+- [ ] Add a data export feature
+- [ ] Change localStorage to redux-persist
+- [ ] Auto-save form data to database every time user is idle for 5 seconds unless there are costs to supabase
 - [ ] Create a page for the user to view their wellness entries and analytics
     - [ ] Add a date picker
     - [ ] Add a search bar
@@ -145,4 +160,5 @@
 - [ ] Add a mobile app PWA refresh on pulldown
 - [ ] Add a mobile app PWA install prompt
 - [ ] Add a mobile app PWA badge in the header
+- [ ] Merge the db with local storage if a field was empty before
 
