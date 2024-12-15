@@ -98,6 +98,7 @@
 ----
 ### Nice to have
 - [ ] Tailwind CSS replacing bootstrap
+- [ ] Clear time entries on iOS 
 - [ ] Add a test suite
 - [ ] Add a dark mode
 - [ ] Add a theme switcher
