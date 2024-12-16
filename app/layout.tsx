@@ -4,8 +4,8 @@ import Script from 'next/script'
 import Header from '@/components/header'
 import DateHeader from '@/components/DateHeader'
 import { Providers } from './providers'
-import '../styles/globals.css'
 import 'bootstrap/dist/css/bootstrap.min.css';
+import '../styles/globals.css'
 
 const inter = Inter({ subsets: ['latin'] })
 
