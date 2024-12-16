@@ -96,9 +96,20 @@
 - [x] Put name on new row when logged in without hydration error
 - [x] Changing dates on a cleared form should not show modal unsaved changes warning
 - [x] Fix hydration error with incorrect date when loading a state with a date that is not today
+- [ ] Create a coach view
+    - [ ] Add a user db table for roles
+    - [ ] Add a user/coach table for connections
+    - [ ] Add a button at the navbar to view clients only when a coach is logged in
+    - [ ] Create a page that shows clients assigned to the coach
+        - [ ] List all clients assigned to the coach
+        - [ ] Clicking on a client shows their wellness data
+    - [ ] Create a view for a client's wellness data that is read-only (disabled form fields)
+
 ----
 ### Nice to have
 - [x] Clear time entries on iOS 
+
+
 - [ ] Learn what Tailwind CSS is and how it replaces bootstrap
     - [ ] Learn Tailwind CSS fundamentals
     - [ ] Learn Tailwind CSS functions
