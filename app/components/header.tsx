@@ -49,7 +49,7 @@ export default function Header() {
                         className="h-8 w-8 mr-3"
                     />
                     <span className="font-['Nunito_Sans'] font-bold text-xl">
-                        Wellness Dashboard
+                        Elevate Wellness 
                     </span>
                 </a>
                 
