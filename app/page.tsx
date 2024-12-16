@@ -327,17 +327,16 @@ export default function App() {
                 />
               </div>
               <div className="d-grid gap-2 d-md-block">
-                <Button 
+                <button 
                   data-html2canvas-ignore 
                   id="save" 
                   type="button" 
                   onClick={saveForm}
                   disabled={state.saveButton.text !== 'Submit'}
-                  variant={state.saveButton.variant}
-                  className='mb-3 primary-color'
+                  className={`mb-3 px-4 py-2 rounded-lg font-medium text-white ${state.saveButton.variant === 'success' ? 'bg-green-600 hover:bg-green-700' : 'bg-[#6F8970] hover:bg-[#5d745e]'} disabled:opacity-50 disabled:cursor-not-allowed`}
                 >
                   <FontAwesomeIcon icon={state.saveButton.icon} /> {state.saveButton.text}
-                </Button>
+                </button>
                 {state.errorMessage && (
                   <Alert data-html2canvas-ignore variant="danger" id="error-message" className='mb-3'>{state.errorMessage}</Alert>
                 )}
