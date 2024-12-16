@@ -16,6 +16,16 @@ const nextConfig: NextConfig = {
     };
     return config;
   },
+  async headers() {
+    return [
+      {
+        source: '/_next/static/css/:path*', 
+        headers: [
+          { key: 'Access-Control-Allow-Origin', value: '*' },
+        ],
+      },
+    ];
+  },
   i18n: {
     locales: ['en'],
     defaultLocale: 'en',
