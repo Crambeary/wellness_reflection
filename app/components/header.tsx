@@ -3,14 +3,17 @@
 import { createClient } from "@/utils/supabase/client";
 import { login } from "@/login/actions";
 import { useAppSelector, useAppDispatch } from "@/store/hooks";
-import { setIsAuthenticated, setModalMessage, setShowModal, setEmail } from "@/store/wellnessSlice";
+import { setIsAuthenticated, setModalMessage, setShowModal, setEmail, setIsCoach } from "@/store/wellnessSlice";
 import { useEffect, useState } from "react";
+import { doesUserHaveRole } from "@/utils/supabase/database";
 
 export default function Header() {
     const [isLoading, setIsLoading] = useState(true);
     const isAuthenticated = useAppSelector((state) => state.wellness.isAuthenticated);
     const email = useAppSelector((state) => state.wellness.email);
     const dispatch = useAppDispatch();
+    const [userId, setUserId] = useState('');
+    const userIsCoach = useAppSelector((state) => state.wellness.isCoach);
 
     const handleAuth = async () => {
         const supabase = createClient();
@@ -20,6 +23,9 @@ export default function Header() {
         if (user) {
             dispatch(setEmail(user.email || ''));
             dispatch(setIsAuthenticated(true));
+            setUserId(user.id);
+            const isCoach = await doesUserHaveRole(user.id, 'coach');
+            dispatch(setIsCoach(isCoach));
         } else {
             dispatch(setIsAuthenticated(false));
         }
@@ -54,6 +60,18 @@ export default function Header() {
                 </a>
                 
                 <div className="flex items-center lg:order-2">
+                    {!isLoading && (
+                        userIsCoach ? (
+                            <button 
+                                className="text-gray-500 hover:text-white border border-gray-500 hover:bg-gray-800 focus:ring-4 focus:outline-none focus:ring-gray-300 font-medium rounded-lg text-sm px-4 py-2 mr-4 text-center"
+                            >
+                                View Clients
+                            </button>
+                        ) : (
+                            <span className="mr-4 text-gray-500">
+                            </span>
+                        )
+                    )}
                     {!isLoading && (
                         <span className="mr-4 text-gray-500">
                             {isAuthenticated 

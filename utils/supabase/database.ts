@@ -130,3 +130,21 @@ export async function getSelectedReflection(userId: string, date: string) {
     return { reflection: null, error }
   }
 }
+
+
+export async function doesUserHaveRole(userId: string, role: string) {
+  const supabase = createClient()
+  const { data, error } = await supabase
+    .from('profiles')
+    .select(
+      `
+      *,
+      ...roles!inner(name)
+      `,
+    )
+    .eq('roles.name', role)
+    .eq('user_id', userId)
+
+  if (error) throw error
+  return data && Object.keys(data).length > 0
+}

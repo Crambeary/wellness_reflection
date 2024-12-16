@@ -97,9 +97,12 @@
 - [x] Changing dates on a cleared form should not show modal unsaved changes warning
 - [x] Fix hydration error with incorrect date when loading a state with a date that is not today
 - [ ] Create a coach view
-    - [ ] Add a user db table for roles
-    - [ ] Add a user/coach table for connections
+    - [x] Add a user db table for roles
+    - [x] Add a user/coach table for connections
     - [ ] Add a button at the navbar to view clients only when a coach is logged in
+        - [ ] Detect what the role is of the user
+        - [ ] Show the button only if the user is a coach
+        - [ ] Button redirects to the client list page
     - [ ] Create a page that shows clients assigned to the coach
         - [ ] List all clients assigned to the coach
         - [ ] Clicking on a client shows their wellness data
