@@ -15,5 +15,7 @@ export default function LogoutConfirmed() {
             redirect('/')
         }, 2000)
     }, [])
-    return <div>Bye! Logged out</div>
+    return (
+        <div>Bye! Logging out...</div>
+    )
 }

@@ -1,12 +1,16 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 .slider {
   &::-webkit-slider-thumb {
     background-clip: padding-box;
-    border: 0.4rem solid rgba(0, 255, 0, 1);
+    border: 0.4rem solid #6F8970;
     transform: scale(1.5);
   }
   &::-moz-range-thumb {
     background-clip: padding-box;
-    border: 0.4rem solid rgba(0, 255, 0, 1);
+    border: 0.4rem solid #6F8970;
     box-sizing: border-box;
     transform: scale(1.5);
   }
@@ -25,3 +29,15 @@ input[type=range]::-moz-range-track {
   font-family: 'Inter', sans-serif;
   font-weight: bold;
 } */
+
+.primary-color {
+  background-color: #6F8970;
+}
+
+input[type=range].form-range::-webkit-slider-thumb {
+  background-color: #6F8970;
+}
+
+input[type=range].form-range::-moz-range-thumb {
+  background-color: #6F8970;
+}

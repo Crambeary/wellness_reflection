@@ -100,7 +100,6 @@ export default function App() {
   }, [dispatch]);
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLDivElement> | React.FormEvent<HTMLDivElement>) => {
-    console.log('changing');
     const target = event.target as HTMLInputElement | HTMLTextAreaElement | HTMLDivElement;
     let value: string | number;
     
@@ -120,12 +119,9 @@ export default function App() {
       value = target.textContent || '';
     }
 
-    console.log('value', value);
-    console.log('target', target);
     const id = target.id;
     
     if (id) {
-      console.log('updating field');
       dispatch(updateField({ id, value }));
     }
   };
@@ -331,17 +327,16 @@ export default function App() {
                 />
               </div>
               <div className="d-grid gap-2 d-md-block">
-                <Button 
+                <button 
                   data-html2canvas-ignore 
                   id="save" 
                   type="button" 
                   onClick={saveForm}
                   disabled={state.saveButton.text !== 'Submit'}
-                  variant={state.saveButton.variant}
-                  className='mb-3'
+                  className={`mb-3 px-4 py-2 rounded-lg font-medium text-white ${state.saveButton.variant === 'success' ? 'bg-green-600 hover:bg-green-700' : 'bg-[#6F8970] hover:bg-[#5d745e]'} disabled:opacity-50 disabled:cursor-not-allowed`}
                 >
                   <FontAwesomeIcon icon={state.saveButton.icon} /> {state.saveButton.text}
-                </Button>
+                </button>
                 {state.errorMessage && (
                   <Alert data-html2canvas-ignore variant="danger" id="error-message" className='mb-3'>{state.errorMessage}</Alert>
                 )}
