@@ -78,7 +78,7 @@ export default function DateHeader() {
     }
 
     return (
-        <nav className="navbar sticky-top bg-primary text-white" data-bs-theme="dark">
+        <nav className="navbar sticky-top text-white primary-color" data-bs-theme="dark">
             <div className='container-fluid'>
                 <div className='d-flex mx-auto'>
                     {isLoading && (

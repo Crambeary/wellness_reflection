@@ -7,11 +7,11 @@ import { setIsAuthenticated, setModalMessage, setShowModal, setEmail } from "@/s
 import { useEffect, useState } from "react";
 
 export default function Header() {
-
     const [isLoading, setIsLoading] = useState(true);
     const isAuthenticated = useAppSelector((state) => state.wellness.isAuthenticated);
     const email = useAppSelector((state) => state.wellness.email);
     const dispatch = useAppDispatch();
+
     const handleAuth = async () => {
         const supabase = createClient();
         const {
@@ -40,30 +40,47 @@ export default function Header() {
     }
 
     return (
-        <>
-        <nav className="navbar navbar-expand-lg bg-body-tertiary">
-            <div className="container-fluid">
-            <a className="navbar-brand" href="/"style={{ fontFamily: 'Nunito Sans', fontWeight: 'bold'}}>
-                <img src="/logo.png" alt="Logo" width="48" height="48" />
-                Wellness Dashboard
-            </a>
-            <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-            <span className="navbar-toggler-icon"></span>
-            </button>
-            <div className="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul className="navbar-nav ms-auto my-auto">
-                <li className="nav-item ms-auto px-1">
-                    {!isLoading && (email || 'Login for an upgraded experience')}
-                </li>
-            </ul>
-            {!isLoading && isAuthenticated ? (
-                <button onClick={handleLogout} className="btn btn-outline-danger">Logout</button>
-            ): 
-                <button onClick={login} className="btn btn-outline-success">Log in</button>
-                }
+        <nav className="bg-white border-b border-gray-200 px-4 py-2.5">
+            <div className="flex flex-wrap justify-between items-center mx-auto max-w-screen-xl">
+                <a href="/" className="flex items-center no-underline text-black hover:text-gray-500">
+                    <img
+                        src="/logo.png"
+                        alt="Logo"
+                        className="h-8 w-8 mr-3"
+                    />
+                    <span className="font-['Nunito_Sans'] font-bold text-xl">
+                        Wellness Dashboard
+                    </span>
+                </a>
+                
+                <div className="flex items-center lg:order-2">
+                    {!isLoading && (
+                        <span className="mr-4 text-gray-500">
+                            {isAuthenticated 
+                                ? `Signed in as: ${email}` 
+                                : 'Login for an upgraded experience'
+                            }
+                        </span>
+                    )}
+                    {!isLoading && (
+                        isAuthenticated ? (
+                            <button
+                                onClick={handleLogout}
+                                className="text-red-700 hover:text-white border border-red-700 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm px-4 py-2 text-center"
+                            >
+                                Logout
+                            </button>
+                        ) : (
+                            <button
+                                onClick={login}
+                                className="text-green-700 hover:text-white border border-green-700 hover:bg-green-800 focus:ring-4 focus:outline-none focus:ring-green-300 font-medium rounded-lg text-sm px-4 py-2 text-center"
+                            >
+                                Log in
+                            </button>
+                        )
+                    )}
+                </div>
             </div>
-        </div>
         </nav>
-        </>
-    )
+    );
 }

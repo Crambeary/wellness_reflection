@@ -100,7 +100,6 @@ export default function App() {
   }, [dispatch]);
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLDivElement> | React.FormEvent<HTMLDivElement>) => {
-    console.log('changing');
     const target = event.target as HTMLInputElement | HTMLTextAreaElement | HTMLDivElement;
     let value: string | number;
     
@@ -120,12 +119,9 @@ export default function App() {
       value = target.textContent || '';
     }
 
-    console.log('value', value);
-    console.log('target', target);
     const id = target.id;
     
     if (id) {
-      console.log('updating field');
       dispatch(updateField({ id, value }));
     }
   };
@@ -338,7 +334,7 @@ export default function App() {
                   onClick={saveForm}
                   disabled={state.saveButton.text !== 'Submit'}
                   variant={state.saveButton.variant}
-                  className='mb-3'
+                  className='mb-3 primary-color'
                 >
                   <FontAwesomeIcon icon={state.saveButton.icon} /> {state.saveButton.text}
                 </Button>
