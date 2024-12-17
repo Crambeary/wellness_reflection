@@ -118,6 +118,9 @@ export default function Header() {
                     <DrawerHeader>
                         <DrawerTitle>Menu</DrawerTitle>
                     </DrawerHeader>
+                        <div className="p-4 text-center">
+                            Logged in as: {email}
+                        </div>
                     <DrawerFooter>
                         <DrawerClose asChild>
                             <Button onClick={() => router.push('/')}>
