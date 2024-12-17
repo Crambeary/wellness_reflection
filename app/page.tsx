@@ -21,6 +21,7 @@ import { confirmDateSwitch } from './store/actions';
 import { login, logout } from './login/actions';
 import { getLocalISOString } from '@/utils/helpers';
 import { useState } from 'react';
+import DateHeader from './components/DateHeader';
 
 export default function App() {
   const dispatch = useAppDispatch();
@@ -216,8 +217,10 @@ export default function App() {
   };
 
   return (
-    <div style={{ position: 'relative', marginBottom: '50vh'}}>
-      <section id="region-to-capture" className="container-sm" ref={captureRegionRef}>
+    <>
+      <DateHeader />
+      <div style={{ position: 'relative', marginBottom: '50vh'}}>
+        <section id="region-to-capture" className="container-sm" ref={captureRegionRef}>
         <div className="row">
           <div className="col-md-12" id="wellness-form" >
             <div className='row'>
@@ -401,6 +404,7 @@ export default function App() {
           bottom: '-50vh'
         }}
       />
-    </div>
+      </div>
+    </>
   )
 }

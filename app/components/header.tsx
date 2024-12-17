@@ -125,9 +125,16 @@ export default function Header() {
                                 Home
                             </Button>
                         </DrawerClose>
+                        {userIsCoach && (
+                            <DrawerClose asChild>
+                                <Button onClick={() => router.push('/coach/view-clients')}>
+                                    View Clients
+                                </Button>
+                            </DrawerClose>
+                        )}
                         {isAuthenticated ? (
                             <DrawerClose asChild>
-                                <Button onClick={handleLogout}>
+                                <Button variant="destructive" onClick={handleLogout}>
                                     Logout
                                 </Button>
                             </DrawerClose>
@@ -135,13 +142,6 @@ export default function Header() {
                             <DrawerClose asChild>
                                 <Button onClick={login}>
                                     Log in
-                                </Button>
-                            </DrawerClose>
-                        )}
-                        {userIsCoach && (
-                            <DrawerClose asChild>
-                                <Button onClick={() => router.push('/coach/view-clients')}>
-                                    View Clients
                                 </Button>
                             </DrawerClose>
                         )}

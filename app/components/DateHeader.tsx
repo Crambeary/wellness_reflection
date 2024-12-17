@@ -8,6 +8,8 @@ import { createClient } from '@/utils/supabase/client';
 import { useEffect } from 'react';
 import { setShowModal, setModalMessage, setIsAuthenticated } from '@/store/wellnessSlice';
 import { useState } from 'react';
+import { Button } from '@/components/ui/button';
+import { Spinner } from '@/components/ui/spinner';
 
 export default function DateHeader() {
     const dispatch = useAppDispatch();
@@ -78,47 +80,77 @@ export default function DateHeader() {
     }
 
     return (
-        <nav className="navbar sticky-top text-white primary-color" data-bs-theme="dark">
-            <div className='container-fluid'>
-                <div className='d-flex mx-auto'>
+        <nav className="sticky top-0 bg-primary text-white">
+            <div className="container mx-auto px-4">
+                <div className="flex justify-center items-center">
                     {isLoading && (
-                        <div className='mx-auto my-auto'>
-                            Loading...
+                        <div className="py-2 inline-flex items-center gap-2">
+                            Loading Date Info... <Spinner size="sm" className='bg-black dark:bg-white'/>
                         </div>
                     )}
                     {!isLoading && isAuthenticated && (
                         <>
-                        <button className='btn' onClick={() => {
-                            const prev = prevDay();
-                            dispatch(setDate(prev));
-                        }}>
+                        <Button
+                            variant="default" 
+                            className='border-0'
+                            size="icon"
+                            onClick={() => {
+                                const prev = prevDay();
+                                dispatch(setDate(prev));
+                            }}
+                        >
                             <FontAwesomeIcon icon={faArrowLeft} />
-                        </button>
-                        <button className='btn' onClick={() => dispatch(setDate(new Date().toISOString()))}>
+                        </Button>
+                        <Button
+                            variant="default"
+                            className='border-0'
+                            size="icon"
+                            onClick={() => dispatch(setDate(new Date().toISOString()))}
+                        >
                             <FontAwesomeIcon icon={faCalendar} />
-                        </button>
-                        <div className='mx-auto my-auto'>
+                        </Button>
+                        <div className="px-4 py-2">
                             {formattedDate}
                         </div>
-                        <button className='btn' onClick={() => dispatch(setDate(nextDay()))}>
+                        <Button
+                            variant="default"
+                            className='border-0'
+                            size="icon"
+                            onClick={() => dispatch(setDate(nextDay()))}
+                        >
                             <FontAwesomeIcon icon={faArrowRight} />
-                        </button>
+                        </Button>
                         </>
                     )} 
                     {!isLoading && !isAuthenticated && (
                         <>
-                        <button className='btn' onClick={() => showModal()}>
+                        <Button
+                            variant="default"
+                            className='border-0'
+                            size="icon"
+                            onClick={() => showModal()}
+                        >
                             <FontAwesomeIcon icon={faArrowLeft} />
-                        </button>
-                        <button className='btn' onClick={() => showModal()}>
+                        </Button>
+                        <Button
+                            variant="default"
+                            className='border-0'
+                            size="icon"
+                            onClick={() => showModal()}
+                        >
                             <FontAwesomeIcon icon={faCalendar} />
-                        </button>
-                        <div className='mx-auto my-auto'>
+                        </Button>
+                        <div className="px-4 py-2">
                             {formattedDate}
                         </div>
-                        <button className='btn' onClick={() => showModal()}>
+                        <Button
+                            variant="default"
+                            className='border-0'
+                            size="icon"
+                            onClick={() => showModal()}
+                        >
                             <FontAwesomeIcon icon={faArrowRight} />
-                        </button>
+                        </Button>
                         </>
                     )}
                 </div>
