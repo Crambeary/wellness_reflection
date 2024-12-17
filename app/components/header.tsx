@@ -7,6 +7,11 @@ import { setIsAuthenticated, setModalMessage, setShowModal, setEmail, setIsCoach
 import { useEffect, useState } from "react";
 import { doesUserHaveRole } from "@/utils/supabase/database";
 import { useRouter } from "next/navigation";
+import { useMediaQuery } from "@/hooks/use-media-query";
+import { Drawer, DrawerClose, DrawerContent, DrawerFooter, DrawerHeader, DrawerTitle, DrawerTrigger } from "./ui/drawer";
+import { MenuIcon } from "lucide-react";
+import { Button } from "./ui/button";
+import Link from "next/link";
 
 export default function Header() {
     const router = useRouter();
@@ -16,6 +21,7 @@ export default function Header() {
     const dispatch = useAppDispatch();
     const [userId, setUserId] = useState('');
     const userIsCoach = useAppSelector((state) => state.wellness.isCoach);
+    const isDesktop = useMediaQuery('(min-width: 768px)');
 
     const handleAuth = async () => {
         const supabase = createClient();
@@ -52,14 +58,16 @@ export default function Header() {
             <div className="flex flex-wrap justify-between items-center mx-auto max-w-screen-xl">
                 <a href="/" className="flex items-center no-underline text-black hover:text-gray-500">
                     <img
-                        src="/logo.png"
-                        alt="Logo"
-                        className="h-8 w-8 mr-3"
+                    src="/logo.png"
+                    alt="Logo"
+                    className="h-8 w-8 mr-3"
                     />
                     <span className="font-['Nunito_Sans'] font-bold text-xl">
                         Elevate Wellness 
                     </span>
                 </a>
+            {isDesktop ? (
+                <>
                 
                 <div className="flex items-center lg:order-2">
                     {!isLoading && (
@@ -100,8 +108,51 @@ export default function Header() {
                             </button>
                         )
                     )}
+                    </div>
+            </>
+        ) : (
+            <Drawer>
+                <DrawerTrigger className="border border-gray-500 rounded-md p-1">
+                    <MenuIcon className="w-6 h-6" />
+                </DrawerTrigger>
+                <DrawerContent>
+                    <DrawerHeader>
+                        <DrawerTitle>Menu</DrawerTitle>
+                    </DrawerHeader>
+                    <DrawerFooter>
+                        <DrawerClose asChild>
+                            <Button onClick={() => router.push('/')}>
+                                Home
+                            </Button>
+                        </DrawerClose>
+                        {isAuthenticated ? (
+                            <DrawerClose asChild>
+                                <Button onClick={handleLogout}>
+                                    Logout
+                                </Button>
+                            </DrawerClose>
+                        ) : (
+                            <DrawerClose asChild>
+                                <Button onClick={login}>
+                                    Log in
+                                </Button>
+                            </DrawerClose>
+                        )}
+                        {userIsCoach ? (
+                            <DrawerClose asChild>
+                                <Button onClick={() => router.push('/coach/view-clients')}>
+                                    View Clients
+                                </Button>
+                            </DrawerClose>
+                        ) : (
+                            <></>
+                        )}
+                    </DrawerFooter>
+                </DrawerContent>
+            </Drawer>
+        )
+        }
                 </div>
-            </div>
         </nav>
     );
 }
