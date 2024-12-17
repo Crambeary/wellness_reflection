@@ -138,14 +138,12 @@ export default function Header() {
                                 </Button>
                             </DrawerClose>
                         )}
-                        {userIsCoach ? (
+                        {userIsCoach && (
                             <DrawerClose asChild>
                                 <Button onClick={() => router.push('/coach/view-clients')}>
                                     View Clients
                                 </Button>
                             </DrawerClose>
-                        ) : (
-                            <></>
                         )}
                     </DrawerFooter>
                 </DrawerContent>

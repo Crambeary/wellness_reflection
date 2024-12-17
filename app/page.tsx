@@ -221,7 +221,7 @@ export default function App() {
         <div className="row">
           <div className="col-md-12" id="wellness-form" >
             <div className='row'>
-              <h2 className='text-muted col-auto my-3' style={{ fontFamily: 'Nunito Sans', fontWeight: 'bold'}}>
+              <h2 className='col-auto my-3' style={{ fontFamily: 'Nunito Sans', fontWeight: 'bold'}}>
                 {!isLoading && state.isAuthenticated ? (
                   <>
                     <span>How are you lately,</span>
