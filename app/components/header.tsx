@@ -6,8 +6,10 @@ import { useAppSelector, useAppDispatch } from "@/store/hooks";
 import { setIsAuthenticated, setModalMessage, setShowModal, setEmail, setIsCoach } from "@/store/wellnessSlice";
 import { useEffect, useState } from "react";
 import { doesUserHaveRole } from "@/utils/supabase/database";
+import { useRouter } from "next/navigation";
 
 export default function Header() {
+    const router = useRouter();
     const [isLoading, setIsLoading] = useState(true);
     const isAuthenticated = useAppSelector((state) => state.wellness.isAuthenticated);
     const email = useAppSelector((state) => state.wellness.email);
@@ -63,6 +65,7 @@ export default function Header() {
                     {!isLoading && (
                         userIsCoach ? (
                             <button 
+                                onClick={() => router.push('/coach/view-clients')}
                                 className="text-gray-500 hover:text-white border border-gray-500 hover:bg-gray-800 focus:ring-4 focus:outline-none focus:ring-gray-300 font-medium rounded-lg text-sm px-4 py-2 mr-4 text-center"
                             >
                                 View Clients

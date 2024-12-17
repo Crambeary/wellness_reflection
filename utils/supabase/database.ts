@@ -1,8 +1,10 @@
-import { createClient } from './client'
+'use server'
+
+import { createClient } from './server'
 import { getLocalISOString } from '@/utils/helpers'
 
 export async function upsertWellnessReflection(data: any, userId: string) {
-  const supabase = createClient()
+  const supabase = await createClient()
   
   try {
     // Check if a reflection exists for this date and user
@@ -66,7 +68,7 @@ export async function upsertWellnessReflection(data: any, userId: string) {
 }
 
 export async function getWellnessReflections(userId: string) {
-  const supabase = createClient()
+  const supabase = await createClient()
   
   try {
     const { data: reflections, error } = await supabase
@@ -86,7 +88,7 @@ export async function getWellnessReflections(userId: string) {
 export async function getTodaysReflection(userId: string) {
 
 
-  const supabase = createClient()
+  const supabase = await createClient()
   const today = getLocalISOString() // Format: YYYY-MM-DD
 
   
@@ -110,7 +112,7 @@ export async function getTodaysReflection(userId: string) {
 }
 
 export async function getSelectedReflection(userId: string, date: string) {
-  const supabase = createClient()
+  const supabase = await createClient()
   
   try {
     const { data: reflection, error } = await supabase
@@ -133,15 +135,13 @@ export async function getSelectedReflection(userId: string, date: string) {
 
 
 export async function doesUserHaveRole(userId: string, role: string) {
-  const supabase = createClient()
+  const supabase = await createClient()
   const { data, error } = await supabase
     .from('profiles')
-    .select(
-      `
+    .select( `
       *,
-      ...roles!inner(name)
-      `,
-    )
+      ...roles!inner(*)
+      `,)
     .eq('roles.name', role)
     .eq('user_id', userId)
 
