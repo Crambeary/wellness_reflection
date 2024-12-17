@@ -61,7 +61,7 @@ export default function Header() {
                         alt="Logo"
                         className="h-8 w-8 mr-3"
                     />
-                    <span className="font-['Nunito_Sans'] font-bold text-xl">
+                    <span className="font-['Nunito_Sans', 'sans-serif'] font-bold text-xl">
                         Elevate Wellness 
                     </span>
                 </a>
@@ -122,26 +122,26 @@ export default function Header() {
                             Logged in as: {email}
                         </div>
                     <DrawerFooter>
-                        <DrawerClose asChild>
+                        <DrawerClose asChild className="border-none">
                             <Button onClick={() => router.push('/')}>
                                 Home
                             </Button>
                         </DrawerClose>
                         {userIsCoach && (
-                            <DrawerClose asChild>
+                            <DrawerClose asChild className="border-none">
                                 <Button onClick={() => router.push('/coach/view-clients')}>
                                     View Clients
                                 </Button>
                             </DrawerClose>
                         )}
                         {isAuthenticated ? (
-                            <DrawerClose asChild>
+                            <DrawerClose asChild className="border-none">
                                 <Button variant="destructive" onClick={handleLogout}>
                                     Logout
                                 </Button>
                             </DrawerClose>
                         ) : (
-                            <DrawerClose asChild>
+                            <DrawerClose asChild className="border-none">
                                 <Button onClick={login}>
                                     Log in
                                 </Button>

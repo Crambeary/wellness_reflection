@@ -1,8 +1,7 @@
 import { redirect } from 'next/navigation'
 import { createClient } from '@/utils/supabase/server'
 import { doesUserHaveRole } from '@/utils/supabase/database'
-import { Button } from '@/components/ui/button'
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
+import ClientCard from '@/app/components/ClientCard'
 
 export default async function CoachPage() {
   const supabase = await createClient()
@@ -19,16 +18,13 @@ export default async function CoachPage() {
   }
 
   return (
-    <div className="flex flex-col items-center justify-center h-screen">
-      <h1 className="text-2xl font-bold">View Clients</h1>
-      <Card>
-        <CardHeader>
-          <CardTitle>Client Name</CardTitle>
-        </CardHeader>
-        <CardContent>
-          <p>Client Email</p>
-        </CardContent>
-      </Card>
-    </div>
+    <main>
+      <h1 className="text-xl font-bold top-0 p-2 sm:text-3xl max-w-screen-xl mx-auto">Your Clients</h1>
+      <div className="flex flex-wrap items-center justify-center gap-4 sm:pt-32">
+        {"abcdefgh".split("").map((client) => (
+          <ClientCard clientName={`${client} Doe`} />
+        ))}
+      </div>
+    </main>
   )
 }
