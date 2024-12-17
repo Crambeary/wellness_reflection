@@ -138,6 +138,7 @@
     - [ ] Keyboard navigation
     - [ ] Screen reader support
 - [ ] Add a motivational quote generator
+- [ ] Show a badge on the Client View cou ti g unread entries by coach
 - [ ] Documentation
     - [ ] JSDoc
 - [ ] Set days loaded to be a URL parameter day=2024-12-12 always sets the date if logged in
