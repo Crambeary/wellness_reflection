@@ -92,7 +92,7 @@ export default function DateHeader() {
                         <>
                         <Button
                             variant="default" 
-                            className='border-0'
+                            className='border-0 active:ring-1 active:ring-black dark:active:ring-white mx-1'
                             size="icon"
                             onClick={() => {
                                 const prev = prevDay();
@@ -103,7 +103,7 @@ export default function DateHeader() {
                         </Button>
                         <Button
                             variant="default"
-                            className='border-0'
+                            className='border-0 active:ring-1 active:ring-black dark:active:ring-white mx-1'
                             size="icon"
                             onClick={() => dispatch(setDate(new Date().toISOString()))}
                         >
@@ -114,7 +114,7 @@ export default function DateHeader() {
                         </div>
                         <Button
                             variant="default"
-                            className='border-0'
+                            className='border-0 active:ring-1 active:ring-black dark:active:ring-white mx-1'
                             size="icon"
                             onClick={() => dispatch(setDate(nextDay()))}
                         >
@@ -126,7 +126,7 @@ export default function DateHeader() {
                         <>
                         <Button
                             variant="default"
-                            className='border-0'
+                            className='border-0 active:ring-1 active:ring-black dark:active:ring-white mx-1'
                             size="icon"
                             onClick={() => showModal()}
                         >
@@ -134,7 +134,7 @@ export default function DateHeader() {
                         </Button>
                         <Button
                             variant="default"
-                            className='border-0'
+                            className='border-0 active:ring-1 active:ring-black dark:active:ring-white mx-1'
                             size="icon"
                             onClick={() => showModal()}
                         >
@@ -145,7 +145,7 @@ export default function DateHeader() {
                         </div>
                         <Button
                             variant="default"
-                            className='border-0'
+                            className='border-0 active:ring-1 active:ring-black dark:active:ring-white mx-1'
                             size="icon"
                             onClick={() => showModal()}
                         >
