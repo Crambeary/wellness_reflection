@@ -11,7 +11,6 @@ import { useMediaQuery } from "@/hooks/use-media-query";
 import { Drawer, DrawerClose, DrawerContent, DrawerFooter, DrawerHeader, DrawerTitle, DrawerTrigger } from "./ui/drawer";
 import { MenuIcon } from "lucide-react";
 import { Button } from "./ui/button";
-import Link from "next/link";
 
 export default function Header() {
     const router = useRouter();
@@ -58,9 +57,9 @@ export default function Header() {
             <div className="flex flex-wrap justify-between items-center mx-auto max-w-screen-xl">
                 <a href="/" className="flex items-center no-underline text-black hover:text-gray-500">
                     <img
-                    src="/logo.png"
-                    alt="Logo"
-                    className="h-8 w-8 mr-3"
+                        src="/logo.png"
+                        alt="Logo"
+                        className="h-8 w-8 mr-3"
                     />
                     <span className="font-['Nunito_Sans'] font-bold text-xl">
                         Elevate Wellness 
@@ -113,7 +112,7 @@ export default function Header() {
         ) : (
             <Drawer>
                 <DrawerTrigger className="border border-gray-500 rounded-md p-1">
-                    <MenuIcon className="w-6 h-6" />
+                    <MenuIcon className="w-6 h-6 text-black dark:text-white"  />
                 </DrawerTrigger>
                 <DrawerContent>
                     <DrawerHeader>

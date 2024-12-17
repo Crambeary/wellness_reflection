@@ -80,7 +80,7 @@ export default function DateHeader() {
     }
 
     return (
-        <nav className="sticky top-0 bg-primary text-white">
+        <nav className="sticky top-0 z-50 bg-primary text-white">
             <div className="container mx-auto px-4">
                 <div className="flex justify-center items-center">
                     {isLoading && (
