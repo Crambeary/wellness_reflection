@@ -148,3 +148,11 @@ export async function doesUserHaveRole(userId: string, role: string) {
   if (error) throw error
   return data && Object.keys(data).length > 0
 }
+
+export async function getCoachClients(userId: string) {
+  const supabase = await createClient()
+  const { data, error } = await supabase
+    .rpc('get_coach_clients', { 
+      coach_user_id: userId 
+    });
+  }
