@@ -60,7 +60,7 @@ export default function CoachPage() {
     <main>
       <h1 className="text-xl font-bold top-0 p-2 sm:text-3xl max-w-screen-xl mx-auto">Your Clients</h1>
       <div className="flex flex-wrap items-center justify-center gap-4 sm:pt-32">
-        {coachClients.map((client) => (
+        {coachClients.map((client: { user_id: string, name: string }) => (
           <ClientCard key={client.user_id} clientName={`${client.name}`} />
         ))}
       </div>
