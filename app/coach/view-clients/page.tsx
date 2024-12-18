@@ -59,9 +59,7 @@ export default function CoachPage() {
         {/* {coachClients.map((client: { user_id: string, name: string }) => (
           <ClientCard key={client.user_id} clientName={`${client.name}`} />
         ))} */}
-        <Suspense fallback={<div>Loading...</div>}>
-          <ClientView />
-        </Suspense>
+        <ClientView />
       </div>
     </main>
   )

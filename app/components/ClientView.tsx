@@ -1,13 +1,11 @@
-import React, { useEffect, useState } from 'react';
+import React, { Suspense, useEffect, useState } from 'react';
 import { createClient } from '@/utils/supabase/client';
 import ClientCard from './ClientCard';
 import { Card } from './ui/card';
 import { getCoachClients } from '@/utils/supabase/database';
 import { doesUserHaveRole } from '@/utils/supabase/database';
 import { redirect } from 'next/navigation';
-
-const supabase = createClient();
-
+import { Spinner } from './ui/spinner';
 
 interface Client {
     name: string;
@@ -20,14 +18,6 @@ const ClientView = () => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [userId, setUserId] = useState('');
 
-  const renderClients = async () => {
-    if (!userId) {
-      return
-    }
-    const clients = await getCoachClients(userId);
-    setCoachClients(clients);
-    console.log(clients);
-  }
 
   const confirmAuth = async () => {
     const { data, error } = await supabase.auth.getUser()
@@ -52,16 +42,37 @@ const ClientView = () => {
   }, []);
 
   useEffect(() => {
-    renderClients()
+    const loadClients = async () => {
+        if (!userId) {
+            return
+        }
+        const clients = await getCoachClients(userId);
+        setCoachClients(clients);
+    }
+
+    loadClients();
   }, [userId]);
 
 
+
   return (
-    <Card>
-      {coachClients.map((client) => (
-        <ClientCard key={client.user_id} clientName={client.name} />
-      ))}
-    </Card>
+    <>
+        {Object.keys(coachClients).length > 0 ? (
+            <Card>
+                {coachClients.map((client) => (
+                    <ClientCard key={client.user_id} clientName={client.name} />
+                ))}
+            </Card>
+        ) : (
+            <Card className='w-48 max-w-md h-32 text-center flex items-center justify-center'>
+                <div className='inline-block'>
+                    Client Loading
+                    <Spinner size='md' className='bg-black dark:bg-white'/>
+                </div>
+            </Card>
+        )
+    }
+    </>
   );
 };
 

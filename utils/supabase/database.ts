@@ -150,6 +150,9 @@ export async function doesUserHaveRole(userId: string, role: string) {
 }
 
 export async function getCoachClients(coachUserId: string): Promise<{name: string, user_id: string}[]> {
+  if (!coachUserId) {
+    return [];
+  }
   const supabase = await createClient();
   const { data, error } = await supabase
     .from('profiles')
