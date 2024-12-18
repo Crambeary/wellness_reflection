@@ -28,7 +28,6 @@ export default function ClientReflectionView({ params }: { params: Usable<{ id: 
   const nameRef = useRef<HTMLSpanElement>(null);
   const [isLoading, setIsLoading] = useState(true);
   const passedParams = use<{ id: string }>(params);
-  dispatch(setUserId(passedParams.id));
 
   useEffect(() => {
     if (nameRef.current && state.name && state.isAuthenticated && !state.isLoading) {
@@ -38,11 +37,12 @@ export default function ClientReflectionView({ params }: { params: Usable<{ id: 
 
   useEffect(() => {
     setIsLoading(false);
-    dispatch(setWasViewingClients(true));
 
   }, []);
 
   useEffect(() => {
+    dispatch(setUserId(passedParams.id));
+    dispatch(setWasViewingClients(true));
     // This is the main function that fetches the todays reflection from the db or local storage on page load
     const fetchTodaysReflection = async () => {
       const supabase = createClient();
@@ -67,7 +67,6 @@ export default function ClientReflectionView({ params }: { params: Usable<{ id: 
 
       try {
         const stateData = await fetchTodaysReflection();
-        console.log('stateData', stateData);
         if (!stateData) { 
           throw new Error('No form found');
         }
@@ -80,7 +79,6 @@ export default function ClientReflectionView({ params }: { params: Usable<{ id: 
 
     const getClientName = async () => {
       const name = await getUsersName(state.userId);
-      console.log('name', name);
       dispatch(setName(name));
     }
 
