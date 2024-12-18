@@ -30,6 +30,18 @@ export const setDate = createAsyncThunk(
     }
 );
 
+export const setDateClientView = createAsyncThunk(
+    'wellness/setDateClientView',
+    async (date: string, { dispatch, getState }) => {
+        const state = getState() as RootState;
+        const userId = state.wellness.userId;
+
+        if (!userId) throw new Error('User ID is required to switch dates in client view');
+
+        await switchToDate(date, dispatch as AppDispatch, userId);
+    }
+);
+
 // Separate action to handle the actual date switch
 export const confirmDateSwitch = createAsyncThunk(
     'wellness/confirmDateSwitch',
@@ -47,7 +59,7 @@ export const confirmDateSwitch = createAsyncThunk(
 );
 
 // Helper function to handle the date switching logic
-async function switchToDate(date: string, dispatch: AppDispatch) {
+async function switchToDate(date: string, dispatch: AppDispatch, userId?: string) {
     const supabase = createClient();
     const { data: { user } } = await supabase.auth.getUser();
     
@@ -55,9 +67,13 @@ async function switchToDate(date: string, dispatch: AppDispatch) {
         console.error('User not authenticated');
         return;
     }
+    
+    if (!userId) {
+        userId = user.id;
+    }
 
     dispatch(setLoading(true));
-    const response = await getSelectedReflection(user.id, date);
+    const response = await getSelectedReflection(userId, date);
     
     if (response.reflection) {
         dispatch(setDateAction(response.reflection.date));

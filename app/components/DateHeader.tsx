@@ -3,7 +3,7 @@
 import { useAppSelector, useAppDispatch } from '@/store/hooks';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowLeft, faArrowRight, faCalendar } from '@fortawesome/free-solid-svg-icons';
-import { setDate } from '@/store/actions'
+import { setDate, setDateClientView } from '@/store/actions'
 import { createClient } from '@/utils/supabase/client';
 import { useEffect } from 'react';
 import { setShowModal, setModalMessage, setIsAuthenticated } from '@/store/wellnessSlice';
@@ -11,7 +11,7 @@ import { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Spinner } from '@/components/ui/spinner';
 
-export default function DateHeader() {
+export default function DateHeader({ isCoach=false }: { isCoach?: boolean }) {
     const dispatch = useAppDispatch();
     const stateDate = useAppSelector((state) => state.wellness.date);
     const isAuthenticated = useAppSelector((state) => state.wellness.isAuthenticated);
@@ -88,7 +88,7 @@ export default function DateHeader() {
                             Loading Date Info... <Spinner size="sm" className='bg-black dark:bg-white'/>
                         </div>
                     )}
-                    {!isLoading && isAuthenticated && (
+                    {!isLoading && isAuthenticated && !isCoach && (
                         <>
                         <Button
                             variant="default" 
@@ -122,6 +122,40 @@ export default function DateHeader() {
                         </Button>
                         </>
                     )} 
+                    {!isLoading && isAuthenticated && isCoach && (
+                        <>
+                        <Button
+                            variant="default" 
+                            className='border-0 active:ring-1 active:ring-black dark:active:ring-white mx-1'
+                            size="icon"
+                            onClick={() => {
+                                const prev = prevDay();
+                                dispatch(setDateClientView(prev));
+                            }}
+                        >
+                            <FontAwesomeIcon icon={faArrowLeft} />
+                        </Button>
+                        <Button
+                            variant="default"
+                            className='border-0 active:ring-1 active:ring-black dark:active:ring-white mx-1'
+                            size="icon"
+                            onClick={() => dispatch(setDateClientView(new Date().toISOString()))}
+                        >
+                            <FontAwesomeIcon icon={faCalendar} />
+                        </Button>
+                        <div className="px-4 py-2">
+                            {formattedDate}
+                        </div>
+                        <Button
+                            variant="default"
+                            className='border-0 active:ring-1 active:ring-black dark:active:ring-white mx-1'
+                            size="icon"
+                            onClick={() => dispatch(setDateClientView(nextDay()))}
+                        >
+                            <FontAwesomeIcon icon={faArrowRight} />
+                        </Button>
+                        </>
+                    )}
                     {!isLoading && !isAuthenticated && (
                         <>
                         <Button

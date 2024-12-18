@@ -60,7 +60,7 @@ const ClientView = () => {
         {Object.keys(coachClients).length > 0 ? (
             <Card>
                 {coachClients.map((client) => (
-                    <ClientCard key={client.user_id} clientName={client.name} />
+                    <ClientCard key={client.user_id} clientName={client.name} clientID={client.user_id} />
                 ))}
             </Card>
         ) : (

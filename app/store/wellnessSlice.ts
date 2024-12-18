@@ -19,10 +19,12 @@ export interface WellnessState {
     footer: 'unauthenticated' | 'unsaved' | 'logout' | 'clearing' | '';
   };
   lastUpdated: string;
+  wasViewingClients: boolean;
   isDiverged: boolean;
   targetDate: string | null;
   isCoach: boolean;
   name: string;
+  userId: string;
   email: string;
   date: string;
   'wake-time': string;
@@ -62,10 +64,12 @@ const initialState: WellnessState = {
     footer: ''
   },
   lastUpdated: "",
+  wasViewingClients: false,
   isDiverged: false,
   targetDate: null,
   isCoach: false,
   name: "",
+  userId: "",
   email: "",
   date: getLocalISOString().split(' ')[0],
   'wake-time': "",
@@ -121,7 +125,8 @@ export const wellnessSlice = createSlice({
       const isAuthenticated = state.isAuthenticated;
       const isDiverged = state.isDiverged;
       const isCoach = state.isCoach;
-      return { ...state, ...action.payload, lastUpdated: new Date().toISOString(), name: name, email: email, isAuthenticated: isAuthenticated, isDiverged: isDiverged, isCoach: isCoach };
+      const lastUpdated = action.payload.lastUpdated || new Date().toISOString();
+      return { ...state, ...action.payload, lastUpdated: lastUpdated, name: name, email: email, isAuthenticated: isAuthenticated, isDiverged: isDiverged, isCoach: isCoach };
     },
     setLoading(state, action: PayloadAction<boolean>) {
       state.isLoading = action.payload;
@@ -191,6 +196,12 @@ export const wellnessSlice = createSlice({
     setIsCoach: (state, action: PayloadAction<boolean>) => {
       state.isCoach = action.payload;
     },
+    setUserId: (state, action: PayloadAction<string>) => {
+      state.userId = action.payload;
+    },
+    setWasViewingClients: (state, action: PayloadAction<boolean>) => {
+      state.wasViewingClients = action.payload;
+    }
   },
 });
 
@@ -214,5 +225,7 @@ export const {
   setEmail,
   setName,
   setIsCoach,
+  setUserId,
+  setWasViewingClients
 } = wellnessSlice.actions;
 export default wellnessSlice.reducer;
