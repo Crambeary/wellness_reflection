@@ -114,7 +114,8 @@ export const wellnessSlice = createSlice({
       const date = state.date;
       const isAuthenticated = state.isAuthenticated;
       const email = state.email;
-      return { ...initialState, isLoading: false, lastUpdated: new Date().toISOString(), name: name, date: date, isAuthenticated: isAuthenticated, isDiverged: false, email: email };
+      const isCoach = state.isCoach;
+      return { ...initialState, isLoading: false, lastUpdated: new Date().toISOString(), name: name, date: date, isAuthenticated: isAuthenticated, isDiverged: false, email: email, isCoach: isCoach };
     },
     clearName(state) {
       return {...state, name: ''}
