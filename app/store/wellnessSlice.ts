@@ -19,9 +19,12 @@ export interface WellnessState {
     footer: 'unauthenticated' | 'unsaved' | 'logout' | 'clearing' | '';
   };
   lastUpdated: string;
+  wasViewingClients: boolean;
   isDiverged: boolean;
   targetDate: string | null;
+  isCoach: boolean;
   name: string;
+  userId: string;
   email: string;
   date: string;
   'wake-time': string;
@@ -61,9 +64,12 @@ const initialState: WellnessState = {
     footer: ''
   },
   lastUpdated: "",
+  wasViewingClients: false,
   isDiverged: false,
   targetDate: null,
+  isCoach: false,
   name: "",
+  userId: "",
   email: "",
   date: getLocalISOString().split(' ')[0],
   'wake-time': "",
@@ -92,7 +98,7 @@ export const wellnessSlice = createSlice({
   initialState: (() => {
     if (typeof window === 'undefined') return initialState;
     
-    const saved = localStorage.getItem('wellnessForm');
+    const saved = localStorage.getItem('wellnessForm') as string | null;
     return saved ? JSON.parse(saved) : initialState;
   })(),
   reducers: {
@@ -108,7 +114,9 @@ export const wellnessSlice = createSlice({
       const date = state.date;
       const isAuthenticated = state.isAuthenticated;
       const email = state.email;
-      return { ...initialState, isLoading: false, lastUpdated: new Date().toISOString(), name: name, date: date, isAuthenticated: isAuthenticated, isDiverged: false, email: email };
+      const isCoach = state.isCoach;
+      const userId = state.userId;
+      return { ...initialState, isLoading: false, lastUpdated: new Date().toISOString(), name: name, date: date, isAuthenticated: isAuthenticated, isDiverged: false, email: email, isCoach: isCoach, userId: userId };
     },
     clearName(state) {
       return {...state, name: ''}
@@ -118,7 +126,11 @@ export const wellnessSlice = createSlice({
       const email = state.email;
       const isAuthenticated = state.isAuthenticated;
       const isDiverged = state.isDiverged;
-      return { ...state, ...action.payload, lastUpdated: new Date().toISOString(), name: name, email: email, isAuthenticated: isAuthenticated, isDiverged: isDiverged };
+      const isCoach = state.isCoach;
+      const userId = state.userId;
+      const lastUpdated = action.payload.lastUpdated || new Date().toISOString();
+
+      return { ...state, ...action.payload, lastUpdated: lastUpdated, name: name, email: email, isAuthenticated: isAuthenticated, isDiverged: isDiverged, isCoach: isCoach, userId: userId };
     },
     setLoading(state, action: PayloadAction<boolean>) {
       state.isLoading = action.payload;
@@ -185,6 +197,15 @@ export const wellnessSlice = createSlice({
     setName: (state, action: PayloadAction<string>) => {
       state.name = action.payload;
     },
+    setIsCoach: (state, action: PayloadAction<boolean>) => {
+      state.isCoach = action.payload;
+    },
+    setUserId: (state, action: PayloadAction<string>) => {
+      state.userId = action.payload;
+    },
+    setWasViewingClients: (state, action: PayloadAction<boolean>) => {
+      state.wasViewingClients = action.payload;
+    }
   },
 });
 
@@ -207,5 +228,8 @@ export const {
   setIsAuthenticated,
   setEmail,
   setName,
+  setIsCoach,
+  setUserId,
+  setWasViewingClients
 } = wellnessSlice.actions;
 export default wellnessSlice.reducer;

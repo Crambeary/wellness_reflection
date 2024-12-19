@@ -10,6 +10,7 @@ interface MealSectionProps {
   cravings: string;
   onChange: (event: React.ChangeEvent<HTMLInputElement | HTMLDivElement> | React.FormEvent<HTMLDivElement>) => void;
   id: string;
+  disabled?: boolean;
 }
 
 const MealSection: React.FC<MealSectionProps> = ({ 
@@ -17,7 +18,9 @@ const MealSection: React.FC<MealSectionProps> = ({
   meals, 
   notes, 
   cravings, 
-  onChange 
+  onChange, 
+  id,
+  disabled=false
 }) => (
   <div>
     <FormInput
@@ -26,6 +29,7 @@ const MealSection: React.FC<MealSectionProps> = ({
       value={meals}
       onChange={onChange}
       fieldType='textarea'
+      disabled={disabled}
     />
     <FormInput
       label="Cravings"
@@ -33,6 +37,7 @@ const MealSection: React.FC<MealSectionProps> = ({
       value={cravings}
       onChange={onChange}
       fieldType='textarea'
+      disabled={disabled}
     />
     <FormInput
       label="Notes"
@@ -40,6 +45,7 @@ const MealSection: React.FC<MealSectionProps> = ({
       value={notes}
       onChange={onChange}
       fieldType='textarea'
+      disabled={disabled}
     />
   </div>
 );

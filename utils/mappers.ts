@@ -23,6 +23,7 @@ export const mapReflectionToState = (reflection: any): WellnessState => {
         name: reflection.name,
         email: reflection.email,
         date: reflection.date,
+        isCoach: reflection.is_coach,
         'wake-time': reflection.wake_time || '',
         bedtime: reflection.bedtime || '',
         qotd: reflection.quote_of_day,

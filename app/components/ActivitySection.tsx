@@ -7,9 +7,10 @@ interface ActivitySectionProps {
   timeOfDay: string;
   activity: string;
   onChange: (event: React.ChangeEvent<HTMLInputElement | HTMLDivElement> | React.FormEvent<HTMLDivElement>) => void;
+  disabled?: boolean;
 }
 
-const ActivitySection: React.FC<ActivitySectionProps> = ({ timeOfDay, activity, onChange}) => {
+const ActivitySection: React.FC<ActivitySectionProps> = ({ timeOfDay, activity, onChange, disabled=false }) => {
   return (
     <FormInput
       label="Activity"
@@ -17,6 +18,7 @@ const ActivitySection: React.FC<ActivitySectionProps> = ({ timeOfDay, activity, 
       value={activity}
       onChange={onChange}
       fieldType='textarea'
+      disabled={disabled}
     />
   );
 };

@@ -9,12 +9,6 @@ import { faFire } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import InputButton from './ui/InputButton';
 
-interface VitalitySectionProps {
-  section: string;
-  value: number;
-  onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
-}
-
 interface VitalityData {
   0: JSX.Element;
   1: JSX.Element;
@@ -49,7 +43,14 @@ const emojiMap = {
   'evening-vitality': emojiVitality
 };
 
-const VitalitySection: React.FC<VitalitySectionProps> = ({ section, value, onChange }) => {
+interface VitalitySectionProps {
+  section: string;
+  value: number;
+  onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
+  disabled?: boolean;
+}
+
+const VitalitySection: React.FC<VitalitySectionProps> = ({ section, value, onChange, disabled=false }) => {
   const dispatch = useDispatch();
   const [mounted, setMounted] = useState(false);
   const isLoading = useSelector((state: RootState) => state.wellness.isLoading);
@@ -103,7 +104,7 @@ const VitalitySection: React.FC<VitalitySectionProps> = ({ section, value, onCha
         <InputButton 
           onClick={() => dispatch(decrementField(scale))} 
           className='mx-3'
-          disabled={isLoading}
+          disabled={disabled || isLoading}
         >
           -
         </InputButton>
@@ -123,11 +124,12 @@ const VitalitySection: React.FC<VitalitySectionProps> = ({ section, value, onCha
               value: newValue 
             }));
           }}
+          disabled={disabled}
         />
         <InputButton 
           onClick={() => dispatch(incrementField(scale))} 
           className='ms-3'
-          disabled={isLoading}
+          disabled={disabled || isLoading}
         >
           +
         </InputButton>

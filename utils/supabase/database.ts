@@ -1,8 +1,10 @@
-import { createClient } from './client'
+'use server'
+
+import { createClient } from './server'
 import { getLocalISOString } from '@/utils/helpers'
 
 export async function upsertWellnessReflection(data: any, userId: string) {
-  const supabase = createClient()
+  const supabase = await createClient()
   
   try {
     // Check if a reflection exists for this date and user
@@ -66,7 +68,7 @@ export async function upsertWellnessReflection(data: any, userId: string) {
 }
 
 export async function getWellnessReflections(userId: string) {
-  const supabase = createClient()
+  const supabase = await createClient()
   
   try {
     const { data: reflections, error } = await supabase
@@ -86,7 +88,7 @@ export async function getWellnessReflections(userId: string) {
 export async function getTodaysReflection(userId: string) {
 
 
-  const supabase = createClient()
+  const supabase = await createClient()
   const today = getLocalISOString() // Format: YYYY-MM-DD
 
   
@@ -110,7 +112,7 @@ export async function getTodaysReflection(userId: string) {
 }
 
 export async function getSelectedReflection(userId: string, date: string) {
-  const supabase = createClient()
+  const supabase = await createClient()
   
   try {
     const { data: reflection, error } = await supabase
@@ -129,4 +131,54 @@ export async function getSelectedReflection(userId: string, date: string) {
     console.error('Error fetching selected reflection:', error)
     return { reflection: null, error }
   }
+}
+
+
+export async function doesUserHaveRole(userId: string, role: string) {
+  const supabase = await createClient()
+  const { data, error } = await supabase
+    .from('profiles')
+    .select( `
+      *,
+      ...roles!inner(*)
+      `,)
+    .eq('roles.name', role)
+    .eq('user_id', userId)
+
+  if (error) throw error
+  return data && Object.keys(data).length > 0
+}
+
+export async function getCoachClients(coachUserId: string): Promise<{name: string, user_id: string}[]> {
+  if (!coachUserId) {
+    return [];
+  }
+  const supabase = await createClient();
+  const { data, error } = await supabase
+    .from('profiles')
+    .select('name, user_id')
+    .eq('coach_user_id', coachUserId);
+  if (error) {
+    console.error('Error fetching clients:', error);
+    throw new Error('Client fetch error');
+  }
+  return data as {name: string, user_id: string}[];
+}
+
+export async function getUsersName(userID: string) {
+  // Helper for coaches to get their client name
+  const supabase = await createClient();
+  const { data: user_data } = await supabase.auth.getUser()
+  const coach_user_id = user_data.user?.id
+  console.log('user_data', user_data)
+  const { data, error } = await supabase
+    .from('profiles')
+    .select('name')
+    .eq('coach_user_id', coach_user_id)
+    .eq('user_id', userID);
+  if (error) {
+    console.error('Error fetching clients:', error);
+    throw new Error('Client fetch error');
+  }
+  return data[0].name;
 }

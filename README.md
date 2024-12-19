@@ -1,4 +1,4 @@
-# Wellness Reflection
+no# Wellness Reflection
 
 ## Goals
 - [x] Personal wellness entries linked to user accounts
@@ -81,7 +81,7 @@
     - [x] Fix error with saving before pressing today button
     - [x] Hide the Extra Options button on image export
     - [x] Hide error alerts on image export
-    - Idle and console shows this error:
+    - Idle and console shows this error: DETERMINED to be MS Editor Extension
         ```
             VM7781:1 
                 Uncaught (in promise) SyntaxError: "[object Object]" is not valid JSON
@@ -97,29 +97,35 @@
 - [x] Changing dates on a cleared form should not show modal unsaved changes warning
 - [x] Fix hydration error with incorrect date when loading a state with a date that is not today
 - [ ] Create a coach view
-    - [ ] Add a user db table for roles
-    - [ ] Add a user/coach table for connections
-    - [ ] Add a button at the navbar to view clients only when a coach is logged in
-    - [ ] Create a page that shows clients assigned to the coach
-        - [ ] List all clients assigned to the coach
-        - [ ] Clicking on a client shows their wellness data
-    - [ ] Create a view for a client's wellness data that is read-only (disabled form fields)
+    - [x] Add a user db table for roles
+    - [x] Add a user/coach table for connections
+    - [x] Add a button at the navbar to view clients only when a coach is logged in
+        - [x] Detect what the role is of the user
+        - [x] Show the button only if the user is a coach
+        - [x] Button redirects to the client list page
+    - [x] Create a page that shows clients assigned to the coach
+        - [x] List all clients assigned to the coach
+        - [x] Clicking on a client shows their wellness data
+    - [x] Create a view for a client's wellness data that is read-only (disabled form fields)
+    - [x] Show login CTA on mobile nav when logged out
+    - [ ] Hide the form with skelton or more obvious loading state of the page when waiting on database data
 
 ----
 ### Nice to have
 - [x] Clear time entries on iOS 
-
-
+- [ ] Add a dark mode
+    - [ ] Add a theme switcher button
+    - [ ] Support BS and TW dark elements at the same time
 - [ ] Learn what Tailwind CSS is and how it replaces bootstrap
-    - [ ] Learn Tailwind CSS fundamentals
+    - [x] Learn Tailwind CSS fundamentals
     - [ ] Learn Tailwind CSS functions
     - [ ] Learn Tailwind CSS animations
     - [ ] Learn Tailwind CSS components
-    - [ ] Learn Tailwind CSS utilities
+    - [x] Learn Tailwind CSS utilities
     - [ ] Learn Tailwind CSS plugins
-    - [ ] Learn Tailwind CSS configuration
+    - [x] Learn Tailwind CSS configuration
     - [ ] Learn Tailwind CSS best practices
-    - [ ] Outline a plan to replace bootstrap with tailwind - start date after a11y best practices are done
+    - [x] Outline a plan to replace bootstrap with tailwind - start date after a11y best practices are done
 - [ ] Add a test suite
     - [ ] Learn how to write tests for React
     - [ ] Learn how to write tests for Next.js
@@ -127,14 +133,20 @@
     - [ ] Learn how to write tests for Redux
     - [ ] Learn how to write tests for React Testing Library
     - [ ] Learn how to write tests for Jest
-- [ ] Add a dark mode
-- [ ] Add a theme switcher button
-- [ ] Add a date picker for the main page
+- [ ] Refactor for optimization of client/server rendering
+    - [ ] Check all components for client/server rendering
+        - "Leafs" are the only components that should be rendered on the client
+    - [ ] Wrap components that fetch data in a Suspense component
+- [ ] Add a date picker calendar launched from the date header
+- [ ] Optimize fonts Next.js method
+    - [ ] Remove the Google Fonts CDN
+    - [ ] Use the next/font Google Fonts method
 - [ ] Setup a11y best practices
     - [ ] ARIA labels
     - [ ] Keyboard navigation
     - [ ] Screen reader support
 - [ ] Add a motivational quote generator
+- [ ] Show a badge on the Client View cou ti g unread entries by coach
 - [ ] Documentation
     - [ ] JSDoc
 - [ ] Set days loaded to be a URL parameter day=2024-12-12 always sets the date if logged in
@@ -172,4 +184,5 @@
 - [ ] Add a mobile app PWA install prompt
 - [ ] Add a mobile app PWA badge in the header
 - [ ] Merge the db with local storage if a field was empty before
+- [ ] Switch to TanQuery with URL dates to better support caching
 

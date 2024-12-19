@@ -3,13 +3,15 @@
 import { useAppSelector, useAppDispatch } from '@/store/hooks';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowLeft, faArrowRight, faCalendar } from '@fortawesome/free-solid-svg-icons';
-import { setDate } from '@/store/actions'
+import { setDate, setDateClientView } from '@/store/actions'
 import { createClient } from '@/utils/supabase/client';
 import { useEffect } from 'react';
 import { setShowModal, setModalMessage, setIsAuthenticated } from '@/store/wellnessSlice';
 import { useState } from 'react';
+import { Button } from '@/components/ui/button';
+import { Spinner } from '@/components/ui/spinner';
 
-export default function DateHeader() {
+export default function DateHeader({ isCoach=false }: { isCoach?: boolean }) {
     const dispatch = useAppDispatch();
     const stateDate = useAppSelector((state) => state.wellness.date);
     const isAuthenticated = useAppSelector((state) => state.wellness.isAuthenticated);
@@ -78,51 +80,115 @@ export default function DateHeader() {
     }
 
     return (
-        <nav className="navbar sticky-top text-white primary-color" data-bs-theme="dark">
-            <div className='container-fluid'>
-                <div className='d-flex mx-auto'>
+        <div>
+
+        <nav className="sticky top-0 z-50 bg-primary text-white">
+            <div className="container mx-auto px-4">
+                <div className="flex justify-center items-center">
                     {isLoading && (
-                        <div className='mx-auto my-auto'>
-                            Loading...
+                        <div className="py-2 inline-flex items-center gap-2">
+                            Loading Date Info... <Spinner size="sm" className='bg-black dark:bg-white'/>
                         </div>
                     )}
-                    {!isLoading && isAuthenticated && (
+                    {!isLoading && isAuthenticated && !isCoach && (
                         <>
-                        <button className='btn' onClick={() => {
-                            const prev = prevDay();
-                            dispatch(setDate(prev));
-                        }}>
+                        <Button
+                            variant="default" 
+                            className='border-0 active:ring-1 active:ring-black dark:active:ring-white mx-1'
+                            size="icon"
+                            onClick={() => dispatch(setDate(prevDay()))}
+                        >
                             <FontAwesomeIcon icon={faArrowLeft} />
-                        </button>
-                        <button className='btn' onClick={() => dispatch(setDate(new Date().toISOString()))}>
+                        </Button>
+                        <Button
+                            variant="default"
+                            className='border-0 active:ring-1 active:ring-black dark:active:ring-white mx-1'
+                            size="icon"
+                            onClick={() => dispatch(setDate(new Date().toISOString()))}
+                        >
                             <FontAwesomeIcon icon={faCalendar} />
-                        </button>
-                        <div className='mx-auto my-auto'>
+                        </Button>
+                        <div className="px-4 py-2">
                             {formattedDate}
                         </div>
-                        <button className='btn' onClick={() => dispatch(setDate(nextDay()))}>
+                        <Button
+                            variant="default"
+                            className='border-0 active:ring-1 active:ring-black dark:active:ring-white mx-1'
+                            size="icon"
+                            onClick={() => dispatch(setDate(nextDay()))}
+                        >
                             <FontAwesomeIcon icon={faArrowRight} />
-                        </button>
+                        </Button>
                         </>
                     )} 
-                    {!isLoading && !isAuthenticated && (
+                    {!isLoading && isAuthenticated && isCoach && (
                         <>
-                        <button className='btn' onClick={() => showModal()}>
+                        <Button
+                            variant="default" 
+                            className='border-0 active:ring-1 active:ring-black dark:active:ring-white mx-1'
+                            size="icon"
+                            onClick={() => {
+                                const prev = prevDay();
+                                dispatch(setDateClientView(prev));
+                            }}
+                        >
                             <FontAwesomeIcon icon={faArrowLeft} />
-                        </button>
-                        <button className='btn' onClick={() => showModal()}>
+                        </Button>
+                        <Button
+                            variant="default"
+                            className='border-0 active:ring-1 active:ring-black dark:active:ring-white mx-1'
+                            size="icon"
+                            onClick={() => dispatch(setDateClientView(new Date().toISOString()))}
+                        >
                             <FontAwesomeIcon icon={faCalendar} />
-                        </button>
-                        <div className='mx-auto my-auto'>
+                        </Button>
+                        <div className="px-4 py-2">
                             {formattedDate}
                         </div>
-                        <button className='btn' onClick={() => showModal()}>
+                        <Button
+                            variant="default"
+                            className='border-0 active:ring-1 active:ring-black dark:active:ring-white mx-1'
+                            size="icon"
+                            onClick={() => dispatch(setDateClientView(nextDay()))}
+                        >
                             <FontAwesomeIcon icon={faArrowRight} />
-                        </button>
+                        </Button>
+                        </>
+                    )}
+                    {!isLoading && !isAuthenticated && (
+                        <>
+                        <Button
+                            variant="default"
+                            className='border-0 active:ring-1 active:ring-black dark:active:ring-white mx-1'
+                            size="icon"
+                            onClick={() => showModal()}
+                        >
+                            <FontAwesomeIcon icon={faArrowLeft} />
+                        </Button>
+                        <Button
+                            variant="default"
+                            className='border-0 active:ring-1 active:ring-black dark:active:ring-white mx-1'
+                            size="icon"
+                            onClick={() => showModal()}
+                        >
+                            <FontAwesomeIcon icon={faCalendar} />
+                        </Button>
+                        <div className="px-4 py-2">
+                            {formattedDate}
+                        </div>
+                        <Button
+                            variant="default"
+                            className='border-0 active:ring-1 active:ring-black dark:active:ring-white mx-1'
+                            size="icon"
+                            onClick={() => showModal()}
+                        >
+                            <FontAwesomeIcon icon={faArrowRight} />
+                        </Button>
                         </>
                     )}
                 </div>
             </div>
         </nav>
+        </div>
     )
 }

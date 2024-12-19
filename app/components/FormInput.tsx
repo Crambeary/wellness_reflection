@@ -9,6 +9,7 @@ interface FormInputProps {
   value: string;
   fieldType?: string;
   onChange: (event: React.ChangeEvent<HTMLInputElement | HTMLDivElement> | React.FormEvent<HTMLDivElement>) => void;
+  disabled?: boolean;
 }
 
 const FormInput: React.FC<FormInputProps> = ({ 
@@ -17,7 +18,8 @@ const FormInput: React.FC<FormInputProps> = ({
   id, 
   value, 
   onChange, 
-  fieldType = "input"
+  fieldType = "input",
+  disabled = false
 }) => {
   const contentRef = useRef<HTMLDivElement>(null);
 
@@ -39,12 +41,15 @@ const FormInput: React.FC<FormInputProps> = ({
             value={value}
             onChange={onChange}
             spellCheck={false}
+            disabled={disabled}
           />
           {type === 'time' && (
             <button className='btn btn-outline-danger' onClick={() => {
               console.log('clearing');
               onChange({ target: { id, value: '' } } as React.ChangeEvent<HTMLInputElement>);
-              }}>
+              }}
+              disabled={disabled}
+              >
               X
             </button>
           )}
@@ -54,7 +59,7 @@ const FormInput: React.FC<FormInputProps> = ({
           <label htmlFor={id} className="form-label">{label}</label>
           <div 
             ref={contentRef}
-            contentEditable="true"
+            contentEditable={!disabled}
             suppressContentEditableWarning={true}
             className="form-control"
             id={id}
