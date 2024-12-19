@@ -96,10 +96,7 @@ export default function DateHeader({ isCoach=false }: { isCoach?: boolean }) {
                             variant="default" 
                             className='border-0 active:ring-1 active:ring-black dark:active:ring-white mx-1'
                             size="icon"
-                            onClick={() => {
-                                const prev = prevDay();
-                                dispatch(setDate(prev));
-                            }}
+                            onClick={() => dispatch(setDate(prevDay()))}
                         >
                             <FontAwesomeIcon icon={faArrowLeft} />
                         </Button>
