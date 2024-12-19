@@ -99,14 +99,15 @@
 - [ ] Create a coach view
     - [x] Add a user db table for roles
     - [x] Add a user/coach table for connections
-    - [ ] Add a button at the navbar to view clients only when a coach is logged in
-        - [ ] Detect what the role is of the user
-        - [ ] Show the button only if the user is a coach
-        - [ ] Button redirects to the client list page
-    - [ ] Create a page that shows clients assigned to the coach
-        - [ ] List all clients assigned to the coach
-        - [ ] Clicking on a client shows their wellness data
-    - [ ] Create a view for a client's wellness data that is read-only (disabled form fields)
+    - [x] Add a button at the navbar to view clients only when a coach is logged in
+        - [x] Detect what the role is of the user
+        - [x] Show the button only if the user is a coach
+        - [x] Button redirects to the client list page
+    - [x] Create a page that shows clients assigned to the coach
+        - [x] List all clients assigned to the coach
+        - [x] Clicking on a client shows their wellness data
+    - [x] Create a view for a client's wellness data that is read-only (disabled form fields)
+    - [ ] Hide the form with skelton or more obvious loading state of the page when waiting on database data
 
 ----
 ### Nice to have
