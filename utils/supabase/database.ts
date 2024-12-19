@@ -169,30 +169,16 @@ export async function getUsersName(userID: string) {
   // Helper for coaches to get their client name
   const supabase = await createClient();
   const { data: user_data } = await supabase.auth.getUser()
-  const user_id = user_data.user?.id
+  const coach_user_id = user_data.user?.id
   console.log('user_data', user_data)
   const { data, error } = await supabase
     .from('profiles')
     .select('name')
-    .eq('coach_user_id', user_id)
+    .eq('coach_user_id', coach_user_id)
     .eq('user_id', userID);
   if (error) {
     console.error('Error fetching clients:', error);
     throw new Error('Client fetch error');
   }
   return data[0].name;
-}
-
-export async function getClientReflection(userId: string, date: string) {
-  // RLS is setup that ohly allows coaches to see assigned client reflections
-  const supabase = await createClient()
-  const { data: reflection, error } = await supabase
-    .from('wellness_reflections')
-    .select('*')
-    .eq('user_id', userId)
-    .eq('date', date)
-    .single()
-
-  if (error) throw error
-  return { reflection, error: null }
 }

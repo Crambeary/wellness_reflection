@@ -33,9 +33,11 @@ export const setDate = createAsyncThunk(
 export const setDateClientView = createAsyncThunk(
     'wellness/setDateClientView',
     async (date: string, { dispatch, getState }) => {
+        console.log('Switching to date in client view:', date);
         const state = getState() as RootState;
         const userId = state.wellness.userId;
 
+        console.log('User ID:', userId);
         if (!userId) throw new Error('User ID is required to switch dates in client view');
 
         await switchToDate(date, dispatch as AppDispatch, userId);
@@ -60,6 +62,7 @@ export const confirmDateSwitch = createAsyncThunk(
 
 // Helper function to handle the date switching logic
 async function switchToDate(date: string, dispatch: AppDispatch, userId?: string) {
+    console.log('Switching to date:', date);
     const supabase = createClient();
     const { data: { user } } = await supabase.auth.getUser();
     

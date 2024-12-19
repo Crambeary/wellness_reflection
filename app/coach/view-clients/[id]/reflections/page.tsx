@@ -11,7 +11,7 @@ import VitalitySection from '@/components/VitalitySection';
 import ActivitySection from '@/components/ActivitySection';
 import html2canvas from 'html2canvas';
 import { createClient } from '@/utils/supabase/client';
-import { getClientReflection, getUsersName } from '@/utils/supabase/database';
+import { getSelectedReflection, getUsersName } from '@/utils/supabase/database';
 import { useAppDispatch, useAppSelector } from '@/store/hooks';
 import { clearForm, loadSavedForm, setShowModal, setTargetDate, clearName, setName, setUserId, setWasViewingClients } from '@/store/wellnessSlice';
 import { mapReflectionToState } from '@/utils/mappers';
@@ -50,7 +50,7 @@ export default function ClientReflectionView({ params }: { params: Usable<{ id: 
       if (user) {
         // Fetch today's reflection if it exists
         const today = getLocalISOString()
-        const { reflection } = await getClientReflection(state.userId, today);
+        const { reflection } = await getSelectedReflection(passedParams.id, today);
         if (reflection) {
           const stateData = mapReflectionToState(reflection);
           return stateData;
@@ -68,9 +68,10 @@ export default function ClientReflectionView({ params }: { params: Usable<{ id: 
       try {
         const stateData = await fetchTodaysReflection();
         if (!stateData) { 
-          throw new Error('No form found');
+          dispatch(clearForm());
+        } else if (stateData) {
+          dispatch(loadSavedForm({ ...stateData, lastUpdated: new Date('0').toISOString() }));
         }
-        dispatch(loadSavedForm({ ...stateData, lastUpdated: new Date('0').toISOString() }));
         
       } catch (error) {
         console.error('Error updating form:', error);
@@ -78,12 +79,12 @@ export default function ClientReflectionView({ params }: { params: Usable<{ id: 
     }
 
     const getClientName = async () => {
-      const name = await getUsersName(state.userId);
+      const name = await getUsersName(passedParams.id);
       dispatch(setName(name));
     }
 
-    updateForm();
     getClientName();
+    updateForm();
   }, [dispatch]);
 
   const generateImage = async () => {

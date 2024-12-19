@@ -115,7 +115,8 @@ export const wellnessSlice = createSlice({
       const isAuthenticated = state.isAuthenticated;
       const email = state.email;
       const isCoach = state.isCoach;
-      return { ...initialState, isLoading: false, lastUpdated: new Date().toISOString(), name: name, date: date, isAuthenticated: isAuthenticated, isDiverged: false, email: email, isCoach: isCoach };
+      const userId = state.userId;
+      return { ...initialState, isLoading: false, lastUpdated: new Date().toISOString(), name: name, date: date, isAuthenticated: isAuthenticated, isDiverged: false, email: email, isCoach: isCoach, userId: userId };
     },
     clearName(state) {
       return {...state, name: ''}
@@ -126,8 +127,10 @@ export const wellnessSlice = createSlice({
       const isAuthenticated = state.isAuthenticated;
       const isDiverged = state.isDiverged;
       const isCoach = state.isCoach;
+      const userId = state.userId;
       const lastUpdated = action.payload.lastUpdated || new Date().toISOString();
-      return { ...state, ...action.payload, lastUpdated: lastUpdated, name: name, email: email, isAuthenticated: isAuthenticated, isDiverged: isDiverged, isCoach: isCoach };
+
+      return { ...state, ...action.payload, lastUpdated: lastUpdated, name: name, email: email, isAuthenticated: isAuthenticated, isDiverged: isDiverged, isCoach: isCoach, userId: userId };
     },
     setLoading(state, action: PayloadAction<boolean>) {
       state.isLoading = action.payload;
