@@ -80,6 +80,8 @@ export default function DateHeader({ isCoach=false }: { isCoach?: boolean }) {
     }
 
     return (
+        <div>
+
         <nav className="sticky top-0 z-50 bg-primary text-white">
             <div className="container mx-auto px-4">
                 <div className="flex justify-center items-center">
@@ -190,5 +192,6 @@ export default function DateHeader({ isCoach=false }: { isCoach?: boolean }) {
                 </div>
             </div>
         </nav>
+        </div>
     )
 }

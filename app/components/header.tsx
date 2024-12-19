@@ -111,7 +111,7 @@ export default function Header() {
             </>
         ) : (
             <Drawer>
-                <DrawerTrigger className="border border-gray-500 rounded-md p-1">
+                <DrawerTrigger title="Menu" className="border border-gray-500 rounded-md p-1">
                     <MenuIcon className="w-6 h-6 text-black dark:text-white"  />
                 </DrawerTrigger>
                 <DrawerContent>
@@ -121,9 +121,15 @@ export default function Header() {
                     <DrawerHeader>
                         <DrawerTitle>Menu</DrawerTitle>
                     </DrawerHeader>
-                        <div className="p-4 text-center">
-                            Logged in as: {email}
-                        </div>
+                        {isAuthenticated ? (
+                            <div className="p-4 text-center">
+                                Logged in as: {email}
+                            </div>
+                        ) : (
+                            <div className="p-4 text-center">
+                                Login for an upgraded experience
+                            </div>
+                        )}
                     <DrawerFooter>
                         <DrawerClose asChild className="border-none">
                             <Button onClick={() => router.push('/')}>
