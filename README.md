@@ -185,4 +185,6 @@
 - [ ] Add a mobile app PWA badge in the header
 - [ ] Merge the db with local storage if a field was empty before
 - [ ] Switch to TanQuery with URL dates to better support caching
+- [ ] add a mood tracker
+    - [ ] discuss with Destiny what she wants is this all day versus parts of the day do I do numbers or emojis etc.
 
