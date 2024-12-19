@@ -98,7 +98,7 @@ export const wellnessSlice = createSlice({
   initialState: (() => {
     if (typeof window === 'undefined') return initialState;
     
-    const saved = localStorage.getItem('wellnessForm');
+    const saved = localStorage.getItem('wellnessForm') as string | null;
     return saved ? JSON.parse(saved) : initialState;
   })(),
   reducers: {

@@ -8,7 +8,7 @@ import { useEffect, useState } from "react";
 import { doesUserHaveRole } from "@/utils/supabase/database";
 import { useRouter } from "next/navigation";
 import { useMediaQuery } from "@/hooks/use-media-query";
-import { Drawer, DrawerClose, DrawerContent, DrawerFooter, DrawerHeader, DrawerTitle, DrawerTrigger } from "./ui/drawer";
+import { Drawer, DrawerClose, DrawerContent, DrawerDescription, DrawerFooter, DrawerHeader, DrawerTitle, DrawerTrigger } from "./ui/drawer";
 import { MenuIcon } from "lucide-react";
 import { Button } from "./ui/button";
 
@@ -115,6 +115,9 @@ export default function Header() {
                     <MenuIcon className="w-6 h-6 text-black dark:text-white"  />
                 </DrawerTrigger>
                 <DrawerContent>
+                    <DrawerDescription className="hidden">
+                        This menu contains navigation links to the different sections of the website.
+                    </DrawerDescription>
                     <DrawerHeader>
                         <DrawerTitle>Menu</DrawerTitle>
                     </DrawerHeader>
