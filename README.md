@@ -1,4 +1,4 @@
-no# Wellness Reflection
+# Wellness Reflection
 
 ## Goals
 - [x] Personal wellness entries linked to user accounts
