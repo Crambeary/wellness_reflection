@@ -116,15 +116,15 @@ no# Wellness Reflection
 
 
 - [ ] Learn what Tailwind CSS is and how it replaces bootstrap
-    - [ ] Learn Tailwind CSS fundamentals
+    - [x] Learn Tailwind CSS fundamentals
     - [ ] Learn Tailwind CSS functions
     - [ ] Learn Tailwind CSS animations
     - [ ] Learn Tailwind CSS components
-    - [ ] Learn Tailwind CSS utilities
+    - [x] Learn Tailwind CSS utilities
     - [ ] Learn Tailwind CSS plugins
-    - [ ] Learn Tailwind CSS configuration
+    - [x] Learn Tailwind CSS configuration
     - [ ] Learn Tailwind CSS best practices
-    - [ ] Outline a plan to replace bootstrap with tailwind - start date after a11y best practices are done
+    - [x] Outline a plan to replace bootstrap with tailwind - start date after a11y best practices are done
 - [ ] Add a test suite
     - [ ] Learn how to write tests for React
     - [ ] Learn how to write tests for Next.js
@@ -133,8 +133,9 @@ no# Wellness Reflection
     - [ ] Learn how to write tests for React Testing Library
     - [ ] Learn how to write tests for Jest
 - [ ] Add a dark mode
-- [ ] Add a theme switcher button
-- [ ] Add a date picker for the main page
+    - [ ] Add a theme switcher button
+    - [ ] Support BS and TW dark elements at the same time
+- [ ] Add a date picker calendar launched from the date header
 - [ ] Setup a11y best practices
     - [ ] ARIA labels
     - [ ] Keyboard navigation
@@ -178,4 +179,5 @@ no# Wellness Reflection
 - [ ] Add a mobile app PWA install prompt
 - [ ] Add a mobile app PWA badge in the header
 - [ ] Merge the db with local storage if a field was empty before
+- [ ] Switch to TanQuery with URL dates to better support caching
 
