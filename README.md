@@ -1,4 +1,4 @@
-# Wellness Reflection
+no# Wellness Reflection
 
 ## Goals
 - [x] Personal wellness entries linked to user accounts
@@ -99,14 +99,16 @@
 - [ ] Create a coach view
     - [x] Add a user db table for roles
     - [x] Add a user/coach table for connections
-    - [ ] Add a button at the navbar to view clients only when a coach is logged in
-        - [ ] Detect what the role is of the user
-        - [ ] Show the button only if the user is a coach
-        - [ ] Button redirects to the client list page
-    - [ ] Create a page that shows clients assigned to the coach
-        - [ ] List all clients assigned to the coach
-        - [ ] Clicking on a client shows their wellness data
-    - [ ] Create a view for a client's wellness data that is read-only (disabled form fields)
+    - [x] Add a button at the navbar to view clients only when a coach is logged in
+        - [x] Detect what the role is of the user
+        - [x] Show the button only if the user is a coach
+        - [x] Button redirects to the client list page
+    - [x] Create a page that shows clients assigned to the coach
+        - [x] List all clients assigned to the coach
+        - [x] Clicking on a client shows their wellness data
+    - [x] Create a view for a client's wellness data that is read-only (disabled form fields)
+    - [ ] Hide the form with skelton or more obvious loading state of the page when waiting on database data
+    - [ ] Show login CTA on mobile nav when logged out
 
 ----
 ### Nice to have
@@ -114,15 +116,15 @@
 
 
 - [ ] Learn what Tailwind CSS is and how it replaces bootstrap
-    - [ ] Learn Tailwind CSS fundamentals
+    - [x] Learn Tailwind CSS fundamentals
     - [ ] Learn Tailwind CSS functions
     - [ ] Learn Tailwind CSS animations
     - [ ] Learn Tailwind CSS components
-    - [ ] Learn Tailwind CSS utilities
+    - [x] Learn Tailwind CSS utilities
     - [ ] Learn Tailwind CSS plugins
-    - [ ] Learn Tailwind CSS configuration
+    - [x] Learn Tailwind CSS configuration
     - [ ] Learn Tailwind CSS best practices
-    - [ ] Outline a plan to replace bootstrap with tailwind - start date after a11y best practices are done
+    - [x] Outline a plan to replace bootstrap with tailwind - start date after a11y best practices are done
 - [ ] Add a test suite
     - [ ] Learn how to write tests for React
     - [ ] Learn how to write tests for Next.js
@@ -131,8 +133,9 @@
     - [ ] Learn how to write tests for React Testing Library
     - [ ] Learn how to write tests for Jest
 - [ ] Add a dark mode
-- [ ] Add a theme switcher button
-- [ ] Add a date picker for the main page
+    - [ ] Add a theme switcher button
+    - [ ] Support BS and TW dark elements at the same time
+- [ ] Add a date picker calendar launched from the date header
 - [ ] Setup a11y best practices
     - [ ] ARIA labels
     - [ ] Keyboard navigation
@@ -176,4 +179,5 @@
 - [ ] Add a mobile app PWA install prompt
 - [ ] Add a mobile app PWA badge in the header
 - [ ] Merge the db with local storage if a field was empty before
+- [ ] Switch to TanQuery with URL dates to better support caching
 
