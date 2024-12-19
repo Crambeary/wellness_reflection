@@ -96,7 +96,7 @@
 - [x] Put name on new row when logged in without hydration error
 - [x] Changing dates on a cleared form should not show modal unsaved changes warning
 - [x] Fix hydration error with incorrect date when loading a state with a date that is not today
-- [ ] Create a coach view
+- [x] Create a coach view
     - [x] Add a user db table for roles
     - [x] Add a user/coach table for connections
     - [x] Add a button at the navbar to view clients only when a coach is logged in
@@ -108,7 +108,7 @@
         - [x] Clicking on a client shows their wellness data
     - [x] Create a view for a client's wellness data that is read-only (disabled form fields)
     - [x] Show login CTA on mobile nav when logged out
-    - [ ] Hide the form with skelton or more obvious loading state of the page when waiting on database data
+    - [x] Hide the form with skelton or more obvious loading state of the page when waiting on database data
 
 ----
 ### Nice to have
