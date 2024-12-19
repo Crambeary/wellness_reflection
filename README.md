@@ -113,6 +113,8 @@
 ----
 ### Nice to have
 - [x] Clear time entries on iOS 
+- [ ] fix behavior when diverged and going to view clients
+- [ ] set up a event listener that connects to the router that shows the model when attempting to change route when diverged
 - [ ] Add a dark mode
     - [ ] Add a theme switcher button
     - [ ] Support BS and TW dark elements at the same time
