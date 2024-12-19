@@ -81,7 +81,7 @@ no# Wellness Reflection
     - [x] Fix error with saving before pressing today button
     - [x] Hide the Extra Options button on image export
     - [x] Hide error alerts on image export
-    - Idle and console shows this error:
+    - Idle and console shows this error: DETERMINED to be MS Editor Extension
         ```
             VM7781:1 
                 Uncaught (in promise) SyntaxError: "[object Object]" is not valid JSON
@@ -107,14 +107,15 @@ no# Wellness Reflection
         - [x] List all clients assigned to the coach
         - [x] Clicking on a client shows their wellness data
     - [x] Create a view for a client's wellness data that is read-only (disabled form fields)
+    - [x] Show login CTA on mobile nav when logged out
     - [ ] Hide the form with skelton or more obvious loading state of the page when waiting on database data
-    - [ ] Show login CTA on mobile nav when logged out
 
 ----
 ### Nice to have
 - [x] Clear time entries on iOS 
-
-
+- [ ] Add a dark mode
+    - [ ] Add a theme switcher button
+    - [ ] Support BS and TW dark elements at the same time
 - [ ] Learn what Tailwind CSS is and how it replaces bootstrap
     - [x] Learn Tailwind CSS fundamentals
     - [ ] Learn Tailwind CSS functions
@@ -132,10 +133,10 @@ no# Wellness Reflection
     - [ ] Learn how to write tests for Redux
     - [ ] Learn how to write tests for React Testing Library
     - [ ] Learn how to write tests for Jest
-- [ ] Add a dark mode
-    - [ ] Add a theme switcher button
-    - [ ] Support BS and TW dark elements at the same time
 - [ ] Add a date picker calendar launched from the date header
+- [ ] Optimize fonts Next.js method
+    - [ ] Remove the Google Fonts CDN
+    - [ ] Use the next/font Google Fonts method
 - [ ] Setup a11y best practices
     - [ ] ARIA labels
     - [ ] Keyboard navigation
