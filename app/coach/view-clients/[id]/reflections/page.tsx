@@ -20,6 +20,7 @@ import { confirmDateSwitch } from '@/store/actions';
 import { logout } from '@/login/actions';
 import { getLocalISOString } from '@/utils/helpers';
 import DateHeader from '@/components/DateHeader';
+import { Card, CardHeader, CardTitle } from '@/components/ui/card';
 
 export default function ClientReflectionView({ params }: { params: Usable<{ id: string }> }) {
   const dispatch = useAppDispatch();
@@ -35,10 +36,10 @@ export default function ClientReflectionView({ params }: { params: Usable<{ id: 
     }
   }, [state.name, state.isAuthenticated, state.isLoading]);
 
-  useEffect(() => {
-    setIsLoading(false);
+  // useEffect(() => {
+  //   setIsLoading(false);
 
-  }, []);
+  // }, []);
 
   useEffect(() => {
     dispatch(setUserId(passedParams.id));
@@ -72,7 +73,8 @@ export default function ClientReflectionView({ params }: { params: Usable<{ id: 
         } else if (stateData) {
           dispatch(loadSavedForm({ ...stateData, lastUpdated: new Date('0').toISOString() }));
         }
-        
+        setIsLoading(false);
+
       } catch (error) {
         console.error('Error updating form:', error);
       }
@@ -139,6 +141,16 @@ export default function ClientReflectionView({ params }: { params: Usable<{ id: 
               </h2>
             </div>
             <div id="form">
+              {isLoading ? (
+                <Card className='animate-pulse h-100 w-100'>
+                  <CardHeader>
+                    <CardTitle>Loading Form...</CardTitle>
+                  </CardHeader>
+                </Card>
+
+              ) : (
+
+                <>
               <FormInput
                 label="Wake Time"
                 id="wake-time"
@@ -278,6 +290,8 @@ export default function ClientReflectionView({ params }: { params: Usable<{ id: 
                   </Modal.Footer>
                 </Modal>
               </div>
+            </>
+                  )}
             </div>
           </div>
         </div>

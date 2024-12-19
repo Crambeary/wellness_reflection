@@ -22,6 +22,7 @@ import { login, logout } from './login/actions';
 import { getLocalISOString } from '@/utils/helpers';
 import { useState } from 'react';
 import DateHeader from './components/DateHeader';
+import { Card, CardHeader, CardTitle } from './components/ui/card';
 
 export default function App() {
   const dispatch = useAppDispatch();
@@ -36,10 +37,9 @@ export default function App() {
     }
   }, [state.name, state.isAuthenticated, state.isLoading]);
 
-  useEffect(() => {
-    // dispatch(clearForm());
-    setIsLoading(false);
-  }, []);
+  // useEffect(() => {
+  //   setIsLoading(false);
+  // }, []);
 
   useEffect(() => {
     // This is the main function that fetches the todays reflection from the db or local storage on page load
@@ -103,6 +103,7 @@ export default function App() {
           dispatch(clearForm());
           dispatch(setDate(getLocalISOString().split(' ')[0]));
         }
+        setIsLoading(false);
       } catch (error) {
         console.error('Error updating form:', error);
       }
@@ -248,6 +249,17 @@ export default function App() {
               </h2>
             </div>
             <div id="form">
+              {isLoading ? (
+                <Card className='animate-pulse h-100 w-100'>
+                  <CardHeader>
+                    <CardTitle>Loading Form...</CardTitle>
+                  </CardHeader>
+                </Card>
+
+              ) : (
+
+                <>
+
               <FormInput
                 label="Wake Time"
                 id="wake-time"
@@ -402,6 +414,8 @@ export default function App() {
                   </Modal.Footer>
                 </Modal>
               </div>
+                </>
+                )}
             </div>
           </div>
         </div>

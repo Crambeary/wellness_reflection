@@ -133,6 +133,10 @@ no# Wellness Reflection
     - [ ] Learn how to write tests for Redux
     - [ ] Learn how to write tests for React Testing Library
     - [ ] Learn how to write tests for Jest
+- [ ] Refactor for optimization of client/server rendering
+    - [ ] Check all components for client/server rendering
+        - "Leafs" are the only components that should be rendered on the client
+    - [ ] Wrap components that fetch data in a Suspense component
 - [ ] Add a date picker calendar launched from the date header
 - [ ] Optimize fonts Next.js method
     - [ ] Remove the Google Fonts CDN
