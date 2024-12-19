@@ -1,4 +1,4 @@
-# Wellness Reflection
+no# Wellness Reflection
 
 ## Goals
 - [x] Personal wellness entries linked to user accounts
@@ -108,6 +108,7 @@
         - [x] Clicking on a client shows their wellness data
     - [x] Create a view for a client's wellness data that is read-only (disabled form fields)
     - [ ] Hide the form with skelton or more obvious loading state of the page when waiting on database data
+    - [ ] Show login CTA on mobile nav when logged out
 
 ----
 ### Nice to have
