@@ -17,6 +17,7 @@ export default function Header() {
     const [isLoading, setIsLoading] = useState(true);
     const isAuthenticated = useAppSelector((state) => state.wellness.isAuthenticated);
     const email = useAppSelector((state) => state.wellness.email);
+    const isDiverged = useAppSelector((state) => state.wellness.isDiverged);
     const dispatch = useAppDispatch();
     const [userId, setUserId] = useState('');
     const userIsCoach = useAppSelector((state) => state.wellness.isCoach);
@@ -52,6 +53,20 @@ export default function Header() {
         dispatch(setShowModal(true));
     }
 
+    const viewClients = () => {
+        if (isDiverged) {
+            dispatch(setShowModal(true));
+            dispatch(setModalMessage({
+                title: 'You have unsaved changes',
+                body: 'Discard changes and view clients?',
+                footer: 'unsaved-view-clients'
+            }));
+            return;
+        } else {
+            router.push('/coach/view-clients');
+        }
+    }
+
     return (
         <nav className="bg-white border-b border-gray-200 px-4 py-2.5">
             <div className="flex flex-wrap justify-between items-center mx-auto max-w-screen-xl">
@@ -72,7 +87,7 @@ export default function Header() {
                     {!isLoading && (
                         userIsCoach ? (
                             <button 
-                                onClick={() => router.push('/coach/view-clients')}
+                                onClick={() => viewClients()}
                                 className="text-gray-500 hover:text-white border border-gray-500 hover:bg-gray-800 focus:ring-4 focus:outline-none focus:ring-gray-300 font-medium rounded-lg text-sm px-4 py-2 mr-4 text-center"
                             >
                                 View Clients
@@ -138,7 +153,7 @@ export default function Header() {
                         </DrawerClose>
                         {userIsCoach && (
                             <DrawerClose asChild className="border-none">
-                                <Button onClick={() => router.push('/coach/view-clients')}>
+                                <Button onClick={() => viewClients()}>
                                     View Clients
                                 </Button>
                             </DrawerClose>

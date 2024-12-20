@@ -16,7 +16,7 @@ export interface WellnessState {
   modalMessage: {
     title: string;
     body: string;
-    footer: 'unauthenticated' | 'unsaved' | 'logout' | 'clearing' | '';
+    footer: 'unauthenticated' | 'unsaved' | 'logout' | 'clearing' | 'unsaved-view-clients' | '';
   };
   lastUpdated: string;
   wasViewingClients: boolean;
@@ -116,7 +116,8 @@ export const wellnessSlice = createSlice({
       const email = state.email;
       const isCoach = state.isCoach;
       const userId = state.userId;
-      return { ...initialState, isLoading: false, lastUpdated: new Date().toISOString(), name: name, date: date, isAuthenticated: isAuthenticated, isDiverged: false, email: email, isCoach: isCoach, userId: userId };
+      const wasViewingClients = state.wasViewingClients;
+      return { ...initialState, isLoading: false, lastUpdated: new Date().toISOString(), name: name, date: date, isAuthenticated: isAuthenticated, isDiverged: false, email: email, isCoach: isCoach, userId: userId, wasViewingClients: wasViewingClients };
     },
     clearName(state) {
       return {...state, name: ''}
@@ -179,7 +180,7 @@ export const wellnessSlice = createSlice({
     setShowModal: (state, action: PayloadAction<boolean>) => {
       state.showModal = action.payload;
     },
-    setModalMessage: (state, action: PayloadAction<{ title: string; body: string; footer: 'unauthenticated' | 'unsaved' | 'logout' | 'clearing' | '' }>) => {
+    setModalMessage: (state, action: PayloadAction<{ title: string; body: string; footer: 'unauthenticated' | 'unsaved' | 'logout' | 'clearing' | 'unsaved-view-clients' | '' }>) => {
       state.modalMessage = action.payload;
     },
     setIsDiverged: (state, action: PayloadAction<boolean>) => {

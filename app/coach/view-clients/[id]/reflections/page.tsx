@@ -13,7 +13,7 @@ import html2canvas from 'html2canvas';
 import { createClient } from '@/utils/supabase/client';
 import { getSelectedReflection, getUsersName } from '@/utils/supabase/database';
 import { useAppDispatch, useAppSelector } from '@/store/hooks';
-import { clearForm, loadSavedForm, setShowModal, setTargetDate, clearName, setName, setUserId, setWasViewingClients } from '@/store/wellnessSlice';
+import { clearForm, loadSavedForm, setShowModal, setTargetDate, clearName, setName, setUserId, setWasViewingClients, setDate } from '@/store/wellnessSlice';
 import { mapReflectionToState } from '@/utils/mappers';
 import { Dropdown } from 'react-bootstrap';
 import { confirmDateSwitch } from '@/store/actions';
@@ -70,6 +70,7 @@ export default function ClientReflectionView({ params }: { params: Usable<{ id: 
         const stateData = await fetchTodaysReflection();
         if (!stateData) { 
           dispatch(clearForm());
+          dispatch(setDate(getLocalISOString().split(' ')[0]));
         } else if (stateData) {
           dispatch(loadSavedForm({ ...stateData, lastUpdated: new Date('0').toISOString() }));
         }

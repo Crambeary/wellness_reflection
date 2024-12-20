@@ -23,6 +23,7 @@ import { getLocalISOString } from '@/utils/helpers';
 import { useState } from 'react';
 import DateHeader from './components/DateHeader';
 import { Card, CardHeader, CardTitle } from './components/ui/card';
+import { useRouter } from 'next/navigation';
 
 export default function App() {
   const dispatch = useAppDispatch();
@@ -30,16 +31,13 @@ export default function App() {
   const captureRegionRef = useRef<HTMLDivElement>(null);
   const nameRef = useRef<HTMLSpanElement>(null);
   const [isLoading, setIsLoading] = useState(true);
+  const router = useRouter();
 
   useEffect(() => {
     if (nameRef.current && state.name && state.isAuthenticated && !state.isLoading) {
       nameRef.current.textContent = `${state.name}?`;
     }
   }, [state.name, state.isAuthenticated, state.isLoading]);
-
-  // useEffect(() => {
-  //   setIsLoading(false);
-  // }, []);
 
   useEffect(() => {
     // This is the main function that fetches the todays reflection from the db or local storage on page load
@@ -78,24 +76,28 @@ export default function App() {
         const dbDate = new Date(stateData?.lastUpdated || '');
         if (isNaN(dbDate.getTime()) && state.wasViewingClients) {
           dispatch(clearForm());
+          dispatch(setDate(getLocalISOString().split(' ')[0]));
           dispatch(setWasViewingClients(false));
+        } else if (Object.keys(stateData || {}).length > 0 && state.wasViewingClients) {
+          console.log('loading 8');
+          dispatch(loadSavedForm({ ...state, ...stateData, isLoading: false }));
         } else if (isNaN(formDate.getTime()) && stateData) { // If local form is empty, load from db
           console.log('loading from db');
           dispatch(loadSavedForm({ ...state, ...stateData, isLoading: false }));
-        } else if (isNaN(dbDate.getTime()) && Object.keys(savedForm || {}).length > 0) { // If db form is empty, load from local
+        } else if (isNaN(dbDate.getTime()) && Object.keys(savedForm || {}).length > 0 && !state.wasViewingClients) { // If db form is empty, load from local
           console.log('loading from local');
           dispatch(loadSavedForm({ ...state, ...savedForm, isLoading: false }));
         } else if (isNaN(formDate.getTime()) && isNaN(dbDate.getTime())) { // If both forms are empty, clear form
           console.log('clearing form');
           dispatch(clearForm());
           dispatch(setDate(getLocalISOString().split(' ')[0]));
-        } else if (dbDate > formDate && Object.keys(stateData || {}).length > 0) { // If db form is newer than local form, load from db
+        } else if (dbDate > formDate && Object.keys(stateData || {}).length > 0 && !state.wasViewingClients) { // If db form is newer than local form, load from db
           console.log('loading 5');
           dispatch(loadSavedForm({ ...state, ...stateData, isLoading: false }));
-        } else if (state.isDiverged && state.isAuthenticated && Object.keys(stateData || {}).length > 0) {
+        } else if (state.isDiverged && state.isAuthenticated && Object.keys(stateData || {}).length > 0 && !state.wasViewingClients) {
           console.log('loading 6');
           dispatch(loadSavedForm({ ...state, ...savedForm, isLoading: false }));
-        } else if (Object.keys(stateData || {}).length > 0) { 
+        } else if (Object.keys(stateData || {}).length > 0 && !state.wasViewingClients) { 
           console.log('loading 7');
           dispatch(loadSavedForm({ ...state, ...stateData, isLoading: false }));
         } else {
@@ -227,6 +229,11 @@ export default function App() {
     dispatch(setDate(getLocalISOString().split(' ')[0]));
     localStorage.removeItem('wellnessForm');
   };
+
+    const handleUnsavedChangesCoachView = () => {
+      dispatch(setShowModal(false));
+      router.push('/coach/view-clients');
+    };
 
   return (
     <>
@@ -409,6 +416,12 @@ export default function App() {
                       <>
                         <Button variant="secondary" onClick={handleCancel}>Close</Button>
                         <Button variant="outline-danger" onClick={handleConfirmClear}>Clear</Button>
+                      </>
+                    )}
+                    {state.modalMessage.footer === 'unsaved-view-clients' && (
+                      <>
+                        <Button variant="secondary" onClick={handleCancel}>Close</Button>
+                        <Button variant="outline-danger" onClick={handleUnsavedChangesCoachView}>Continue</Button>
                       </>
                     )}
                   </Modal.Footer>
