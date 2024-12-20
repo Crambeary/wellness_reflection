@@ -57,7 +57,7 @@ export default function RootLayout({
         {/* <!-- Meta Tags Generated via https://www.opengraph.xyz --> */}
         </head>
       <body className={`${inter.className} `} >
-        <ThemeProvider attribute="data-bs-theme" defaultTheme="dark">
+        <ThemeProvider attribute="data-bs-theme" defaultTheme="system">
           <Providers>
             <Header />
             {children}
