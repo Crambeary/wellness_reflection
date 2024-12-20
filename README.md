@@ -113,8 +113,7 @@
 ----
 ### Nice to have
 - [x] Clear time entries on iOS 
-- [ ] fix behavior when diverged and going to view clients
-- [ ] set up a event listener that connects to the router that shows the model when attempting to change route when diverged
+- [x] fix behavior when diverged and going to view clients
 - [ ] Add a dark mode
     - [ ] Add a theme switcher button
     - [ ] Support BS and TW dark elements at the same time
@@ -140,6 +139,7 @@
         - "Leafs" are the only components that should be rendered on the client
     - [ ] Wrap components that fetch data in a Suspense component
 - [ ] Add a date picker calendar launched from the date header
+    - [ ] set up a event listener that connects to the router that shows the model when attempting to change route when diverged
 - [ ] Optimize fonts Next.js method
     - [ ] Remove the Google Fonts CDN
     - [ ] Use the next/font Google Fonts method
