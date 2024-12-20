@@ -114,8 +114,8 @@
 ### Nice to have
 - [x] Clear time entries on iOS 
 - [x] fix behavior when diverged and going to view clients
-- [ ] Add a dark mode
-    - [ ] Add a theme switcher button
+- [x] Add a dark mode
+    - [x] Add a theme switcher button
     - [x] Support BS and TW dark elements at the same time
 - [ ] Learn what Tailwind CSS is and how it replaces bootstrap
     - [x] Learn Tailwind CSS fundamentals
