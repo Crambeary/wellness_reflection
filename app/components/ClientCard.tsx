@@ -5,13 +5,13 @@ import { Avatar, AvatarImage, AvatarFallback } from '@/components/ui/avatar'
 import { Button } from '@/components/ui/button'
 import { useRouter } from 'next/navigation'
 
-export default function ClientCard({ clientName = 'John Doe', clientID }: { clientName: string, clientID: string }) {
+export default function ClientCard({ clientName = 'John Doe', clientID, className }: { clientName: string, clientID: string, className?: string }) {
     const router = useRouter()
     const ViewClientReflection = () => {
       router.push(`/coach/view-clients/${clientID}/reflections`)
     }
     return (
-        <Card className="w-full max-w-md">
+        <Card className={`w-full max-w-md ${className}`}>
           <CardHeader className="flex flex-row items-center justify-between gap-2">
             <CardTitle>{clientName}</CardTitle>
             <Avatar>

@@ -71,7 +71,7 @@ const VitalitySection: React.FC<VitalitySectionProps> = ({ section, value, onCha
   // During SSR and before mounting, show a simplified structure
   if (!mounted) {
     return (
-      <div className="input-group mb-3 row">
+      <div className="input-group mb-3 row dark:bg-gray-800 dark:text-white">
         <div className="form-label col-auto me-auto">
           <label htmlFor={scale}>
             {section} {section === "Hydration" ? "Level" : "Vitality"}: 0
@@ -93,7 +93,7 @@ const VitalitySection: React.FC<VitalitySectionProps> = ({ section, value, onCha
   }
 
   return (
-    <div className="input-group mb-3 row">
+    <div className="input-group mb-3 row dark:bg-gray-800 dark:text-white">
       <div className="form-label col-auto me-auto">
         <label htmlFor={scale}>
           {section} {section === "Hydration" ? "Level" : "Vitality"}: {storeValue?.toString() || '0'}

@@ -4,6 +4,7 @@ import Header from '@/components/header'
 import { Providers } from './providers'
 import 'bootstrap/dist/css/bootstrap.min.css';
 import '../styles/globals.css'
+import { ThemeProvider } from 'next-themes'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -18,7 +19,7 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning>
       <head>
         <link rel="preconnect" href="https://fonts.googleapis.com"/>
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
@@ -55,11 +56,13 @@ export default function RootLayout({
 
         {/* <!-- Meta Tags Generated via https://www.opengraph.xyz --> */}
         </head>
-      <body className={`${inter.className}`}>
-        <Providers>
-          <Header />
-          {children}
-        </Providers>
+      <body className={`${inter.className} `} >
+        <ThemeProvider attribute="data-bs-theme" defaultTheme="dark">
+          <Providers>
+            <Header />
+            {children}
+          </Providers>
+        </ThemeProvider>
       </body>
     </html>
   )

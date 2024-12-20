@@ -116,7 +116,7 @@
 - [x] fix behavior when diverged and going to view clients
 - [ ] Add a dark mode
     - [ ] Add a theme switcher button
-    - [ ] Support BS and TW dark elements at the same time
+    - [x] Support BS and TW dark elements at the same time
 - [ ] Learn what Tailwind CSS is and how it replaces bootstrap
     - [x] Learn Tailwind CSS fundamentals
     - [ ] Learn Tailwind CSS functions

@@ -53,7 +53,7 @@ export default function CoachPage() {
   // TODO: Attempt using a server component to fetch the clients and display them as cards. Return promise at first to wrap here in Suspense. ClientCard is within the server component
 
   return (
-    <main>
+    <main className='dark:bg-gray-800 dark:text-white min-h-screen'>
       <h1 className="text-xl font-bold top-0 p-2 sm:text-3xl max-w-screen-xl mx-auto">Your Clients</h1>
       <div className="flex flex-wrap items-center justify-center gap-4 sm:pt-32">
         {/* {coachClients.map((client: { user_id: string, name: string }) => (

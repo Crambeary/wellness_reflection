@@ -68,7 +68,7 @@ export default function Header() {
     }
 
     return (
-        <nav className="bg-white border-b border-gray-200 px-4 py-2.5">
+        <nav className="bg-white dark:bg-gray-800 dark:text-white border-b border-gray-200 dark:border-gray-600 px-4 py-2.5">
             <div className="flex flex-wrap justify-between items-center mx-auto max-w-screen-xl">
                 <a href="/" className="flex items-center no-underline text-black hover:text-gray-500">
                     <img
@@ -76,7 +76,7 @@ export default function Header() {
                         alt="Logo"
                         className="h-8 w-8 mr-3"
                     />
-                    <span className="font-['Nunito_Sans', 'sans-serif'] font-bold text-xl">
+                    <span className="font-['Nunito_Sans', 'sans-serif'] font-bold text-xl dark:text-white">
                         Elevate Wellness 
                     </span>
                 </a>
@@ -126,10 +126,10 @@ export default function Header() {
             </>
         ) : (
             <Drawer>
-                <DrawerTrigger title="Menu" className="border border-gray-500 rounded-md p-1">
+                <DrawerTrigger title="Menu" className="border border-gray-500 rounded-md p-1 dark:border-gray-600 dark:text-white dark:bg-gray-800">
                     <MenuIcon className="w-6 h-6 text-black dark:text-white"  />
                 </DrawerTrigger>
-                <DrawerContent>
+                <DrawerContent className="dark:bg-gray-800 dark:text-white dark:border-gray-600">
                     <DrawerDescription className="hidden">
                         This menu contains navigation links to the different sections of the website.
                     </DrawerDescription>

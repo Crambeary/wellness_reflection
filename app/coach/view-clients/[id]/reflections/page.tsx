@@ -2,7 +2,7 @@
 
 import React, { useEffect, useRef, useState, use, type Usable } from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faDownload, faSave, faTrash, faSpinner, faCheck, faXmark } from '@fortawesome/free-solid-svg-icons'
+import { faDownload } from '@fortawesome/free-solid-svg-icons'
 import Button from 'react-bootstrap/Button'
 import Modal from 'react-bootstrap/Modal'
 import FormInput from '@/components/FormInput';
@@ -126,7 +126,7 @@ export default function ClientReflectionView({ params }: { params: Usable<{ id: 
   return (
     <>
       <DateHeader isCoach={true} />
-      <div style={{ position: 'relative', marginBottom: '50vh'}}>
+      <div style={{ position: 'relative', marginBottom: '50vh'}} className='dark:bg-gray-900 dark:text-white min-h-screen'>
         <section id="region-to-capture" className="container-sm" ref={captureRegionRef}>
         <div className="row">
           <div className="col-md-12" id="wellness-form" >
@@ -143,7 +143,7 @@ export default function ClientReflectionView({ params }: { params: Usable<{ id: 
             </div>
             <div id="form">
               {isLoading ? (
-                <Card className='animate-pulse h-100 w-100'>
+                <Card className='animate-pulse h-100 w-100 dark:bg-gray-800 dark:text-white'>
                   <CardHeader>
                     <CardTitle>Loading Form...</CardTitle>
                   </CardHeader>
@@ -176,7 +176,7 @@ export default function ClientReflectionView({ params }: { params: Usable<{ id: 
                 fieldType="textarea"
                 disabled
               />
-              <div className='card bg-light p-3 m-1 my-3'>
+              <div className='card bg-light p-3 m-1 my-3 dark:bg-gray-800 dark:text-white'>
                 <h2>Vitality Levels</h2>
                 <VitalitySection 
                   section="Hydration" 
@@ -185,7 +185,7 @@ export default function ClientReflectionView({ params }: { params: Usable<{ id: 
                   disabled
                 />
               </div>
-              <div className='card text-bg-light p-3 m-1 my-3'>
+              <div className='card text-bg-light p-3 m-1 my-3 dark:bg-gray-800 dark:text-white'>
                 <h2>Morning</h2>
                 <VitalitySection 
                   section="Morning" 
@@ -209,7 +209,7 @@ export default function ClientReflectionView({ params }: { params: Usable<{ id: 
                   disabled
                 />
               </div>
-              <div className='card text-bg-light p-3 m-1 my-3'>
+              <div className='card text-bg-light p-3 m-1 my-3 dark:bg-gray-800 dark:text-white'>
                 <h2>Afternoon</h2>
                 <VitalitySection 
                   section="Afternoon" 
@@ -233,7 +233,7 @@ export default function ClientReflectionView({ params }: { params: Usable<{ id: 
                   disabled
                 />
               </div>
-              <div className='card text-bg-light p-3 m-1 my-3'>
+              <div className='card text-bg-light p-3 m-1 my-3 dark:bg-gray-800 dark:text-white'>
                 <h2>Evening</h2>
                 <VitalitySection 
                   section="Evening" 
@@ -305,6 +305,7 @@ export default function ClientReflectionView({ params }: { params: Usable<{ id: 
           position: 'absolute',
           bottom: '-50vh'
         }}
+        className='dark:bg-gray-900 dark:text-white'
       />
       </div>
     </>

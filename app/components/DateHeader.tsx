@@ -82,7 +82,7 @@ export default function DateHeader({ isCoach=false }: { isCoach?: boolean }) {
     return (
         <div>
 
-        <nav className="sticky top-0 z-50 bg-primary text-white">
+        <nav className="sticky top-0 z-50 bg-primary text-white dark:bg-gray-800 dark:text-white">
             <div className="container mx-auto px-4">
                 <div className="flex justify-center items-center">
                     {isLoading && (
@@ -94,7 +94,7 @@ export default function DateHeader({ isCoach=false }: { isCoach?: boolean }) {
                         <>
                         <Button
                             variant="default" 
-                            className='border-0 active:ring-1 active:ring-black dark:active:ring-white mx-1'
+                            className='border-0 active:ring-1 active:ring-black dark:active:ring-white mx-1 dark:text-white dark:bg-gray-800'
                             size="icon"
                             onClick={() => dispatch(setDate(prevDay()))}
                         >
@@ -102,7 +102,7 @@ export default function DateHeader({ isCoach=false }: { isCoach?: boolean }) {
                         </Button>
                         <Button
                             variant="default"
-                            className='border-0 active:ring-1 active:ring-black dark:active:ring-white mx-1'
+                            className='border-0 active:ring-1 active:ring-black dark:active:ring-white mx-1 dark:text-white dark:bg-gray-800'
                             size="icon"
                             onClick={() => dispatch(setDate(new Date().toISOString()))}
                         >
@@ -113,7 +113,7 @@ export default function DateHeader({ isCoach=false }: { isCoach?: boolean }) {
                         </div>
                         <Button
                             variant="default"
-                            className='border-0 active:ring-1 active:ring-black dark:active:ring-white mx-1'
+                            className='border-0 active:ring-1 active:ring-black dark:active:ring-white mx-1 dark:text-white dark:bg-gray-800'
                             size="icon"
                             onClick={() => dispatch(setDate(nextDay()))}
                         >
@@ -125,7 +125,7 @@ export default function DateHeader({ isCoach=false }: { isCoach?: boolean }) {
                         <>
                         <Button
                             variant="default" 
-                            className='border-0 active:ring-1 active:ring-black dark:active:ring-white mx-1'
+                            className='border-0 active:ring-1 active:ring-black dark:active:ring-white mx-1 dark:text-white dark:bg-gray-800'
                             size="icon"
                             onClick={() => {
                                 const prev = prevDay();
@@ -136,7 +136,7 @@ export default function DateHeader({ isCoach=false }: { isCoach?: boolean }) {
                         </Button>
                         <Button
                             variant="default"
-                            className='border-0 active:ring-1 active:ring-black dark:active:ring-white mx-1'
+                            className='border-0 active:ring-1 active:ring-black dark:active:ring-white mx-1 dark:text-white dark:bg-gray-800'
                             size="icon"
                             onClick={() => dispatch(setDateClientView(new Date().toISOString()))}
                         >
@@ -147,7 +147,7 @@ export default function DateHeader({ isCoach=false }: { isCoach?: boolean }) {
                         </div>
                         <Button
                             variant="default"
-                            className='border-0 active:ring-1 active:ring-black dark:active:ring-white mx-1'
+                            className='border-0 active:ring-1 active:ring-black dark:active:ring-white mx-1 dark:text-white dark:bg-gray-800'
                             size="icon"
                             onClick={() => dispatch(setDateClientView(nextDay()))}
                         >
@@ -159,7 +159,7 @@ export default function DateHeader({ isCoach=false }: { isCoach?: boolean }) {
                         <>
                         <Button
                             variant="default"
-                            className='border-0 active:ring-1 active:ring-black dark:active:ring-white mx-1'
+                            className='border-0 active:ring-1 active:ring-black dark:active:ring-white mx-1 dark:text-white dark:bg-gray-800'
                             size="icon"
                             onClick={() => showModal()}
                         >
@@ -167,7 +167,7 @@ export default function DateHeader({ isCoach=false }: { isCoach?: boolean }) {
                         </Button>
                         <Button
                             variant="default"
-                            className='border-0 active:ring-1 active:ring-black dark:active:ring-white mx-1'
+                            className='border-0 active:ring-1 active:ring-black dark:active:ring-white mx-1 dark:text-white dark:bg-gray-800'
                             size="icon"
                             onClick={() => showModal()}
                         >
@@ -178,7 +178,7 @@ export default function DateHeader({ isCoach=false }: { isCoach?: boolean }) {
                         </div>
                         <Button
                             variant="default"
-                            className='border-0 active:ring-1 active:ring-black dark:active:ring-white mx-1'
+                            className='border-0 active:ring-1 active:ring-black dark:active:ring-white mx-1 dark:text-white dark:bg-gray-800'
                             size="icon"
                             onClick={() => showModal()}
                         >
