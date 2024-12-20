@@ -11,6 +11,7 @@ import { useMediaQuery } from "@/hooks/use-media-query";
 import { Drawer, DrawerClose, DrawerContent, DrawerDescription, DrawerFooter, DrawerHeader, DrawerTitle, DrawerTrigger } from "./ui/drawer";
 import { MenuIcon } from "lucide-react";
 import { Button } from "./ui/button";
+import ThemeSwitch from "@/components/ThemeSwitch";
 
 export default function Header() {
     const router = useRouter();
@@ -19,9 +20,9 @@ export default function Header() {
     const email = useAppSelector((state) => state.wellness.email);
     const isDiverged = useAppSelector((state) => state.wellness.isDiverged);
     const dispatch = useAppDispatch();
-    const [userId, setUserId] = useState('');
     const userIsCoach = useAppSelector((state) => state.wellness.isCoach);
     const isDesktop = useMediaQuery('(min-width: 768px)');
+
 
     const handleAuth = async () => {
         const supabase = createClient();
@@ -31,7 +32,6 @@ export default function Header() {
         if (user) {
             dispatch(setEmail(user.email || ''));
             dispatch(setIsAuthenticated(true));
-            setUserId(user.id);
             const isCoach = await doesUserHaveRole(user.id, 'coach');
             dispatch(setIsCoach(isCoach));
         } else {
@@ -68,7 +68,7 @@ export default function Header() {
     }
 
     return (
-        <nav className="bg-white border-b border-gray-200 px-4 py-2.5">
+        <nav className="bg-white dark:bg-gray-800 dark:text-white border-b border-gray-200 dark:border-gray-600 px-4 py-2.5">
             <div className="flex flex-wrap justify-between items-center mx-auto max-w-screen-xl">
                 <a href="/" className="flex items-center no-underline text-black hover:text-gray-500">
                     <img
@@ -76,19 +76,20 @@ export default function Header() {
                         alt="Logo"
                         className="h-8 w-8 mr-3"
                     />
-                    <span className="font-['Nunito_Sans', 'sans-serif'] font-bold text-xl">
+                    <span className="font-['Nunito_Sans', 'sans-serif'] font-bold text-xl dark:text-white">
                         Elevate Wellness 
                     </span>
                 </a>
             {isDesktop ? (
                 <>
                 
-                <div className="flex items-center lg:order-2">
+                <div className="flex items-center lg:order-2 gap-4">
+                    <ThemeSwitch />
                     {!isLoading && (
                         userIsCoach ? (
                             <button 
                                 onClick={() => viewClients()}
-                                className="text-gray-500 hover:text-white border border-gray-500 hover:bg-gray-800 focus:ring-4 focus:outline-none focus:ring-gray-300 font-medium rounded-lg text-sm px-4 py-2 mr-4 text-center"
+                                className="text-gray-500 hover:text-white border border-gray-500 hover:bg-gray-800 focus:ring-4 focus:outline-none focus:ring-gray-300 font-medium rounded-lg text-sm px-4 py-2 mr-4 text-center dark:border-gray-600 dark:text-white dark:bg-gray-800 dark:hover:bg-gray-700 dark:hover:text-white"
                             >
                                 View Clients
                             </button>
@@ -109,14 +110,14 @@ export default function Header() {
                         isAuthenticated ? (
                             <button
                                 onClick={handleLogout}
-                                className="text-red-700 hover:text-white border border-red-700 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm px-4 py-2 text-center"
+                                className="text-red-700 hover:text-white border border-red-700 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm px-4 py-2 text-center dark:bg-red-900 dark:border-red-600 dark:text-red-500 dark:hover:text-white dark:hover:bg-red-600 dark:focus:ring-red-900"
                             >
                                 Logout
                             </button>
                         ) : (
                             <button
                                 onClick={login}
-                                className="text-green-700 hover:text-white border border-green-700 hover:bg-green-800 focus:ring-4 focus:outline-none focus:ring-green-300 font-medium rounded-lg text-sm px-4 py-2 text-center"
+                                className="text-green-700 hover:text-white border border-green-700 hover:bg-green-800 focus:ring-4 focus:outline-none focus:ring-green-300 font-medium rounded-lg text-sm px-4 py-2 text-center dark:border-green-600 dark:text-green-500 dark:hover:text-white dark:hover:bg-green-600 dark:focus:ring-green-900"
                             >
                                 Log in
                             </button>
@@ -126,10 +127,10 @@ export default function Header() {
             </>
         ) : (
             <Drawer>
-                <DrawerTrigger title="Menu" className="border border-gray-500 rounded-md p-1">
+                <DrawerTrigger title="Menu" className="border border-gray-500 rounded-md p-1 dark:border-gray-600 dark:text-white dark:bg-gray-800">
                     <MenuIcon className="w-6 h-6 text-black dark:text-white"  />
                 </DrawerTrigger>
-                <DrawerContent>
+                <DrawerContent className="dark:bg-gray-800 dark:text-white dark:border-gray-600">
                     <DrawerDescription className="hidden">
                         This menu contains navigation links to the different sections of the website.
                     </DrawerDescription>
@@ -171,6 +172,7 @@ export default function Header() {
                                 </Button>
                             </DrawerClose>
                         )}
+                        <ThemeSwitch />
                     </DrawerFooter>
                 </DrawerContent>
             </Drawer>

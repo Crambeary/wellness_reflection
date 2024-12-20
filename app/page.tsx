@@ -238,7 +238,7 @@ export default function App() {
   return (
     <>
       <DateHeader />
-      <div style={{ position: 'relative', marginBottom: '50vh'}}>
+      <div style={{ position: 'relative', marginBottom: '50vh'}} className='dark:bg-gray-900 dark:text-white min-h-screen'>
         <section id="region-to-capture" className="container-sm" ref={captureRegionRef}>
         <div className="row">
           <div className="col-md-12" id="wellness-form" >
@@ -257,7 +257,7 @@ export default function App() {
             </div>
             <div id="form">
               {isLoading ? (
-                <Card className='animate-pulse h-100 w-100'>
+                <Card className='animate-pulse h-100 w-100 dark:bg-gray-800 dark:text-white'>
                   <CardHeader>
                     <CardTitle>Loading Form...</CardTitle>
                   </CardHeader>
@@ -288,7 +288,7 @@ export default function App() {
                 onChange={handleChange}
                 fieldType="textarea"
               />
-              <div className='card bg-light p-3 m-1 my-3'>
+              <div className='card bg-light p-3 m-1 my-3 dark:bg-gray-800 dark:text-white'>
                 <h2>Vitality Levels</h2>
                 <VitalitySection 
                   section="Hydration" 
@@ -296,7 +296,7 @@ export default function App() {
                   onChange={handleChange} 
                 />
               </div>
-              <div className='card text-bg-light p-3 m-1 my-3'>
+              <div className='card text-bg-light p-3 m-1 my-3 dark:bg-gray-800 dark:text-white'>
                 <h2>Morning</h2>
                 <VitalitySection 
                   section="Morning" 
@@ -317,7 +317,7 @@ export default function App() {
                   onChange={handleChange} 
                 />
               </div>
-              <div className='card text-bg-light p-3 m-1 my-3'>
+              <div className='card text-bg-light p-3 m-1 my-3 dark:bg-gray-800 dark:text-white'>
                 <h2>Afternoon</h2>
                 <VitalitySection 
                   section="Afternoon" 
@@ -338,7 +338,7 @@ export default function App() {
                   onChange={handleChange} 
                 />
               </div>
-              <div className='card text-bg-light p-3 m-1 my-3'>
+              <div className='card text-bg-light p-3 m-1 my-3 dark:bg-gray-800 dark:text-white'>
                 <h2>Evening</h2>
                 <VitalitySection 
                   section="Evening" 
@@ -441,6 +441,7 @@ export default function App() {
           position: 'absolute',
           bottom: '-50vh'
         }}
+        className='dark:bg-gray-900 dark:text-white'
       />
       </div>
     </>

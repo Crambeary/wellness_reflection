@@ -58,13 +58,13 @@ const ClientView = () => {
   return (
     <>
         {Object.keys(coachClients).length > 0 ? (
-            <Card>
+            <Card className='dark:bg-gray-800 dark:text-white'>
                 {coachClients.map((client) => (
-                    <ClientCard key={client.user_id} clientName={client.name} clientID={client.user_id} />
+                    <ClientCard key={client.user_id} clientName={client.name} clientID={client.user_id} className='dark:bg-gray-800 dark:text-white'/>
                 ))}
             </Card>
         ) : (
-            <Card className='w-48 max-w-md h-32 text-center flex items-center justify-center'>
+            <Card className='w-48 max-w-md h-32 text-center flex items-center justify-center dark:text-white dark:bg-gray-800'>
                 <div className='inline-block'>
                     Client Loading
                     <Spinner size='md' className='bg-black dark:bg-white'/>
