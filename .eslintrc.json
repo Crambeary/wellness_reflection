@@ -1,8 +1,17 @@
 {
+  "plugins": ["jest"],
+  "env": {
+    "jest/globals": true
+  },
   "extends": ["next/core-web-vitals"],
   "rules": {
     "react/prop-types": "off",
     "no-unused-vars": "warn",
-    "react-refresh/only-export-components": "off"
+    "react-refresh/only-export-components": "off",
+    "jest/no-disabled-tests": "warn",
+    "jest/no-identical-title": "error",
+    "jest/no-focused-tests": "error",
+    "jest/prefer-to-have-length": "warn",
+    "jest/valid-expect": "error"
   }
 }

@@ -1,0 +1,23 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`FormInput renders correctly 1`] = `
+<div
+  className="input-group mb-3"
+>
+  <label
+    className="input-group-text"
+    htmlFor="test-id"
+  >
+    Test Label
+  </label>
+  <input
+    className="form-control"
+    disabled={false}
+    id="test-id"
+    onChange={[MockFunction]}
+    spellCheck={false}
+    type="text"
+    value="Test Value"
+  />
+</div>
+`;

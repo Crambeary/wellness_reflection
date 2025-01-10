@@ -1,6 +1,6 @@
-'use client';
+"use client";
 
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef } from "react";
 
 interface FormInputProps {
   label: string;
@@ -8,18 +8,22 @@ interface FormInputProps {
   id: string;
   value: string;
   fieldType?: string;
-  onChange: (event: React.ChangeEvent<HTMLInputElement | HTMLDivElement> | React.FormEvent<HTMLDivElement>) => void;
+  onChange: (
+    event:
+      | React.ChangeEvent<HTMLInputElement | HTMLDivElement>
+      | React.FormEvent<HTMLDivElement>,
+  ) => void;
   disabled?: boolean;
 }
 
-const FormInput: React.FC<FormInputProps> = ({ 
-  label, 
-  type = "text", 
-  id, 
-  value, 
-  onChange, 
+const FormInput: React.FC<FormInputProps> = ({
+  label,
+  type = "text",
+  id,
+  value,
+  onChange,
   fieldType = "input",
-  disabled = false
+  disabled = false,
 }) => {
   const contentRef = useRef<HTMLDivElement>(null);
 
@@ -33,7 +37,9 @@ const FormInput: React.FC<FormInputProps> = ({
     <>
       {fieldType === "input" ? (
         <div className="input-group mb-3">
-          <label htmlFor={id} className="input-group-text">{label}</label>
+          <label htmlFor={id} className="input-group-text">
+            {label}
+          </label>
           <input
             className="form-control"
             type={type}
@@ -43,21 +49,27 @@ const FormInput: React.FC<FormInputProps> = ({
             spellCheck={false}
             disabled={disabled}
           />
-          {type === 'time' && (
-            <button className='btn btn-outline-danger' onClick={() => {
-              console.log('clearing');
-              onChange({ target: { id, value: '' } } as React.ChangeEvent<HTMLInputElement>);
+          {type === "time" && (
+            <button
+              className="btn btn-outline-danger"
+              onClick={() => {
+                console.log("clearing");
+                onChange({
+                  target: { id, value: "" },
+                } as React.ChangeEvent<HTMLInputElement>);
               }}
               disabled={disabled}
-              >
+            >
               X
             </button>
           )}
         </div>
       ) : (
         <div className="mb-3">
-          <label htmlFor={id} className="form-label">{label}</label>
-          <div 
+          <label htmlFor={id} className="form-label">
+            {label}
+          </label>
+          <div
             ref={contentRef}
             contentEditable={!disabled}
             suppressContentEditableWarning={true}
