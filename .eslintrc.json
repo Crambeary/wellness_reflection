@@ -4,5 +4,13 @@
     "react/prop-types": "off",
     "no-unused-vars": "warn",
     "react-refresh/only-export-components": "off"
-  }
+  },
+  "overrides": [
+    {
+      "files": ["tests/**/*"],
+      "env": {
+        "jest": true
+      }
+    }
+  ]
 }
