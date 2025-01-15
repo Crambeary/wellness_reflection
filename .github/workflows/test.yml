@@ -1,11 +1,12 @@
 name: Run Tests
 
 on:
-  pull_request:
-  push:
+  push: # Run tests on every push
+    branches: # Matches all branches
+      - "*"
+  pull_request: # Run tests on pull requests from all branches
     branches:
-      - master
-      - react-component-testing
+      - "*"
 
 jobs:
   test:
